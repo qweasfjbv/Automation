@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class Managers : MonoBehaviour
 {
@@ -11,9 +8,12 @@ public class Managers : MonoBehaviour
 
 
     MapManager _map = new MapManager();
+    ResourceManager _resource = new ResourceManager();
+    InputManager _input = new InputManager();
 
     public static MapManager Map { get { return Instance._map; } }
-
+    public static ResourceManager Resource { get { return Instance._resource; } }
+    public static InputManager Input { get { return Instance._input; } }
 
 
     void Start()
@@ -39,6 +39,9 @@ public class Managers : MonoBehaviour
         }
 
         s_instance._map.Init();
+        s_instance._resource.Init();
+        s_instance._input.Init();
+
     }
 
 }

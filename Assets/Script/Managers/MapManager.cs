@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,38 +11,42 @@ public class Tile
     // building pos
     public int x, y;
     // building size
-    public int sizeX, sizeY;
+    public float sizeX, sizeY;
     // building id
     public int id;
 
-    public Tile(int py = -1, int px = -1, int psizeY = -1, int psizeX = -1, int pid = -1)
+    public int rot;
+
+    public GameObject building;
+    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = 0,GameObject building = null)
     {
-        SetTile(py, px, psizeY, psizeX, pid);
+        SetTile(py, px, psizeY, psizeX, pid, rot , building);
+        this.building = building;
     }
 
-    public void SetTile(int py, int px, int psizeY, int psizeX, int pid)
+    public void SetTile(int py, int px, float psizeY, float psizeX, int pid, int rot, GameObject factory = null)
     {
-        x = px; y = py; sizeX = psizeX; sizeY = psizeY; id = pid;
+        x = px; y = py; sizeX = psizeX; sizeY = psizeY; id = pid; this.rot = rot; this.building = factory;
     }
 
     public void DeepCopy(Tile t)
     {
-        x = t.x; y = t.y; sizeX = t.sizeX; sizeY = t.sizeY; id = t.id;
+        x = t.x; y = t.y; sizeX = t.sizeX; sizeY = t.sizeY; id = t.id; rot = t.rot; building = t.building;
     }
 };
 
 public class MapManager
 {
-    private int buildID;
-
     private int mapSizeX;
     private int mapSizeY;
     private Tile[,] usingArea;
 
+    private Vector2 start = new Vector2(0, 0);
+    private Vector2 end = new Vector2(0, 0);
+
     public void Init()
     {
-        buildID = 1;
-        mapSizeX = mapSizeY = 4;
+        mapSizeX = mapSizeY = 5;
 
         usingArea = new Tile[mapSizeY, mapSizeX];
 
@@ -51,18 +56,23 @@ public class MapManager
     } 
 
 
-    public void Build(int id, Vector2 pos, Vector2 size)
+    public void Build(int id, Vector2 pos, Vector2 size, Vector2 buildPos, int rot)
     {
-        if (!BoundCheck(pos, size)) return;
+        if (!BoundCheck(pos, size, rot)) return;
 
-        for (int i = 0; i < size.y; i++)
+        for (int i = (int)start.y; i < (int)end.y; i++)
         {
-            for (int j = 0; j < size.x; j++)
+            for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                usingArea[Mathf.Abs((int)pos.y - i), (int)pos.x + j].SetTile((int)pos.y, (int)pos.x, (int)size.y, (int)size.x, id);
+                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, null);
             }
         }
-        buildID++;
+
+        // pooling 구현
+        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.ItemDatas[0].Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+
+
+
         return;
 
     }
@@ -77,31 +87,71 @@ public class MapManager
 
         if (tile.id == -1) return;
 
-        for (int i = 0; i < tile.sizeY; i++)
+        CalDir(new Vector2(tile.x, tile.y), new Vector2(tile.sizeX, tile.sizeY), tile.rot);
+
+
+        //pooling 구현
+        GameObject.Destroy(usingArea[Mathf.Abs(tile.y), tile.x].building);
+        //
+
+        for (int i = (int)start.y; i < end.y; i++)
         {
-            for (int j = 0; j < tile.sizeX; j++)
+            for (int j = (int)start.x; j < end.x; j++)
             {
-                usingArea[Mathf.Abs(tile.y - i), tile.x + j].SetTile(-1, -1, -1, -1, -1);
+                usingArea[i, j].SetTile(-1, -1, -1, -1, -1, 0);
             }
         }
 
     }
 
     // true: buildable, false: occupied
-    public bool BoundCheck(Vector2 pos, Vector2 size)
+    public bool BoundCheck(Vector2 pos, Vector2 size, int rot)
     {
-        if (pos.x + size.x > mapSizeX || Mathf.Abs(pos.y - size.y) > mapSizeY) return false;
-        if (pos.x < 0 || pos.y > 0) return false;
+        CalDir(pos, size, rot);
 
-        for (int i = 0; i < size.y; i++)
+        if (start.x < 0 || start.y < 0) return false;
+        if(end.x > mapSizeX || end.y > mapSizeY) return false;
+
+        for (int i = (int)start.y; i < (int)end.y; i++)
         {
-            for (int j = 0; j < size.x; j++)
+            for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                if (usingArea[Mathf.Abs((int)pos.y - i), (int)pos.x + j].id != -1) return false;
+                if (usingArea[i, j].id != -1) return false;
             }
         }
 
         return true;
     }
+
+    
+    private void CalDir(Vector2 pos, Vector2 size, int rot)
+    {
+        switch (rot)
+        {
+            case 0:
+                start.y = -1 * pos.y; start.x = pos.x;
+                end.y = -1 * pos.y + size.y; end.x = pos.x + size.x;
+                break;
+            case 1:
+                start.y = -1 * pos.y; start.x = pos.x - size.y + 1;
+                end.y = -1 * pos.y + size.x; end.x = pos.x + 1;
+                break;
+            case 2:
+                Debug.Log(end.y);
+                start.y = -1 * pos.y + size.y - 1; start.x = pos.x - size.x + 1;
+                end.y = -1* pos.y + 1; end.x = pos.x + 1;
+                break;
+            case 3:
+                start.y = -1 *  pos.y - size.x + 1; start.x = pos.x;
+                end.y = -1* pos.y + 1; end.x = pos.x + size.y;
+                break;
+            default:
+                break;
+        }
+        
+        
+        return;
+    }
+
     
 }
