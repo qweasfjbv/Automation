@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -8,12 +9,12 @@ public class ItemData : ScriptableObject
 {
     // <= 100 : resource, > 100 : building
     [SerializeField] private int itemId;
-
+    [SerializeField] private string itemName;
     [SerializeField] private Sprite sprite;
     
     
     [SerializeField] private float productTime;
-    [SerializeField] private int[,] ingredients = new int[2, 5];
+    [SerializeField] private List<Vector2Int> ingredients = new List<Vector2Int>();
 
     [SerializeField] private Vector2 size;
 
@@ -24,9 +25,10 @@ public class ItemData : ScriptableObject
     
     
     public int ID { get => itemId; }
+    public string Name { get => itemName; }
     public Sprite Image { get => sprite; } 
     public float ProductTime { get => productTime;}
-    public int[,] Ingredients { get => ingredients; }
+    public List<Vector2Int> Ingredients { get => ingredients; }
     public Vector2 Size { get => size; }
     public GameObject Prefab { get => prefab; }
 

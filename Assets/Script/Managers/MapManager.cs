@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class Tile
     public int rot;
 
     public GameObject building;
-    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = 0,GameObject building = null)
+    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = -1,GameObject building = null)
     {
         SetTile(py, px, psizeY, psizeX, pid, rot , building);
         this.building = building;
@@ -40,6 +41,7 @@ public class MapManager
     private int mapSizeX;
     private int mapSizeY;
     private Tile[,] usingArea;
+    public Tile[,] UsingArea { get => usingArea; }
 
     private Vector2 start = new Vector2(0, 0);
     private Vector2 end = new Vector2(0, 0);
@@ -98,7 +100,7 @@ public class MapManager
         {
             for (int j = (int)start.x; j < end.x; j++)
             {
-                usingArea[i, j].SetTile(-1, -1, -1, -1, -1, 0);
+                usingArea[i, j].SetTile(-1, -1, -1, -1, -1, -1);
             }
         }
 
@@ -137,7 +139,6 @@ public class MapManager
                 end.y = -1 * pos.y + size.x; end.x = pos.x + 1;
                 break;
             case 2:
-                Debug.Log(end.y);
                 start.y = -1 * pos.y + size.y - 1; start.x = pos.x - size.x + 1;
                 end.y = -1* pos.y + 1; end.x = pos.x + 1;
                 break;
@@ -153,5 +154,24 @@ public class MapManager
         return;
     }
 
+    readonly int[] dy = { -1, 0, 1, 0 };
+    readonly int[] dx = { 0, 1, 0, -1 };
+    int tmpy, tmpx;
+    public GameObject FindBelt(Vector2 pos, int id, ref int outDir)
+    {
+        for(int i= 0; i<4; i++)
+        {
+            tmpy = Mathf.Abs((int)pos.y) + dy[i]; tmpx = (int)pos.x + dx[i];
+            if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
+            
+            if (i == usingArea[tmpy, tmpx].rot) {
+                Debug.Log(i);
+                outDir = i;    
+                return usingArea[tmpy, tmpx].building; 
+            }
+
+        }
+        return null;
+    }
     
 }

@@ -66,7 +66,7 @@ public class BuildPreviewer : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Managers.Map.Build(1, previewPoint, previewSize, previewPosition, rotateDir);
+            Managers.Map.Build(11, previewPoint, previewSize, previewPosition, rotateDir);
         }
         else if (Input.GetMouseButton(1))
         {
