@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -16,9 +15,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private float productTime;
     [SerializeField] private List<Vector2Int> ingredients = new List<Vector2Int>();
 
-    [SerializeField] private Vector2 size;
 
-    [SerializeField] private GameObject prefab;
     
     
     
@@ -29,7 +26,5 @@ public class ItemData : ScriptableObject
     public Sprite Image { get => sprite; } 
     public float ProductTime { get => productTime;}
     public List<Vector2Int> Ingredients { get => ingredients; }
-    public Vector2 Size { get => size; }
-    public GameObject Prefab { get => prefab; }
 
 }

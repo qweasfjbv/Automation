@@ -49,15 +49,15 @@ public class Belt : MonoBehaviour
     {
         if ((outDir + 1) % 4 == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.BeltSprites[2];
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(2);
         }
         else if (outDir == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.BeltSprites[0];
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(0);
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.BeltSprites[1];
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(1);
         }
     }
 

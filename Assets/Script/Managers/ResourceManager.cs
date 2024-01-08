@@ -1,19 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceManager
 {
     private ItemData[] itemDatas;
-    private Sprite[] beltSprites; 
+    private BuildingData[] buildingDatas;
+    private Sprite[] beltSprites;
+    private Sprite[] buildingSprites;
 
     public void Init()
     {
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
+        buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         beltSprites = Resources.LoadAll<Sprite>("Sprites/Belts");
+        buildingSprites = Resources.LoadAll<Sprite>("Sprites/Buildings");
     }
 
     public ItemData[] ItemDatas { get => itemDatas; }
-    public Sprite[] BeltSprites { get => beltSprites; }
+
+
+
+    public ItemData GetItemData(int id)
+    {
+        return itemDatas[id];
+    }
+
+    public BuildingData GetBuildingData(int id)
+    {
+        return buildingDatas[id - 101];
+    }
+
+    public Sprite GetbeltSprite(int id)
+    {
+        // 0: straight, 1: turn right, 2: turn left;
+        return beltSprites[id];
+    }
+    public Sprite GetBuildingSprite(int id)
+    {
+        // start from id:102, 101 is belt;
+
+        return buildingSprites[id - 102];
+    }
+
 
 }

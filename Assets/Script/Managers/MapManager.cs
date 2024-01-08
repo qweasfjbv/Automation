@@ -1,9 +1,6 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Dynamic;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,21 +15,29 @@ public class Tile
 
     public int rot;
 
+    public int veinId;
     public GameObject building;
-    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = -1,GameObject building = null)
+    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = -1, GameObject building = null, int veinId = -1)
     {
-        SetTile(py, px, psizeY, psizeX, pid, rot , building);
+        SetTile(py, px, psizeY, psizeX, pid, rot , building, veinId);
         this.building = building;
     }
 
-    public void SetTile(int py, int px, float psizeY, float psizeX, int pid, int rot, GameObject factory = null)
+    public void SetTile(int py, int px, float psizeY, float psizeX, int pid, int rot, GameObject factory = null, int veinId = -1)
     {
         x = px; y = py; sizeX = psizeX; sizeY = psizeY; id = pid; this.rot = rot; this.building = factory;
+        this.veinId = veinId;
     }
 
     public void DeepCopy(Tile t)
     {
         x = t.x; y = t.y; sizeX = t.sizeX; sizeY = t.sizeY; id = t.id; rot = t.rot; building = t.building;
+    }
+
+    public void EraseBuilding()
+    {
+        x = -1; y = -1; sizeX = -1; sizeY = -1; id = -1; rot = -1;
+        building = null;
     }
 };
 
@@ -55,6 +60,8 @@ public class MapManager
         for (int i = 0; i < mapSizeY; i++)
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
+
+        // Vein 생성 필요
     } 
 
 
@@ -71,7 +78,7 @@ public class MapManager
         }
 
         // pooling 구현
-        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.ItemDatas[0].Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.GetBuildingData(101).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
 
 
 
@@ -100,7 +107,7 @@ public class MapManager
         {
             for (int j = (int)start.x; j < end.x; j++)
             {
-                usingArea[i, j].SetTile(-1, -1, -1, -1, -1, -1);
+                usingArea[i, j].EraseBuilding();
             }
         }
 

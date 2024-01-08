@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,8 +7,10 @@ using UnityEngine;
 public class BuildPreviewer : MonoBehaviour
 {
     [SerializeField] private GameObject preview;
-    [SerializeField] private Vector2 previewSize;
+    [SerializeField] private int id;
 
+
+    private Vector2 previewSize;
     private SpriteRenderer sRenderer;
     Color tmpC;
 
@@ -27,11 +30,25 @@ public class BuildPreviewer : MonoBehaviour
         sRenderer = preview.GetComponent<SpriteRenderer>();
         tmpC = sRenderer.color;
 
-        rotateOffset = new Vector2(previewSize.x / 2 - 0.5f, -1 * previewSize.y / 2 + 0.5f);
+    }
+
+    private void SettingById(int id)
+    {
+        if (id == 101)
+        {
+            sRenderer.sprite = Managers.Resource.GetbeltSprite(0);
+        }
+        else
+        {
+            sRenderer.sprite = Managers.Resource.GetBuildingSprite(id);
+        }
+        previewSize = Managers.Resource.GetBuildingData(id).Size;
+        
     }
 
     private void RotatePreview()
     {
+        rotateOffset = new Vector2(previewSize.x / 2 - 0.5f, -1 * previewSize.y / 2 + 0.5f);
         float tmp = rotateOffset.y;
         rotateOffset.y = rotateOffset.x * -1;
         rotateOffset.x = tmp;
@@ -50,6 +67,7 @@ public class BuildPreviewer : MonoBehaviour
 
     public void Update()
     {
+        SettingById(id);
         mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         previewPoint = new Vector3(Mathf.Floor(mousePosition.x), Mathf.Ceil(mousePosition.y), 0);
 
@@ -63,13 +81,13 @@ public class BuildPreviewer : MonoBehaviour
 
         if (Managers.Map.BoundCheck(previewPoint, previewSize, rotateDir))
         {
+            tmpC.g = 1.0f;
             tmpC.b = 1.0f;
-            tmpC.r = 0.0f;
         }
         else
         {
             tmpC.b = 0.0f;
-            tmpC.r = 1.0f;
+            tmpC.g = 0.0f;
         }
         sRenderer.color = tmpC;
 

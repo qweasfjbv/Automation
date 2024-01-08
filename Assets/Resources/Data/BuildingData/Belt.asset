@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
+  m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
   m_Name: Belt
   m_EditorClassIdentifier: 
-  itemId: 11
+  itemId: 101
   itemName: Belt
-  sprite: {fileID: 0}
-  productTime: 1
+  sprite: {fileID: 21300000, guid: 0c572ac560d6dab499463742626a802a, type: 3}
+  productTime: 0.5
   ingredients:
-  - {x: 1, y: 2}
+  - {x: 21, y: 2}
   size: {x: 1, y: 1}
   prefab: {fileID: 2139692038917354386, guid: b9b1c3f163f2d0f4e81467ff6f702ccc, type: 3}
