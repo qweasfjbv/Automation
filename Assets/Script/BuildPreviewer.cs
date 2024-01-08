@@ -13,7 +13,7 @@ public class BuildPreviewer : MonoBehaviour
 
 
     private Vector3 mousePosition;
-    private Vector3 lastPrevPoint;
+    private Vector3? lastPrevPoint;
     private Vector3 previewPoint;
     private Vector3 previewPosition;
 
@@ -78,14 +78,14 @@ public class BuildPreviewer : MonoBehaviour
         {
             if (lastPrevPoint != null)
             {
-                if (lastPrevPoint.x != previewPoint.x)
+                if (lastPrevPoint.Value.x != previewPoint.x)
                 {
-                    if (lastPrevPoint.x < previewPoint.x) RotateToDir(1);
+                    if (lastPrevPoint.Value.x < previewPoint.x) RotateToDir(1);
                     else RotateToDir(3);
                 }
-                else if (lastPrevPoint.y != previewPoint.y)
+                else if (lastPrevPoint.Value.y != previewPoint.y)
                 {
-                    if (lastPrevPoint.y < previewPoint.y) RotateToDir(0);
+                    if (lastPrevPoint.Value.y < previewPoint.y) RotateToDir(0);
                     else RotateToDir(2);
                 }
             }
@@ -95,7 +95,7 @@ public class BuildPreviewer : MonoBehaviour
         }
         else
         {
-
+            lastPrevPoint = null;
             if (Input.GetMouseButton(1))
             {
                 Managers.Map.Unbuild(previewPoint);

@@ -161,7 +161,9 @@ public class MapManager
     {
         for(int i= 0; i<4; i++)
         {
+
             tmpy = Mathf.Abs((int)pos.y) + dy[i]; tmpx = (int)pos.x + dx[i];
+            if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (i+2)%4) continue;
             if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
             
             if (i == usingArea[tmpy, tmpx].rot) {
