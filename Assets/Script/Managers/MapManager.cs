@@ -62,7 +62,10 @@ public class MapManager
                 usingArea[i, j] = new Tile();
 
         // Vein 积己 鞘夸
+
+        OperateVeinsOnMap();
     } 
+
 
 
     public void Build(int id, Vector2 pos, Vector2 size, Vector2 buildPos, int rot)
@@ -78,7 +81,7 @@ public class MapManager
         }
 
         // pooling 备泅
-        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.GetBuildingData(101).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
 
 
 
@@ -181,5 +184,34 @@ public class MapManager
         }
         return null;
     }
-    
+
+    public GameObject FindBeltFromMine(Vector2 pos)
+    {
+        int dir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
+
+        tmpy = Mathf.Abs((int)pos.y) + dy[dir]; tmpx = (int)pos.x + dx[dir];
+        if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) return null;
+
+        if (usingArea[tmpy, tmpx].id == 101 && dir == usingArea[tmpy, tmpx].rot)
+        {
+            return usingArea[tmpy, tmpx].building;
+        }
+
+        return null;
+    }
+
+    private void OperateVeinsOnMap()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                usingArea[i, j].veinId = 11;
+            }
+        }
+
+        // TODO : Sprite 积己
+
+    }
+
 }

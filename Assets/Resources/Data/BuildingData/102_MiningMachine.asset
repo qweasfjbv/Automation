@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
+  m_Name: 102_MiningMachine
+  m_EditorClassIdentifier: 
+  itemId: 102
+  itemName: MiningMachine
+  sprite: {fileID: 21300000, guid: 9418b2240d29c1a4482f6cde0b8634bd, type: 3}
+  productTime: 1
+  ingredients:
+  - {x: 0, y: 0}
+  size: {x: 1, y: 1}
+  prefab: {fileID: 5879283773777145922, guid: fb0fa164bc0d6a042911c280af7a2773, type: 3}

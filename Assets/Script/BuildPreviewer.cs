@@ -36,7 +36,7 @@ public class BuildPreviewer : MonoBehaviour
     {
         if (id == 101)
         {
-            sRenderer.sprite = Managers.Resource.GetbeltSprite(0);
+            sRenderer.sprite = Managers.Resource.GetBeltSprite(0);
         }
         else
         {
@@ -108,7 +108,7 @@ public class BuildPreviewer : MonoBehaviour
                 }
             }
 
-            Managers.Map.Build(11, previewPoint, previewSize, previewPosition, rotateDir);
+            Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
             lastPrevPoint = previewPoint;
         }
         else
@@ -121,6 +121,14 @@ public class BuildPreviewer : MonoBehaviour
             else if (Input.GetKeyDown(Managers.Input.Rot))
             {
                 RotatePreview();
+            }
+            else if (Input.GetKey(KeyCode.Alpha1))
+            {
+                id = 101;
+            }
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
+                id = 102;
             }
         }
 

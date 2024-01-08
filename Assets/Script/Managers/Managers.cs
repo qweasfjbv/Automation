@@ -10,10 +10,12 @@ public class Managers : MonoBehaviour
     MapManager _map = new MapManager();
     ResourceManager _resource = new ResourceManager();
     InputManager _input = new InputManager();
+    UtilManager _util = new UtilManager();
 
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static InputManager Input { get { return Instance._input; } }
+    public static UtilManager Util { get {  return Instance._util; } }
 
 
     void Start()

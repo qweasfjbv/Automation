@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
-  m_Name: Belt
+  m_Name: 101_Belt
   m_EditorClassIdentifier: 
   itemId: 101
   itemName: Belt

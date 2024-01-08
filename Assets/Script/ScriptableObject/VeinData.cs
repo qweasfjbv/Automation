@@ -13,6 +13,6 @@ public class VeinData : ScriptableObject
 
     public int VeinID { get => VeinID; }
     public int OreID { get => oreID; }
-    public Sprite VeinSprite { get => veinSprite; }
+    public Sprite VeinImage { get => veinSprite; }
 
 }

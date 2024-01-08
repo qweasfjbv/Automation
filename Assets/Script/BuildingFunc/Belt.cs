@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Belt : MonoBehaviour
@@ -32,10 +33,14 @@ public class Belt : MonoBehaviour
         SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
         nextBelt = FindNextBelt();
         gameObject.name = $"Belt:{_beltID++}";
+
+        //StartCoroutine(PersonalUpdate());
+        
     }
 
     private void Update()
     {
+
         if (nextBelt == null)
             nextBelt = FindNextBelt();
 
@@ -43,21 +48,39 @@ public class Belt : MonoBehaviour
             StartCoroutine(BeltMove());
 
         updateDir();
+
+    }
+
+    private IEnumerator PersonalUpdate()
+    {
+        while (true)
+        {
+
+            if (nextBelt == null)
+                nextBelt = FindNextBelt();
+
+            if (beltItem != null && beltItem.item != null)
+                StartCoroutine(BeltMove());
+
+            updateDir();
+
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     private void updateDir()
     {
         if ((outDir + 1) % 4 == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(2);
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(2);
         }
         else if (outDir == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(0);
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(0);
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetbeltSprite(1);
+            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(1);
         }
     }
 

@@ -5,14 +5,12 @@ public class ResourceManager
     private ItemData[] itemDatas;
     private BuildingData[] buildingDatas;
     private Sprite[] beltSprites;
-    private Sprite[] buildingSprites;
 
     public void Init()
     {
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         beltSprites = Resources.LoadAll<Sprite>("Sprites/Belts");
-        buildingSprites = Resources.LoadAll<Sprite>("Sprites/Buildings");
     }
 
     public ItemData[] ItemDatas { get => itemDatas; }
@@ -29,7 +27,7 @@ public class ResourceManager
         return buildingDatas[id - 101];
     }
 
-    public Sprite GetbeltSprite(int id)
+    public Sprite GetBeltSprite(int id)
     {
         // 0: straight, 1: turn right, 2: turn left;
         return beltSprites[id];
@@ -37,8 +35,12 @@ public class ResourceManager
     public Sprite GetBuildingSprite(int id)
     {
         // start from id:102, 101 is belt;
+        return GetBuildingData(id).Image;
+    }
 
-        return buildingSprites[id - 102];
+    public Sprite GetItemSprite(int id)
+    {
+        return GetItemData(id).Image;
     }
 
 
