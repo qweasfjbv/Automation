@@ -165,7 +165,6 @@ public class MapManager
             if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
             
             if (i == usingArea[tmpy, tmpx].rot) {
-                Debug.Log(i);
                 outDir = i;    
                 return usingArea[tmpy, tmpx].building; 
             }

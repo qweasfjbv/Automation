@@ -10,7 +10,7 @@ public class ResourceManager
     public void Init()
     {
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
-        beltSprites = Resources.LoadAll<Sprite>("Sprites");
+        beltSprites = Resources.LoadAll<Sprite>("Sprites/Belts");
     }
 
     public ItemData[] ItemDatas { get => itemDatas; }

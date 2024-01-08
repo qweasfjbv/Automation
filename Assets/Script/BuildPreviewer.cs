@@ -13,6 +13,7 @@ public class BuildPreviewer : MonoBehaviour
 
 
     private Vector3 mousePosition;
+    private Vector3 lastPrevPoint;
     private Vector3 previewPoint;
     private Vector3 previewPosition;
 
@@ -36,6 +37,15 @@ public class BuildPreviewer : MonoBehaviour
         rotateOffset.x = tmp;
 
         rotateDir = (rotateDir + 1) % 4;
+    }
+
+    
+    private void RotateToDir(int dir)
+    {
+        while (rotateDir != dir)
+        {
+            RotatePreview();
+        }
     }
 
     public void Update()
@@ -66,15 +76,34 @@ public class BuildPreviewer : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
+            if (lastPrevPoint != null)
+            {
+                if (lastPrevPoint.x != previewPoint.x)
+                {
+                    if (lastPrevPoint.x < previewPoint.x) RotateToDir(1);
+                    else RotateToDir(3);
+                }
+                else if (lastPrevPoint.y != previewPoint.y)
+                {
+                    if (lastPrevPoint.y < previewPoint.y) RotateToDir(0);
+                    else RotateToDir(2);
+                }
+            }
+
             Managers.Map.Build(11, previewPoint, previewSize, previewPosition, rotateDir);
+            lastPrevPoint = previewPoint;
         }
-        else if (Input.GetMouseButton(1))
+        else
         {
-            Managers.Map.Unbuild(previewPoint);
-        }
-        else if (Input.GetKeyDown(Managers.Input.Rot))
-        {
-            RotatePreview();
+
+            if (Input.GetMouseButton(1))
+            {
+                Managers.Map.Unbuild(previewPoint);
+            }
+            else if (Input.GetKeyDown(Managers.Input.Rot))
+            {
+                RotatePreview();
+            }
         }
 
     }

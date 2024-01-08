@@ -11,7 +11,6 @@ public class Belt : MonoBehaviour
 
     public void SetDirs(int dir)
     {
-        Debug.Log("SET");
         inDir = dir;
         outDir = dir;
     }
@@ -48,7 +47,7 @@ public class Belt : MonoBehaviour
 
     private void updateDir()
     {
-        if ((outDir + 1 % 4) == inDir)
+        if ((outDir + 1) % 4 == inDir)
         {
             GetComponent<SpriteRenderer>().sprite = Managers.Resource.BeltSprites[2];
         }
@@ -58,7 +57,6 @@ public class Belt : MonoBehaviour
         }
         else
         {
-           //Debug.Log("NUM : " + _beltID + " DIRS : " + inDir + " " + outDir);
             GetComponent<SpriteRenderer>().sprite = Managers.Resource.BeltSprites[1];
         }
     }
