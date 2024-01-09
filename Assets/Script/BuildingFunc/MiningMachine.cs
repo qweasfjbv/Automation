@@ -6,14 +6,20 @@ using UnityEngine;
 
 public class MiningMachine : MonoBehaviour
 {
-    [SerializeField] Belt nextBelt;
+    [SerializeField] GameObject itemPrefab;
 
+
+    
+    private Belt nextBelt;
+    [SerializeField]
+    private int veinId;
+    private Coroutine miningCoroutine;
 
     private void Start()
     {
         nextBelt = null;
-
-        //StartCoroutine(MiningCoroutine());
+        miningCoroutine = null;
+        veinId = Managers.Map.UsingArea[(int)Mathf.Abs(Mathf.Ceil(transform.position.y)), (int)Mathf.Floor(transform.position.x)].veinId;
     }
 
     private void Update()
@@ -26,15 +32,25 @@ public class MiningMachine : MonoBehaviour
             else nextBelt = null;
 
         }
+        else
+        {
+            if (veinId != -1 && miningCoroutine == null)
+            {
+                miningCoroutine = StartCoroutine(MiningCoroutine());
+            }
+        }
 
     }
+
     private IEnumerator MiningCoroutine()
     {
         while (true)
         {
+            yield return new WaitWhile(() => nextBelt.BeltItemId != -1);
+            nextBelt.BeltItemId = Managers.Resource.GetVeinData(veinId).OreID;
 
+            yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);
         }
-
     }
 
 }

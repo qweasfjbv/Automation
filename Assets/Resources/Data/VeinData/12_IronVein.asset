@@ -15,3 +15,4 @@ MonoBehaviour:
   veinID: 12
   oreID: 16
   veinSprite: {fileID: 21300000, guid: 25c45697645d3934288cebf4ffc0a23c, type: 3}
+  miningTime: 4

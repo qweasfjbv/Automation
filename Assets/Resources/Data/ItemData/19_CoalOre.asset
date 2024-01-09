@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 19
   itemName: CoalOre
   sprite: {fileID: 21300000, guid: 97943d69adf37384c98e7f967b40d304, type: 3}
-  productTime: 0
+  productTime: 2
   ingredients: []

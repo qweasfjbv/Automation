@@ -76,7 +76,7 @@ public class MapManager
         {
             for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, null);
+                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, null, usingArea[i, j].veinId);
             }
         }
 
@@ -202,6 +202,7 @@ public class MapManager
 
     private void OperateVeinsOnMap()
     {
+        Debug.Log("OperateMap");
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; j++)

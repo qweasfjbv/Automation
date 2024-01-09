@@ -1,41 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.AssetImporters;
 using UnityEngine;
 
 public class Belt : MonoBehaviour
 {
+    private static int _beltID;
+    const int ID = 101;
+
     [SerializeField]
     int inDir, outDir;
 
-    Vector2 buildingPos;
 
     public void SetDirs(int dir)
     {
         inDir = dir;
         outDir = dir;
     }
-    private static int _beltID;
 
-    const int ID = 11;
 
 
 
     public Belt nextBelt;
-    public BeltItem beltItem;
+    [SerializeField]
+    private GameObject beltItem;
+    private int beltItemId;
+    public int BeltItemId { get => beltItemId; set => beltItemId = value; }
 
     private BeltManager beltManager;
+
+
+    private Coroutine itemMoveCoroutine;
+
+    private Vector3 startPos, endPos;
 
 
     void Start()
     {
         nextBelt = null;
+        beltItemId = -1;
         SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
         nextBelt = FindNextBelt();
         gameObject.name = $"Belt:{_beltID++}";
+        itemMoveCoroutine = null;
 
-        //StartCoroutine(PersonalUpdate());
-        
+
     }
 
     private void Update()
@@ -44,29 +54,16 @@ public class Belt : MonoBehaviour
         if (nextBelt == null)
             nextBelt = FindNextBelt();
 
-        if (beltItem != null && beltItem.item != null)
-            StartCoroutine(BeltMove());
+        if (beltItemId != -1 && itemMoveCoroutine == null)
+        {
+            beltItem.SetActive(true);
+            itemMoveCoroutine = StartCoroutine(BeltMove(Managers.Resource.GetBuildingData(ID).Speed));
+        }
 
         updateDir();
 
     }
 
-    private IEnumerator PersonalUpdate()
-    {
-        while (true)
-        {
-
-            if (nextBelt == null)
-                nextBelt = FindNextBelt();
-
-            if (beltItem != null && beltItem.item != null)
-                StartCoroutine(BeltMove());
-
-            updateDir();
-
-            yield return new WaitForFixedUpdate();
-        }
-    }
 
     private void updateDir()
     {
@@ -84,16 +81,46 @@ public class Belt : MonoBehaviour
         }
     }
 
-    public Vector3 GetItemPosition()
+    private IEnumerator BeltMove(float dl)
     {
-        var padding = 0.3f;
-        var position = transform.position;
-        return new Vector3(position.x, position.y + padding, position.z);
+        float t = 0f;
+
+        SetStartPos();
+        SetEndPos();
+        while (t < dl * 0.5f)
+        {
+            beltItem.transform.position = Vector3.Lerp(startPos, this.transform.position, t / (dl * 0.5f));
+            t += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return null;
+        t = 0f;
+        while (t < dl * 0.5f)
+        {
+            beltItem.transform.position = Vector3.Lerp(this.transform.position, endPos, t / (dl * 0.5f));
+            t += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return new WaitUntil(() => nextBelt != null);
+
+
+        beltItem.SetActive(false);
+        nextBelt.BeltItemId = beltItemId;
+        beltItemId = -1;
+
     }
 
-    private IEnumerator BeltMove()
+    float[] by = {0.5f, 0, -0.5f, 0 };
+    float[] bx = {0, 0.5f, 0, -0.5f};
+    private void SetStartPos()
     {
-        yield return null;
+        startPos = new Vector3(transform.position.x + -1 * bx[inDir] *Managers.Resource.GetBuildingData(ID).Size.x, transform.position.y + -1 * by[inDir]*Managers.Resource.GetBuildingData(ID).Size.y, transform.position.z);
+    }
+    private void SetEndPos()
+    {
+        endPos = new Vector3(transform.position.x + bx[outDir] * Managers.Resource.GetBuildingData(ID).Size.x, transform.position.y + by[outDir] * Managers.Resource.GetBuildingData(ID).Size.y, transform.position.z);
     }
 
     private Belt FindNextBelt()
@@ -101,7 +128,9 @@ public class Belt : MonoBehaviour
         GameObject tmpBelt = Managers.Map.FindBelt(new Vector2(Mathf.Floor(transform.position.x), Mathf.Ceil(transform.position.y)), ID, ref outDir);
         if (tmpBelt == null) return null;
 
+        SetEndPos();
         return tmpBelt.GetComponent<Belt>();
     }
+
 
 }

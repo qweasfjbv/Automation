@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 16
   itemName: CooperOre
   sprite: {fileID: 21300000, guid: 87e400469876ecc49b645973df58b2d4, type: 3}
-  productTime: 0
+  productTime: 2
   ingredients: []

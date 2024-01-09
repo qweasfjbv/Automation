@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 20
   itemName: DiamondOre
   sprite: {fileID: 21300000, guid: bad6c51133dfa51468c8397b33dc9bb9, type: 3}
-  productTime: 0
+  productTime: 4
   ingredients: []

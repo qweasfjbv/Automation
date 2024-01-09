@@ -15,5 +15,5 @@ MonoBehaviour:
   itemId: 17
   itemName: IronOre
   sprite: {fileID: 21300000, guid: c4f466f00a1ae2441a9d2a9436fdbfba, type: 3}
-  productTime: 0
+  productTime: 2
   ingredients: []
