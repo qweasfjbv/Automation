@@ -47,6 +47,7 @@ public class MiningMachine : MonoBehaviour
         while (true)
         {
             yield return new WaitWhile(() => nextBelt.BeltItemId != -1);
+            Debug.Log("check beltid : " + nextBelt.BeltItemId + ", ");
             nextBelt.BeltItemId = Managers.Resource.GetVeinData(veinId).OreID;
 
             yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);

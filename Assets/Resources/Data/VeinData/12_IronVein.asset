@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 12_IronVein
   m_EditorClassIdentifier: 
   veinID: 12
-  oreID: 16
+  oreID: 17
   veinSprite: {fileID: 21300000, guid: 25c45697645d3934288cebf4ffc0a23c, type: 3}
   miningTime: 4

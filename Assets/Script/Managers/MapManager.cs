@@ -53,7 +53,7 @@ public class MapManager
 
     public void Init()
     {
-        mapSizeX = mapSizeY = 5;
+        mapSizeX = mapSizeY = 10;
 
         usingArea = new Tile[mapSizeY, mapSizeX];
 
@@ -202,14 +202,10 @@ public class MapManager
 
     private void OperateVeinsOnMap()
     {
-        Debug.Log("OperateMap");
-        for (int i = 0; i < 2; i++)
-        {
-            for (int j = 0; j < 2; j++)
-            {
-                usingArea[i, j].veinId = 11;
-            }
-        }
+
+        usingArea[1, 0].veinId = 13;
+        usingArea[1, 1].veinId = 11;
+        usingArea[0, 1].veinId = 15;
 
         // TODO : Sprite »ý¼º
 

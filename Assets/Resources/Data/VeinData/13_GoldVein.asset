@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 13_GoldVein
   m_EditorClassIdentifier: 
   veinID: 13
-  oreID: 16
+  oreID: 18
   veinSprite: {fileID: 21300000, guid: 1848686b7dff345408ac91e3bc615d0f, type: 3}
   miningTime: 8

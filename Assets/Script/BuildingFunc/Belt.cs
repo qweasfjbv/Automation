@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.AssetImporters;
 using UnityEngine;
 
@@ -34,7 +35,9 @@ public class Belt : MonoBehaviour
     private Coroutine itemMoveCoroutine;
 
     private Vector3 startPos, endPos;
+    int rem;
 
+    private bool isBeltCoroutineRunning;
 
     void Start()
     {
@@ -42,9 +45,10 @@ public class Belt : MonoBehaviour
         beltItemId = -1;
         SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
         nextBelt = FindNextBelt();
+        rem = _beltID;
         gameObject.name = $"Belt:{_beltID++}";
         itemMoveCoroutine = null;
-
+        isBeltCoroutineRunning = false;
 
     }
 
@@ -54,9 +58,11 @@ public class Belt : MonoBehaviour
         if (nextBelt == null)
             nextBelt = FindNextBelt();
 
-        if (beltItemId != -1 && itemMoveCoroutine == null)
+
+        if (beltItemId != -1 && beltItem.activeSelf == false)
         {
-            beltItem.SetActive(true);
+
+            beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(beltItemId);
             itemMoveCoroutine = StartCoroutine(BeltMove(Managers.Resource.GetBuildingData(ID).Speed));
         }
 
@@ -83,10 +89,17 @@ public class Belt : MonoBehaviour
 
     private IEnumerator BeltMove(float dl)
     {
-        float t = 0f;
 
+        beltItem.SetActive(true);
+        float t = 0f;
+        if (rem == 0)
+        {
+            Debug.Log("coroutine on");
+        }
         SetStartPos();
         SetEndPos();
+        beltItem.transform.position = startPos;
+
         while (t < dl * 0.5f)
         {
             beltItem.transform.position = Vector3.Lerp(startPos, this.transform.position, t / (dl * 0.5f));
@@ -94,7 +107,6 @@ public class Belt : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return null;
         t = 0f;
         while (t < dl * 0.5f)
         {
@@ -104,11 +116,13 @@ public class Belt : MonoBehaviour
         }
 
         yield return new WaitUntil(() => nextBelt != null);
+        yield return new WaitUntil(() => nextBelt.beltItemId == -1);
 
-
-        beltItem.SetActive(false);
         nextBelt.BeltItemId = beltItemId;
         beltItemId = -1;
+        beltItem.SetActive(false);
+
+        yield return null;
 
     }
 
