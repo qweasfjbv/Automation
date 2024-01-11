@@ -1,13 +1,11 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildPreviewer : MonoBehaviour
 {
     [SerializeField] private GameObject preview;
-    [SerializeField] private int id;
+
+
+    private int id;
 
 
     private Vector2 previewSize;
@@ -24,12 +22,17 @@ public class BuildPreviewer : MonoBehaviour
 
     private int rotateDir;
 
-    public void Awake()
+    private void Init()
     {
+        id = 101;
         rotateDir = 0;
         sRenderer = preview.GetComponent<SpriteRenderer>();
         tmpC = sRenderer.color;
+    }
 
+    public void Awake()
+    {
+        Init();
     }
 
     private void SettingById(int id)
@@ -137,4 +140,7 @@ public class BuildPreviewer : MonoBehaviour
         }
 
     }
+
+
+
 }

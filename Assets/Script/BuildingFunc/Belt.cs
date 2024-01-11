@@ -88,10 +88,7 @@ public class Belt : BuildingBase
     {
         beltItem.SetActive(true);
         float t = 0f;
-        if (rem == 0)
-        {
-            Debug.Log("coroutine on");
-        }
+
         SetStartPos();
         SetEndPos();
         beltItem.transform.position = startPos;
