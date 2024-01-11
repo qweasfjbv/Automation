@@ -20,4 +20,5 @@ MonoBehaviour:
   - {x: 16, y: 2}
   size: {x: 1, y: 1}
   prefab: {fileID: 2139692038917354386, guid: b9b1c3f163f2d0f4e81467ff6f702ccc, type: 3}
-  speed: 1
+  speed: 0.5
+  inputs: 02000000

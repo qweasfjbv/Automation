@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class MiningMachine : MonoBehaviour
+public class MiningMachine : BuildingBase
 {
     [SerializeField] GameObject itemPrefab;
 
@@ -27,7 +27,7 @@ public class MiningMachine : MonoBehaviour
 
         if (nextBelt == null)
         {
-            GameObject tmpGo = Managers.Map.FindBeltFromMine(new Vector2(Mathf.Floor(transform.position.x), Mathf.Ceil(transform.position.y)));
+            GameObject tmpGo = Managers.Map.FindBeltFromBuilding(new Vector2(Mathf.Floor(transform.position.x), Mathf.Ceil(transform.position.y)));
             if (tmpGo != null) nextBelt = tmpGo.GetComponent<Belt>();
             else nextBelt = null;
 

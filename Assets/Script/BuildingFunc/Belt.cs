@@ -5,8 +5,9 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.AssetImporters;
 using UnityEngine;
 
-public class Belt : MonoBehaviour
+public class Belt : BuildingBase
 {
+
     private static int _beltID;
     const int ID = 101;
 
@@ -22,41 +23,32 @@ public class Belt : MonoBehaviour
 
 
 
-
-    public Belt nextBelt;
     [SerializeField]
     private GameObject beltItem;
-    private int beltItemId;
-    public int BeltItemId { get => beltItemId; set => beltItemId = value; }
-
-    private BeltManager beltManager;
-
 
     private Coroutine itemMoveCoroutine;
 
     private Vector3 startPos, endPos;
     int rem;
 
-    private bool isBeltCoroutineRunning;
 
     void Start()
     {
-        nextBelt = null;
+        nextBuilding = null;
         beltItemId = -1;
         SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
-        nextBelt = FindNextBelt();
+        nextBuilding = FindNextBelt();
         rem = _beltID;
         gameObject.name = $"Belt:{_beltID++}";
         itemMoveCoroutine = null;
-        isBeltCoroutineRunning = false;
 
     }
 
     private void Update()
     {
 
-        if (nextBelt == null)
-            nextBelt = FindNextBelt();
+        if (nextBuilding == null)
+            nextBuilding = FindNextBelt();
 
 
         if (beltItemId != -1 && beltItem.activeSelf == false)
@@ -89,6 +81,7 @@ public class Belt : MonoBehaviour
 
     private IEnumerator BeltMove(float dl)
     {
+        Debug.Log(dl);
 
         beltItem.SetActive(true);
         float t = 0f;
@@ -115,10 +108,10 @@ public class Belt : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return new WaitUntil(() => nextBelt != null);
-        yield return new WaitUntil(() => nextBelt.beltItemId == -1);
+        yield return new WaitUntil(() => nextBuilding != null);
+        yield return new WaitUntil(() => nextBuilding.BeltItemId== -1);
 
-        nextBelt.BeltItemId = beltItemId;
+        nextBuilding.BeltItemId = beltItemId;
         beltItemId = -1;
         beltItem.SetActive(false);
 
@@ -139,8 +132,9 @@ public class Belt : MonoBehaviour
 
     private Belt FindNextBelt()
     {
-        GameObject tmpBelt = Managers.Map.FindBelt(new Vector2(Mathf.Floor(transform.position.x), Mathf.Ceil(transform.position.y)), ID, ref outDir);
+        GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(transform.position, ID, ref outDir);
         if (tmpBelt == null) return null;
+
 
         SetEndPos();
         return tmpBelt.GetComponent<Belt>();

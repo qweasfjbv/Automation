@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
-  m_Name: 102_MiningMachine
+  m_Name: 104_Merger
   m_EditorClassIdentifier: 
-  itemId: 102
-  itemName: MiningMachine
-  sprite: {fileID: 21300000, guid: 9418b2240d29c1a4482f6cde0b8634bd, type: 3}
+  itemId: 104
+  itemName: Merger
+  sprite: {fileID: 21300000, guid: aa3f57e385413f143b3a096269aa2c45, type: 3}
   productTime: 1
-  ingredients:
-  - {x: 21, y: 2}
-  - {x: 22, y: 2}
-  size: {x: 1, y: 1}
-  prefab: {fileID: 5879283773777145922, guid: fb0fa164bc0d6a042911c280af7a2773, type: 3}
+  ingredients: []
+  size: {x: 0, y: 0}
+  prefab: {fileID: 0}
   speed: 0
-  inputs: 
+  inputs: 010000000200000003000000

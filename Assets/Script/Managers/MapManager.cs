@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Tile
 {
@@ -72,16 +73,17 @@ public class MapManager
     {
         if (!BoundCheck(pos, size, rot)) return;
 
+        GameObject tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
         for (int i = (int)start.y; i < (int)end.y; i++)
         {
             for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, null, usingArea[i, j].veinId);
+                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, tmpGo, usingArea[i, j].veinId);
             }
         }
-
+        
+        //usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = 
         // pooling 구현
-        usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
 
 
 
@@ -167,25 +169,31 @@ public class MapManager
     readonly int[] dy = { -1, 0, 1, 0 };
     readonly int[] dx = { 0, 1, 0, -1 };
     int tmpy, tmpx;
-    public GameObject FindBelt(Vector2 pos, int id, ref int outDir)
+    public GameObject FindBuildingFromBelt(Vector2 pos, int id, ref int outDir)
     {
-        for(int i= 0; i<4; i++)
+        pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
+        for (int i= 0; i<4; i++)
         {
 
             tmpy = Mathf.Abs((int)pos.y) + dy[i]; tmpx = (int)pos.x + dx[i];
+            
+            // 방향 반대면 제외
             if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (i+2)%4) continue;
             if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
-            
-            if (i == usingArea[tmpy, tmpx].rot) {
+            if (usingArea[tmpy, tmpx].id == -1) continue;
+
+            if (IsCanConnect(tmpy, tmpx, i)) {
                 outDir = i;    
                 return usingArea[tmpy, tmpx].building; 
+
             }
 
         }
         return null;
     }
 
-    public GameObject FindBeltFromMine(Vector2 pos)
+    // TODO : 업데이트 필요
+    public GameObject FindBeltFromBuilding(Vector2 pos)
     {
         int dir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
 
@@ -198,6 +206,22 @@ public class MapManager
         }
 
         return null;
+    }
+
+    private bool IsCanConnect(int y, int x, int com)
+    {
+        BuildingData bd = Managers.Resource.GetBuildingData(usingArea[y, x].id);
+
+        for (int i = 0; i < bd.Inputs.Count; i++)
+        {
+            if ((bd.Inputs[i] + 2 + usingArea[y, x].rot)%4 == com)
+            {
+                return true;
+            }
+        }
+
+
+        return false;
     }
 
     private void OperateVeinsOnMap()

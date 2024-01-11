@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputManager
 {
+
+
     private KeyCode rot;
 
     public void Init()
