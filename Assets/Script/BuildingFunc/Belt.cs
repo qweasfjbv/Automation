@@ -11,7 +11,6 @@ public class Belt : BuildingBase
     private static int _beltID;
     const int ID = 101;
 
-    [SerializeField]
     int inDir, outDir;
 
 
@@ -31,9 +30,11 @@ public class Belt : BuildingBase
     private Vector3 startPos, endPos;
     int rem;
 
+    public BuildingBase nextBuilding;
 
-    void Start()
+    private void Init()
     {
+
         nextBuilding = null;
         beltItemId = -1;
         SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
@@ -42,6 +43,10 @@ public class Belt : BuildingBase
         gameObject.name = $"Belt:{_beltID++}";
         itemMoveCoroutine = null;
 
+    }
+    void Start()
+    {
+        Init();
     }
 
     private void Update()
@@ -81,8 +86,6 @@ public class Belt : BuildingBase
 
     private IEnumerator BeltMove(float dl)
     {
-        Debug.Log(dl);
-
         beltItem.SetActive(true);
         float t = 0f;
         if (rem == 0)
@@ -130,14 +133,14 @@ public class Belt : BuildingBase
         endPos = new Vector3(transform.position.x + bx[outDir] * Managers.Resource.GetBuildingData(ID).Size.x, transform.position.y + by[outDir] * Managers.Resource.GetBuildingData(ID).Size.y, transform.position.z);
     }
 
-    private Belt FindNextBelt()
+    private BuildingBase FindNextBelt()
     {
         GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(transform.position, ID, ref outDir);
         if (tmpBelt == null) return null;
 
 
         SetEndPos();
-        return tmpBelt.GetComponent<Belt>();
+        return tmpBelt.GetComponent<BuildingBase>();
     }
 
 

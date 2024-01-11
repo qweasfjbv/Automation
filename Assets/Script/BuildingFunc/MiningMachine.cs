@@ -27,7 +27,7 @@ public class MiningMachine : BuildingBase
 
         if (nextBelt == null)
         {
-            GameObject tmpGo = Managers.Map.FindBeltFromBuilding(new Vector2(Mathf.Floor(transform.position.x), Mathf.Ceil(transform.position.y)));
+            GameObject tmpGo = Managers.Map.FindBeltFromBuilding(transform.position);
             if (tmpGo != null) nextBelt = tmpGo.GetComponent<Belt>();
             else nextBelt = null;
 
@@ -47,7 +47,6 @@ public class MiningMachine : BuildingBase
         while (true)
         {
             yield return new WaitWhile(() => nextBelt.BeltItemId != -1);
-            Debug.Log("check beltid : " + nextBelt.BeltItemId + ", ");
             nextBelt.BeltItemId = Managers.Resource.GetVeinData(veinId).OreID;
 
             yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);

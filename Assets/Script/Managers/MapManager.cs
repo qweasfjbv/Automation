@@ -64,7 +64,7 @@ public class MapManager
 
         // Vein 생성 필요
 
-        OperateVeinsOnMap();
+        GenerateVeinsOnMap();
     } 
 
 
@@ -166,8 +166,8 @@ public class MapManager
         return;
     }
 
-    readonly int[] dy = { -1, 0, 1, 0 };
-    readonly int[] dx = { 0, 1, 0, -1 };
+    readonly int[] DY = { -1, 0, 1, 0 };
+    readonly int[] DX = { 0, 1, 0, -1 };
     int tmpy, tmpx;
     public GameObject FindBuildingFromBelt(Vector2 pos, int id, ref int outDir)
     {
@@ -175,7 +175,7 @@ public class MapManager
         for (int i= 0; i<4; i++)
         {
 
-            tmpy = Mathf.Abs((int)pos.y) + dy[i]; tmpx = (int)pos.x + dx[i];
+            tmpy = Mathf.Abs((int)pos.y) + DY[i]; tmpx = (int)pos.x + DX[i];
             
             // 방향 반대면 제외
             if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (i+2)%4) continue;
@@ -192,12 +192,12 @@ public class MapManager
         return null;
     }
 
-    // TODO : 업데이트 필요
-    public GameObject FindBeltFromBuilding(Vector2 pos)
+    public GameObject FindBeltFromBuilding(Vector2 pos, int dir = 0)
     {
-        int dir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
+        dir = (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot + dir) % 4;
+        pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
 
-        tmpy = Mathf.Abs((int)pos.y) + dy[dir]; tmpx = (int)pos.x + dx[dir];
+        tmpy = Mathf.Abs((int)pos.y) + DY[dir]; tmpx = (int)pos.x + DX[dir];
         if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) return null;
 
         if (usingArea[tmpy, tmpx].id == 101 && dir == usingArea[tmpy, tmpx].rot)
@@ -224,7 +224,7 @@ public class MapManager
         return false;
     }
 
-    private void OperateVeinsOnMap()
+    private void GenerateVeinsOnMap()
     {
 
         usingArea[1, 0].veinId = 13;

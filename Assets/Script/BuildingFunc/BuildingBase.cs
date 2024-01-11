@@ -8,9 +8,5 @@ public abstract class BuildingBase : MonoBehaviour
     protected int beltItemId;
     public int BeltItemId { get => beltItemId; set => beltItemId = value; }
 
-    public BuildingBase nextBuilding;
-
-
-
 
 }
