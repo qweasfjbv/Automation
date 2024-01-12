@@ -47,7 +47,7 @@ public class MiningMachine : BuildingBase
     {
         while (true)
         {
-            yield return new WaitUntil(() => nextBelt.IsTransferAble(0));
+            yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(0));
             nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
 
             yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);

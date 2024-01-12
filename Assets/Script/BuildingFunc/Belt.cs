@@ -117,8 +117,7 @@ public class Belt : BuildingBase
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return new WaitUntil(() => nextBuilding != null);
-        yield return new WaitUntil(() => nextBuilding.IsTransferAble(outDir));
+        yield return new WaitUntil(() => nextBuilding != null && nextBuilding.IsTransferAble(outDir));
 
         nextBuilding.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
