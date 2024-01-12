@@ -194,11 +194,12 @@ public class MapManager
 
     public GameObject FindBeltFromBuilding(Vector2 pos, int dir = 0)
     {
-        dir = (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot + dir) % 4;
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
+        dir = (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot + dir) % 4;
 
         tmpy = Mathf.Abs((int)pos.y) + DY[dir]; tmpx = (int)pos.x + DX[dir];
         if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) return null;
+
 
         if (usingArea[tmpy, tmpx].id == 101 && dir == usingArea[tmpy, tmpx].rot)
         {

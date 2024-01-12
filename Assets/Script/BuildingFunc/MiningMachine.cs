@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 public class MiningMachine : BuildingBase
@@ -46,11 +47,22 @@ public class MiningMachine : BuildingBase
     {
         while (true)
         {
-            yield return new WaitWhile(() => nextBelt.BeltItemId != -1);
-            nextBelt.BeltItemId = Managers.Resource.GetVeinData(veinId).OreID;
+            yield return new WaitUntil(() => nextBelt.IsTransferAble(0));
+            nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
 
             yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);
         }
     }
+
+
+    public override void SetBeltId(int id, int rot = 0)
+    {
+        return;
+    }
+    public override bool IsTransferAble(int rot)
+    {
+        return false;
+    }
+
 
 }

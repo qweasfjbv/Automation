@@ -67,6 +67,15 @@ public class Belt : BuildingBase
 
     }
 
+    public override void SetBeltId(int id, int rot = 0)
+    {
+        this.beltItemId = id;
+    }
+
+    public override bool IsTransferAble(int rot)
+    {
+        return beltItemId == -1;
+    }
 
     private void updateDir()
     {
@@ -109,9 +118,9 @@ public class Belt : BuildingBase
         }
 
         yield return new WaitUntil(() => nextBuilding != null);
-        yield return new WaitUntil(() => nextBuilding.BeltItemId== -1);
+        yield return new WaitUntil(() => nextBuilding.IsTransferAble(outDir));
 
-        nextBuilding.BeltItemId = beltItemId;
+        nextBuilding.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
         beltItem.SetActive(false);
 

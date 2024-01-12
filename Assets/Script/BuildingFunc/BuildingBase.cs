@@ -6,7 +6,8 @@ public abstract class BuildingBase : MonoBehaviour
 {
 
     protected int beltItemId;
-    public int BeltItemId { get => beltItemId; set => beltItemId = value; }
 
+    abstract public void SetBeltId(int id, int rot = 0);
+    abstract public bool IsTransferAble(int rot);
 
 }

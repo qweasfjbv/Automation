@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Splitter : BuildingBase
@@ -24,6 +25,15 @@ public class Splitter : BuildingBase
         StartCoroutine(SplitCoroutine());
     }
 
+    public override void SetBeltId(int id, int rot = 0)
+    {
+        this.beltItemId = id;
+    }
+    public override bool IsTransferAble(int rot)
+    {
+        return beltItemId == -1;
+    }
+
     private IEnumerator SplitCoroutine()
     {
         while (true)
@@ -40,10 +50,10 @@ public class Splitter : BuildingBase
                 for (int i = 0; i < 3; i++)
                 {
                     beltDir = (beltDir + 1) % 3;
-                    if (nextBelt[beltDir] == null || nextBelt[beltDir].GetComponent<Belt>().BeltItemId != -1) continue;
+                    if (nextBelt[beltDir] == null || nextBelt[beltDir].GetComponent<Belt>().IsTransferAble(beltDir)) continue;
                     else
                     {
-                        nextBelt[beltDir].GetComponent<Belt>().BeltItemId = this.beltItemId;
+                        nextBelt[beltDir].GetComponent<Belt>().SetBeltId(this.beltItemId);
                         this.beltItemId = -1;
                         yield return new WaitForSeconds(1.0f);
                         break;

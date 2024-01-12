@@ -18,7 +18,9 @@ public class CameraController : MonoBehaviour
     private float targetSize;
 
     private float minZoomSize = 3.0f;
-    private float maxZoomSize = 10.0f;
+    private float maxZoomSize = 20.0f;
+
+    private bool isOnF1 = true;
 
 
     private Vector3 firstClickPoint;
@@ -28,6 +30,8 @@ public class CameraController : MonoBehaviour
     {
         thisCamera = GetComponent<Camera>();
         targetSize = thisCamera.orthographicSize;
+
+        BuildPreviewer.SetActive(false);
     }
 
     void Update()
@@ -36,18 +40,26 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            isOnF1 = true;
             BuildPreviewer.SetActive(false);
         }
-        else if(Input.GetKeyDown (KeyCode.F2)) {
+        else if(Input.GetKeyDown (KeyCode.F2))
+        {
+            isOnF1 = false;
             BuildPreviewer.SetActive(true);
         }
 
-        scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
 
-        ZoomControl();
-        UpdateZoom();
+        if (isOnF1) {
 
-        ViewMoving();
+            scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+            ZoomControl();
+            UpdateZoom();
+
+            ViewMoving();
+        }
+
     }
 
     private void ZoomControl()
