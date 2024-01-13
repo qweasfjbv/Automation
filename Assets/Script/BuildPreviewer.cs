@@ -141,6 +141,10 @@ public class BuildPreviewer : MonoBehaviour
             {
                 id = 104;
             }
+            else if (Input.GetKey(KeyCode.Alpha5))
+            {
+                id = 105;
+            }
         }
 
     }

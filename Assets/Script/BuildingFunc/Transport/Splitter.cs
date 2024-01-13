@@ -50,7 +50,7 @@ public class Splitter : BuildingBase
                 for (int i = 0; i < 3; i++)
                 {
                     beltDir = (beltDir + 1) % 3;
-                    if (nextBelt[beltDir] == null || nextBelt[beltDir].GetComponent<Belt>().IsTransferAble(beltDir)) continue;
+                    if (nextBelt[beltDir] == null || !nextBelt[beltDir].GetComponent<Belt>().IsTransferAble(beltDir)) continue;
                     else
                     {
                         nextBelt[beltDir].GetComponent<Belt>().SetBeltId(this.beltItemId);
