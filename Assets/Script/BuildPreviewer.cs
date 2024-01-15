@@ -68,6 +68,41 @@ public class BuildPreviewer : MonoBehaviour
         }
     }
 
+    private void GetButton()
+    {
+
+        switch (Managers.Input.Mode) {
+            case InputManager.InputMode.F1:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    id = 101;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    id = 102;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    id = 103;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    id = 104;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha5))
+                {
+                    id = 105;
+                }
+                break;
+            case InputManager.InputMode.F2:
+                break;
+
+            default:
+                break;
+        
+        }
+
+    }
     public void Update()
     {
         SettingById(id);
@@ -121,33 +156,18 @@ public class BuildPreviewer : MonoBehaviour
             {
                 Managers.Map.Unbuild(previewPoint);
             }
-            else if (Input.GetKeyDown(Managers.Input.Rot))
+            else if (Input.GetKeyDown(KeyCode.R))
             {
                 RotatePreview();
             }
-            else if (Input.GetKey(KeyCode.Alpha1))
-            {
-                id = 101;
-            }
-            else if (Input.GetKey(KeyCode.Alpha2))
-            {
-                id = 102;
-            }
-            else if (Input.GetKey(KeyCode.Alpha3))
-            {
-                id = 103;
-            }
-            else if (Input.GetKey(KeyCode.Alpha4))
-            {
-                id = 104;
-            }
-            else if (Input.GetKey(KeyCode.Alpha5))
-            {
-                id = 105;
-            }
+
+
+            GetButton();
         }
 
     }
+
+
 
 
 

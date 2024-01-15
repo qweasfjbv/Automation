@@ -20,8 +20,6 @@ public class CameraController : MonoBehaviour
     private float minZoomSize = 3.0f;
     private float maxZoomSize = 20.0f;
 
-    private bool isOnF1 = true;
-
 
     private Vector3 firstClickPoint;
     private Vector3 mousePosition;
@@ -38,26 +36,19 @@ public class CameraController : MonoBehaviour
     {
         mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            isOnF1 = true;
+        scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+        ZoomControl();
+        UpdateZoom();
+
+        if (Managers.Input.Mode == InputManager.InputMode.None) {
+
             BuildPreviewer.SetActive(false);
-        }
-        else if(Input.GetKeyDown (KeyCode.F2))
-        {
-            isOnF1 = false;
-            BuildPreviewer.SetActive(true);
-        }
-
-
-        if (isOnF1) {
-
-            scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
-
-            ZoomControl();
-            UpdateZoom();
-
             ViewMoving();
+        }
+        else
+        {
+            BuildPreviewer.SetActive(true);
         }
 
     }

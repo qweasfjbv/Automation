@@ -42,7 +42,6 @@ public class Managers : MonoBehaviour
 
         s_instance._map.Init();
         s_instance._resource.Init();
-        s_instance._input.Init();
 
     }
 

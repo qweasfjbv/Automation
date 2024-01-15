@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class InputManager
 {
-
-
-    private KeyCode rot;
-
-    public void Init()
+    public enum InputMode
     {
-        rot = KeyCode.R;
+        None = 0,
+        F1, F2, F3, F4, F5, F6
     }
 
-    public KeyCode Rot { get => rot; }
+    private InputMode inputMode = InputMode.None;
+
+    public InputMode Mode { get => inputMode; set => inputMode = value; }
 
 }
