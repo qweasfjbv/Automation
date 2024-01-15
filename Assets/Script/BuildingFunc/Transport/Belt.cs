@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.AssetImporters;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Belt : BuildingBase
 {
@@ -13,17 +14,18 @@ public class Belt : BuildingBase
 
     int inDir, outDir;
 
+    [SerializeField]
+    private GameObject beltItem;
 
     public void SetDirs(int dir)
     {
+        beltItem.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90*inDir));
         inDir = dir;
         outDir = dir;
     }
 
 
 
-    [SerializeField]
-    private GameObject beltItem;
 
     private Coroutine itemMoveCoroutine;
 
@@ -72,7 +74,7 @@ public class Belt : BuildingBase
         this.beltItemId = id;
     }
 
-    public override bool IsTransferAble(int rot)
+    public override bool IsTransferAble(int id,int rot)
     {
         return beltItemId == -1;
     }
@@ -117,7 +119,7 @@ public class Belt : BuildingBase
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return new WaitUntil(() => nextBuilding != null && nextBuilding.IsTransferAble(outDir));
+        yield return new WaitUntil(() => nextBuilding != null && nextBuilding.IsTransferAble(beltItemId, outDir));
 
         nextBuilding.SetBeltId(beltItemId, outDir);
         beltItemId = -1;

@@ -31,7 +31,7 @@ public class Merger : BuildingBase
         beltItemIds[rot] = id;
     }
 
-    public override bool IsTransferAble(int rot)
+    public override bool IsTransferAble(int id,int rot)
     {
         return beltItemIds[rot] == -1;
     }
@@ -50,7 +50,7 @@ public class Merger : BuildingBase
                     beltDir = (beltDir + 1) % 4;
                     if (beltItemIds[beltDir] != -1)
                     {
-                        yield return new WaitUntil(() => nextBelt!=null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(0));
+                        yield return new WaitUntil(() => nextBelt!=null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(beltItemIds[beltDir], 0));
                         nextBelt.GetComponent<BuildingBase>().SetBeltId(beltItemIds[beltDir]);
                         beltItemIds[beltDir] = -1;
                     }

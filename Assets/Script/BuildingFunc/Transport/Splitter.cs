@@ -29,7 +29,7 @@ public class Splitter : BuildingBase
     {
         this.beltItemId = id;
     }
-    public override bool IsTransferAble(int rot)
+    public override bool IsTransferAble(int id,int rot)
     {
         return beltItemId == -1;
     }
@@ -50,7 +50,7 @@ public class Splitter : BuildingBase
                 for (int i = 0; i < 3; i++)
                 {
                     beltDir = (beltDir + 1) % 3;
-                    if (nextBelt[beltDir] == null || !nextBelt[beltDir].GetComponent<Belt>().IsTransferAble(beltDir)) continue;
+                    if (nextBelt[beltDir] == null || !nextBelt[beltDir].GetComponent<Belt>().IsTransferAble(beltItemId, beltDir)) continue;
                     else
                     {
                         nextBelt[beltDir].GetComponent<Belt>().SetBeltId(this.beltItemId);

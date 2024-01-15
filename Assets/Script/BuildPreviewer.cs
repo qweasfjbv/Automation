@@ -79,24 +79,29 @@ public class BuildPreviewer : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    id = 102;
+                    id = 103;
                 }
                 else if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
-                    id = 103;
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
-                {
                     id = 104;
                 }
-                else if (Input.GetKeyDown(KeyCode.Alpha5))
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
                     id = 105;
                 }
                 break;
             case InputManager.InputMode.F2:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    id = 102;
+                }
                 break;
-
+            case InputManager.InputMode.F3:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    id = 106;
+                }
+                break;
             default:
                 break;
         

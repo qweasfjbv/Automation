@@ -28,7 +28,7 @@ public class Crosser : BuildingBase
 
     }
 
-    public override bool IsTransferAble(int rot)
+    public override bool IsTransferAble(int id, int rot)
     {
         rot = (rot - Managers.Map.UsingArea[Mathf.Abs((int)Mathf.Ceil(transform.position.y)), (int)Mathf.Floor(transform.position.x)].rot + 4)%4;
 
@@ -48,7 +48,7 @@ public class Crosser : BuildingBase
 
             for (int i = 0; i < 2; i++)
             {
-                if (nextBelt[i] == null || !nextBelt[i].GetComponent<Belt>().IsTransferAble(i)) continue;
+                if (nextBelt[i] == null || !nextBelt[i].GetComponent<Belt>().IsTransferAble(beltItemIds[i], i)) continue;
                 else
                 {
                     nextBelt[i].GetComponent<Belt>().SetBeltId(beltItemIds[i]);

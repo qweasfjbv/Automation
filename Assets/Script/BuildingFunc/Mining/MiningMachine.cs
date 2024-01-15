@@ -47,7 +47,7 @@ public class MiningMachine : BuildingBase
     {
         while (true)
         {
-            yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(0));
+            yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(Managers.Resource.GetVeinData(veinId).OreID, 0));
             nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
 
             yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);
@@ -59,7 +59,7 @@ public class MiningMachine : BuildingBase
     {
         return;
     }
-    public override bool IsTransferAble(int rot)
+    public override bool IsTransferAble(int id, int rot)
     {
         return false;
     }

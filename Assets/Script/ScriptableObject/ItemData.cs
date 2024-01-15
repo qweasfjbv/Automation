@@ -1,7 +1,15 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
+
+[System.Serializable]
+public struct Ingredient {
+    public int id;
+    public int cnt;
+};
+
 
 [CreateAssetMenu(menuName = "Automation/Item")]
 public class ItemData : ScriptableObject
@@ -13,7 +21,7 @@ public class ItemData : ScriptableObject
     
     
     [SerializeField] private float productTime;
-    [SerializeField] private List<Vector2Int> ingredients = new List<Vector2Int>();
+    [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
 
 
     
@@ -25,6 +33,6 @@ public class ItemData : ScriptableObject
     public string Name { get => itemName; }
     public Sprite Image { get => sprite; } 
     public float ProductTime { get => productTime;}
-    public List<Vector2Int> Ingredients { get => ingredients; }
+    public List<Ingredient> Ingredients { get => ingredients; }
 
 }
