@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildPreviewer : MonoBehaviour
 {
@@ -68,6 +69,11 @@ public class BuildPreviewer : MonoBehaviour
         }
     }
 
+    public void SetPreviewerId(int id)
+    {
+        this.id = id;
+    }
+
     private void GetButton()
     {
 
@@ -108,6 +114,18 @@ public class BuildPreviewer : MonoBehaviour
         }
 
     }
+
+    RaycastHit2D hit;
+    private bool CanClickToBuild()
+    {
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public void Update()
     {
         SettingById(id);
@@ -134,8 +152,7 @@ public class BuildPreviewer : MonoBehaviour
         }
         sRenderer.color = tmpC;
 
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && CanClickToBuild())
         {
             if (lastPrevPoint != null)
             {
