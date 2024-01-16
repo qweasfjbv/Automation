@@ -123,6 +123,12 @@ public class Belt : BuildingBase
 
         nextBuilding.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
+
+        if(nextBuilding.GetComponent<Belt>() != null)
+        {
+            yield return new WaitUntil(() => nextBuilding != null && nextBuilding.GetComponent<Belt>().beltItem.activeSelf == true);
+        }
+
         beltItem.SetActive(false);
 
         yield return null;
@@ -140,11 +146,15 @@ public class Belt : BuildingBase
         endPos = new Vector3(transform.position.x + bx[outDir] * Managers.Resource.GetBuildingData(ID).Size.x, transform.position.y + by[outDir] * Managers.Resource.GetBuildingData(ID).Size.y, transform.position.z);
     }
 
+    public void SetOutdir(int dir)
+    {
+        outDir = dir;
+        FindNextBelt();
+    }
     private BuildingBase FindNextBelt()
     {
         GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(transform.position, ID, ref outDir);
         if (tmpBelt == null) return null;
-
 
         SetEndPos();
         return tmpBelt.GetComponent<BuildingBase>();

@@ -1,5 +1,7 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.PlayerSettings;
 
 public class BuildPreviewer : MonoBehaviour
 {
@@ -115,7 +117,6 @@ public class BuildPreviewer : MonoBehaviour
 
     }
 
-    RaycastHit2D hit;
     private bool CanClickToBuild()
     {
         if(EventSystem.current.IsPointerOverGameObject())
@@ -126,6 +127,7 @@ public class BuildPreviewer : MonoBehaviour
         return true;
     }
 
+    int tmpDir = 0;
     public void Update()
     {
         SettingById(id);
@@ -154,21 +156,30 @@ public class BuildPreviewer : MonoBehaviour
 
         if (Input.GetMouseButton(0) && CanClickToBuild())
         {
+            tmpDir = rotateDir;
             if (lastPrevPoint != null)
             {
                 if (lastPrevPoint.Value.x != previewPoint.x)
                 {
-                    if (lastPrevPoint.Value.x < previewPoint.x) RotateToDir(1);
-                    else RotateToDir(3);
+                    if (lastPrevPoint.Value.x < previewPoint.x) tmpDir = 1;
+                    else tmpDir = 3;
                 }
                 else if (lastPrevPoint.Value.y != previewPoint.y)
                 {
-                    if (lastPrevPoint.Value.y < previewPoint.y) RotateToDir(0);
-                    else RotateToDir(2);
+                    if (lastPrevPoint.Value.y < previewPoint.y) tmpDir = 0;
+                    else tmpDir = 2;
                 }
+                RotateToDir(tmpDir);
             }
 
             Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
+            // 범위 예외처리
+            var tmpT = Managers.Map.UsingArea[Mathf.Abs((int)previewPosition.y), (int)previewPosition.x];
+            if(tmpT.building.GetComponent<Belt>() != null)
+            {
+                tmpT.building.GetComponent<Belt>().SetOutdir(tmpDir);
+            }
+
             lastPrevPoint = previewPoint;
         }
         else

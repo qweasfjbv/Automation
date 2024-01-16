@@ -172,22 +172,24 @@ public class MapManager
     public GameObject FindBuildingFromBelt(Vector2 pos, int id, ref int outDir)
     {
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
+        int tmpDir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
+        tmpDir = (tmpDir + 3) % 4;
         for (int i= 0; i<4; i++)
         {
-
-            tmpy = Mathf.Abs((int)pos.y) + DY[i]; tmpx = (int)pos.x + DX[i];
+            tmpDir = (tmpDir + 1) % 4;
+            tmpy = Mathf.Abs((int)pos.y) + DY[tmpDir]; tmpx = (int)pos.x + DX[tmpDir];
             
             // 방향 반대면 제외
-            if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (i+2)%4) continue;
+            if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (tmpDir + 2)%4) continue;
             if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
             if (usingArea[tmpy, tmpx].id == -1) continue;
 
-            if (IsCanConnect(tmpy, tmpx, i)) {
-                outDir = i;    
-                return usingArea[tmpy, tmpx].building; 
+            if (IsCanConnect(tmpy, tmpx, tmpDir))
+            {
+                outDir = tmpDir;    
+                return usingArea[tmpy, tmpx].building;
 
             }
-
         }
         return null;
     }
