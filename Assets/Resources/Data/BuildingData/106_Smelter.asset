@@ -19,5 +19,6 @@ MonoBehaviour:
   ingredients: []
   size: {x: 1, y: 1}
   prefab: {fileID: 8405567373021842114, guid: 1726e0787a9c05e45bf0ec95a2de112b, type: 3}
-  speed: 0
-  inputs: 010000000200000003000000
+  speed: 1
+  inputsDirs: 010000000200000003000000
+  outputIds: 1500000016000000170000001800000019000000

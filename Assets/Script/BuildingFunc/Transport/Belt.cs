@@ -12,43 +12,58 @@ public class Belt : BuildingBase
     private static int _beltID;
     const int ID = 101;
 
+    [SerializeField]
     int inDir, outDir;
 
     [SerializeField]
     private GameObject beltItem;
 
-    public void SetDirs(int dir)
+    public void SetDirs()
     {
-        beltItem.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90*inDir));
+        float tmp = transform.eulerAngles.z;
+        while (tmp <= -10)
+        {
+            tmp += 360;
+        }
+
+        int dir;
+
+        if (tmp <= 45)
+            dir = 0;
+        else if (tmp <= 135)
+            dir = 3;
+        else if (tmp <= 225)
+            dir = 2;
+        else
+            dir = 1;
+
         inDir = dir;
         outDir = dir;
+        beltItem.transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 90 * inDir));
     }
 
 
 
 
-    private Coroutine itemMoveCoroutine;
-
     private Vector3 startPos, endPos;
-    int rem;
 
     public BuildingBase nextBuilding;
 
     private void Init()
     {
-
         nextBuilding = null;
         beltItemId = -1;
-        SetDirs(Managers.Map.UsingArea[Mathf.Abs(Mathf.CeilToInt(transform.position.y)), Mathf.FloorToInt(transform.position.x)].rot);
+        SetDirs();
         nextBuilding = FindNextBelt();
-        rem = _beltID;
-        gameObject.name = $"Belt:{_beltID++}";
-        itemMoveCoroutine = null;
 
     }
+
+
+
     void Start()
     {
         Init();
+        gameObject.name = $"Belt:{_beltID++}";
     }
 
     private void Update()
@@ -62,7 +77,7 @@ public class Belt : BuildingBase
         {
 
             beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(beltItemId);
-            itemMoveCoroutine = StartCoroutine(BeltMove(Managers.Resource.GetBuildingData(ID).Speed));
+            StartCoroutine(BeltMove(1/Managers.Resource.GetBuildingData(ID).Speed));
         }
 
         updateDir();
@@ -149,16 +164,18 @@ public class Belt : BuildingBase
     public void SetOutdir(int dir)
     {
         outDir = dir;
-        FindNextBelt();
+        nextBuilding = FindNextBelt();
     }
     private BuildingBase FindNextBelt()
     {
         GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(transform.position, ID, ref outDir);
         if (tmpBelt == null) return null;
-
         SetEndPos();
         return tmpBelt.GetComponent<BuildingBase>();
     }
 
-
+    private void OnEnable()
+    {
+        Init();
+    }
 }

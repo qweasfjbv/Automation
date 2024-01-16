@@ -9,6 +9,7 @@ public class MiningMachine : BuildingBase
 {
     [SerializeField] GameObject itemPrefab;
 
+    const int ID = 102;
 
     
     private Belt nextBelt;
@@ -50,7 +51,7 @@ public class MiningMachine : BuildingBase
             yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(Managers.Resource.GetVeinData(veinId).OreID, 0));
             nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
 
-            yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime);
+            yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime/Managers.Resource.GetBuildingData(ID).Speed);
         }
     }
 

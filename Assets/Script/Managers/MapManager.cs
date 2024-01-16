@@ -72,8 +72,17 @@ public class MapManager
     public void Build(int id, Vector2 pos, Vector2 size, Vector2 buildPos, int rot)
     {
         if (!BoundCheck(pos, size, rot)) return;
+        GameObject tmpGo;
 
-        GameObject tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+        if (id == 101)
+        {
+            tmpGo = Managers.Pool.Pop(buildPos, new Vector3(0, 0, -1 * rot * 90));
+        }
+        else
+        {
+            tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+        }
+
         for (int i = (int)start.y; i < (int)end.y; i++)
         {
             for (int j = (int)start.x; j < (int)end.x; j++)
@@ -82,9 +91,6 @@ public class MapManager
             }
         }
         
-        //usingArea[Mathf.Abs((int)pos.y), (int)pos.x].building = 
-        // pooling 구현
-
 
 
         return;
@@ -105,7 +111,15 @@ public class MapManager
 
 
         //pooling 구현
-        GameObject.Destroy(usingArea[Mathf.Abs(tile.y), tile.x].building);
+        if (tile.id == 101)
+        {
+            Managers.Pool.Push(tile.building);
+            tile.building = null;
+        }
+        else
+        {
+            GameObject.Destroy(usingArea[Mathf.Abs(tile.y), tile.x].building);
+        }
         //
 
         for (int i = (int)start.y; i < end.y; i++)
@@ -174,6 +188,7 @@ public class MapManager
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
         int tmpDir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
         tmpDir = (tmpDir + 3) % 4;
+
         for (int i= 0; i<4; i++)
         {
             tmpDir = (tmpDir + 1) % 4;

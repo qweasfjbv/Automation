@@ -170,12 +170,16 @@ public class BuildPreviewer : MonoBehaviour
                     else tmpDir = 2;
                 }
                 RotateToDir(tmpDir);
+
             }
 
             Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
-            // 범위 예외처리
+
+            // TODO : BoundCheck;
+
+
             var tmpT = Managers.Map.UsingArea[Mathf.Abs((int)previewPosition.y), (int)previewPosition.x];
-            if(tmpT.building.GetComponent<Belt>() != null)
+            if (tmpT.building.GetComponent<Belt>() != null)
             {
                 tmpT.building.GetComponent<Belt>().SetOutdir(tmpDir);
             }

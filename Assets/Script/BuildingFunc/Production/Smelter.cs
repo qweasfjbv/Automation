@@ -7,13 +7,12 @@ using UnityEngine;
 
 public class Smelter : BuildingBase
 {
+    const int ID = 106;
     [SerializeField]
     private int outputItemId = 21;
 
     private GameObject nextBelt;
-    [SerializeField]
     private List<Ingredient> ings;
-    [SerializeField]
     private int[] stores;
     
     private void Init()
@@ -41,7 +40,7 @@ public class Smelter : BuildingBase
             {
                 if (CheckIngsPrepared())
                 {
-                    // 시간추가
+                    yield return new WaitForSeconds(Managers.Resource.GetItemData(outputItemId).ProductTime / Managers.Resource.GetBuildingData(ID).Speed);
                     yield return new WaitUntil(() => nextBelt != null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(outputItemId, 0));
                     nextBelt.GetComponent<BuildingBase>().SetBeltId(outputItemId);
                     for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }

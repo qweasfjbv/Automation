@@ -17,9 +17,12 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 9418b2240d29c1a4482f6cde0b8634bd, type: 3}
   productTime: 1
   ingredients:
-  - {x: 21, y: 2}
-  - {x: 22, y: 2}
+  - id: 0
+    cnt: 0
+  - id: 0
+    cnt: 0
   size: {x: 1, y: 1}
   prefab: {fileID: 5879283773777145922, guid: fb0fa164bc0d6a042911c280af7a2773, type: 3}
-  speed: 0
-  inputs: 
+  speed: 1
+  inputsDirs: 
+  outputIds: 
