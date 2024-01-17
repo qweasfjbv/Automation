@@ -2,24 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject BuildPreviewer;
+    private GameObject buildPreviewer;
+    [SerializeField]
+    private GameObject buildingInfo;
     [SerializeField]
     private float zoomSpeed;
     [SerializeField]
     private float dragSpeed;
+    [SerializeField]
+    private float dragHoldTime;
 
     private Camera thisCamera;
     private float scroll;
     private float targetSize;
 
-    private float minZoomSize = 3.0f;
-    private float maxZoomSize = 20.0f;
+    private readonly float minZoomSize = 3.0f;
+    private readonly float maxZoomSize = 20.0f;
 
+    private float onMouseTime = 0f;
 
     private Vector3 firstClickPoint;
     private Vector3 mousePosition;
@@ -29,7 +35,7 @@ public class CameraController : MonoBehaviour
         thisCamera = GetComponent<Camera>();
         targetSize = thisCamera.orthographicSize;
 
-        BuildPreviewer.SetActive(false);
+        buildPreviewer.SetActive(false);
     }
 
     void Update()
@@ -43,12 +49,12 @@ public class CameraController : MonoBehaviour
 
         if (Managers.Input.Mode == InputManager.InputMode.None) {
 
-            BuildPreviewer.SetActive(false);
+            buildPreviewer.SetActive(false);
             ViewMoving();
         }
         else
         {
-            BuildPreviewer.SetActive(true);
+            buildPreviewer.SetActive(true);
         }
 
     }
@@ -89,8 +95,32 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Vector3 move = (-mousePosition + firstClickPoint) * dragSpeed;
-            transform.position += new Vector3(move.x, move.y, 0);
+            onMouseTime += Time.deltaTime;
+            if (onMouseTime > dragHoldTime)
+            {
+                Vector3 move = (-mousePosition + firstClickPoint) * dragSpeed;
+                transform.position += new Vector3(move.x, move.y, 0);
+            }
+        }
+        else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            if (onMouseTime <= dragHoldTime)
+            {
+                var tmpTile = Managers.Map.GetTileOnPoint(mousePosition);
+                if (tmpTile.id != -1)
+                {
+                    buildingInfo.GetComponent<BuildingInfo>().SetBuildingInfo(tmpTile.id, tmpTile.building);
+                    buildingInfo.SetActive(true);
+                }
+                else
+                {
+                    buildingInfo.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            onMouseTime = 0;
         }
     }
 }

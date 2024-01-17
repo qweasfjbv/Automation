@@ -5,28 +5,31 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Smelter : BuildingBase
+public class Smelter : Production
 {
     const int ID = 106;
-    [SerializeField]
-    private int outputItemId = 21;
 
     private GameObject nextBelt;
     private List<Ingredient> ings;
+
+    [SerializeField]
     private int[] stores;
+    Coroutine smelterCoroutine;
     
-    private void Init()
+    private void Init(int itemId)
     {
+        this.outputItemId = itemId;
+
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];
-        for(int i=0; i<ings.Count; i++) { stores[i] = 0; }
+        for (int i=0; i<ings.Count; i++) { stores[i] = 0; }
 
-        StartCoroutine(SmelterCoroutine());
+        smelterCoroutine = StartCoroutine(SmelterCoroutine());
     }
 
     private void Start()
     {
-        Init();
+        Init(Managers.Resource.GetBuildingData(ID).OutputIds[0]);
     }
 
 
@@ -81,5 +84,12 @@ public class Smelter : BuildingBase
                 stores[i]++;
             }
         }
+    }
+
+    public override void ChangeOutputItemId(int id)
+    {
+        StopCoroutine(smelterCoroutine);
+
+        Init(id);
     }
 }

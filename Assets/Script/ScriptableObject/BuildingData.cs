@@ -14,4 +14,5 @@ public class BuildingData : ItemData
     public GameObject Prefab { get => prefab; }
     public float Speed { get => speed;}
     public List<int> Inputs { get => inputsDirs; }
+    public List<int> OutputIds { get => outputIds; }
 }

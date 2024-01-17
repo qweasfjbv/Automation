@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 24
   itemName: CoalIngot
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 701f2ce2a10588f4a9098b444fe38821, type: 3}
   productTime: 1
   ingredients:
   - id: 19

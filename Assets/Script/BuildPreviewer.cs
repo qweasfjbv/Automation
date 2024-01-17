@@ -117,14 +117,14 @@ public class BuildPreviewer : MonoBehaviour
 
     }
 
-    private bool CanClickToBuild()
+    public bool MouseIsOnUI()
     {
         if(EventSystem.current.IsPointerOverGameObject())
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     int tmpDir = 0;
@@ -154,7 +154,7 @@ public class BuildPreviewer : MonoBehaviour
         }
         sRenderer.color = tmpC;
 
-        if (Input.GetMouseButton(0) && CanClickToBuild())
+        if (Input.GetMouseButton(0) && !MouseIsOnUI())
         {
             tmpDir = rotateDir;
             if (lastPrevPoint != null)

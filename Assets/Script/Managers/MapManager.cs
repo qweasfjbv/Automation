@@ -1,9 +1,9 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Tile
 {
@@ -65,7 +65,7 @@ public class MapManager
         // Vein 생성 필요
 
         GenerateVeinsOnMap();
-    } 
+    }
 
 
 
@@ -90,7 +90,7 @@ public class MapManager
                 usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, tmpGo, usingArea[i, j].veinId);
             }
         }
-        
+
 
 
         return;
@@ -138,7 +138,7 @@ public class MapManager
         CalDir(pos, size, rot);
 
         if (start.x < 0 || start.y < 0) return false;
-        if(end.x > mapSizeX || end.y > mapSizeY) return false;
+        if (end.x > mapSizeX || end.y > mapSizeY) return false;
 
         for (int i = (int)start.y; i < (int)end.y; i++)
         {
@@ -151,7 +151,7 @@ public class MapManager
         return true;
     }
 
-    
+
     private void CalDir(Vector2 pos, Vector2 size, int rot)
     {
         switch (rot)
@@ -166,17 +166,17 @@ public class MapManager
                 break;
             case 2:
                 start.y = -1 * pos.y + size.y - 1; start.x = pos.x - size.x + 1;
-                end.y = -1* pos.y + 1; end.x = pos.x + 1;
+                end.y = -1 * pos.y + 1; end.x = pos.x + 1;
                 break;
             case 3:
-                start.y = -1 *  pos.y - size.x + 1; start.x = pos.x;
-                end.y = -1* pos.y + 1; end.x = pos.x + size.y;
+                start.y = -1 * pos.y - size.x + 1; start.x = pos.x;
+                end.y = -1 * pos.y + 1; end.x = pos.x + size.y;
                 break;
             default:
                 break;
         }
-        
-        
+
+
         return;
     }
 
@@ -189,19 +189,19 @@ public class MapManager
         int tmpDir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
         tmpDir = (tmpDir + 3) % 4;
 
-        for (int i= 0; i<4; i++)
+        for (int i = 0; i < 4; i++)
         {
             tmpDir = (tmpDir + 1) % 4;
             tmpy = Mathf.Abs((int)pos.y) + DY[tmpDir]; tmpx = (int)pos.x + DX[tmpDir];
-            
+
             // 방향 반대면 제외
-            if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (tmpDir + 2)%4) continue;
+            if (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot == (tmpDir + 2) % 4) continue;
             if (tmpy < 0 || tmpx < 0 || tmpy >= mapSizeY || tmpx >= mapSizeX) continue;
             if (usingArea[tmpy, tmpx].id == -1) continue;
 
             if (IsCanConnect(tmpy, tmpx, tmpDir))
             {
-                outDir = tmpDir;    
+                outDir = tmpDir;
                 return usingArea[tmpy, tmpx].building;
 
             }
@@ -232,7 +232,7 @@ public class MapManager
 
         for (int i = 0; i < bd.Inputs.Count; i++)
         {
-            if ((bd.Inputs[i] + 2 + usingArea[y, x].rot)%4 == com)
+            if ((bd.Inputs[i] + 2 + usingArea[y, x].rot) % 4 == com)
             {
                 return true;
             }
@@ -240,6 +240,13 @@ public class MapManager
 
 
         return false;
+    }
+
+    //  BoundCheck;
+
+    public ref Tile GetTileOnPoint(Vector2 pos)
+    {
+        return ref usingArea[Mathf.Abs(Mathf.CeilToInt(pos.y)), Mathf.FloorToInt(pos.x)];
     }
 
     private void GenerateVeinsOnMap()
