@@ -47,7 +47,7 @@ public class MapManager
     private int mapSizeX;
     private int mapSizeY;
     private Tile[,] usingArea;
-    public Tile[,] UsingArea { get => usingArea; }
+    private Tile nullTile = null;
 
     private Vector2 start = new Vector2(0, 0);
     private Vector2 end = new Vector2(0, 0);
@@ -183,7 +183,7 @@ public class MapManager
     readonly int[] DY = { -1, 0, 1, 0 };
     readonly int[] DX = { 0, 1, 0, -1 };
     int tmpy, tmpx;
-    public GameObject FindBuildingFromBelt(Vector2 pos, int id, ref int outDir)
+    public GameObject FindBuildingFromBelt(BuildingBase bbase, Vector2 pos, int id, ref int outDir)
     {
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
         int tmpDir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
@@ -202,6 +202,10 @@ public class MapManager
             if (IsCanConnect(tmpy, tmpx, tmpDir))
             {
                 outDir = tmpDir;
+                if (usingArea[tmpy, tmpx].building.GetComponent<Belt>() != null)
+                {
+                    usingArea[tmpy, tmpx].building.GetComponent<Belt>().SetPrevBuilding(bbase.GetComponent<BuildingBase>());
+                }
                 return usingArea[tmpy, tmpx].building;
 
             }
@@ -209,7 +213,7 @@ public class MapManager
         return null;
     }
 
-    public GameObject FindBeltFromBuilding(Vector2 pos, int dir = 0)
+    public GameObject FindBeltFromBuilding(BuildingBase bbase, Vector2 pos, int dir = 0)
     {
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
         dir = (usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot + dir) % 4;
@@ -220,6 +224,9 @@ public class MapManager
 
         if (usingArea[tmpy, tmpx].id == 101 && dir == usingArea[tmpy, tmpx].rot)
         {
+            if(usingArea[tmpy, tmpx].building.GetComponent<Belt>() != null) {
+                usingArea[tmpy, tmpx].building.GetComponent<Belt>().SetPrevBuilding(bbase.GetComponent<BuildingBase>());
+            }
             return usingArea[tmpy, tmpx].building;
         }
 
@@ -246,7 +253,11 @@ public class MapManager
 
     public ref Tile GetTileOnPoint(Vector2 pos)
     {
-        return ref usingArea[Mathf.Abs(Mathf.CeilToInt(pos.y)), Mathf.FloorToInt(pos.x)];
+        var tmpV = new Vector2Int(Mathf.FloorToInt(pos.x), Mathf.Abs(Mathf.CeilToInt(pos.y)));
+
+        if (tmpV.x >= mapSizeX || tmpV.y >= mapSizeY || tmpV.x < 0 || tmpV.y < 0) return ref nullTile;
+
+        return ref usingArea[tmpV.y, tmpV.x];
     }
 
     private void GenerateVeinsOnMap()

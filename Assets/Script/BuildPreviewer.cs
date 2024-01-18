@@ -175,11 +175,9 @@ public class BuildPreviewer : MonoBehaviour
 
             Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
 
-            // TODO : BoundCheck;
 
-
-            var tmpT = Managers.Map.UsingArea[Mathf.Abs((int)previewPosition.y), (int)previewPosition.x];
-            if (tmpT.building.GetComponent<Belt>() != null)
+            var tmpT = Managers.Map.GetTileOnPoint(previewPosition);
+            if (tmpT != null && tmpT.building.GetComponent<Belt>() != null)
             {
                 tmpT.building.GetComponent<Belt>().SetOutdir(tmpDir);
             }

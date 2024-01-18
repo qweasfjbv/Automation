@@ -42,7 +42,7 @@ public class Merger : BuildingBase
         while (true)
         {
             if (nextBelt == null)
-                nextBelt = Managers.Map.FindBeltFromBuilding(transform.position);
+                nextBelt = Managers.Map.FindBeltFromBuilding(this, transform.position);
             else
             {
                 for (int i = 0; i < 4; i++)
@@ -62,4 +62,8 @@ public class Merger : BuildingBase
 
     }
 
+    public override void EraseNextBelt(int rot)
+    {
+        nextBelt = null;
+    }
 }

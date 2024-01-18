@@ -18,6 +18,8 @@ public class Belt : BuildingBase
     [SerializeField]
     private GameObject beltItem;
 
+    private BuildingBase prevBuilding;
+
     public void SetDirs()
     {
         float tmp = transform.eulerAngles.z;
@@ -51,6 +53,7 @@ public class Belt : BuildingBase
 
     private void Init()
     {
+        beltItem.SetActive(false);
         nextBuilding = null;
         beltItemId = -1;
         SetDirs();
@@ -168,14 +171,28 @@ public class Belt : BuildingBase
     }
     private BuildingBase FindNextBelt()
     {
-        GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(transform.position, ID, ref outDir);
+        GameObject tmpBelt = Managers.Map.FindBuildingFromBelt(this, transform.position, ID, ref outDir);
         if (tmpBelt == null) return null;
         SetEndPos();
         return tmpBelt.GetComponent<BuildingBase>();
     }
 
+    public void SetPrevBuilding(BuildingBase bbase)
+    {
+        prevBuilding = bbase;
+    }
+    private void OnDisable()
+    {
+        if (prevBuilding != null) prevBuilding.EraseNextBelt(inDir);
+    }
+
     private void OnEnable()
     {
         Init();
+    }
+
+    public override void EraseNextBelt(int rot)
+    {
+        nextBuilding = null;
     }
 }

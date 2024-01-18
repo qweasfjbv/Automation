@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae2eee3b1d7404448aaf49d8aa09b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beltItemId: 0
   inDir: 0
   outDir: 0
-  nextBelt: {fileID: 0}
   beltItem: {fileID: 6492499360373384588}
+  nextBuilding: {fileID: 0}
 --- !u!1001 &6450034911914283202
 PrefabInstance:
   m_ObjectHideFlags: 0

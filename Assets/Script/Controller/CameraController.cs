@@ -107,7 +107,11 @@ public class CameraController : MonoBehaviour
             if (onMouseTime <= dragHoldTime)
             {
                 var tmpTile = Managers.Map.GetTileOnPoint(mousePosition);
-                if (tmpTile.id != -1)
+                if (tmpTile == null)
+                {
+
+                }
+                else if (tmpTile.id != -1)
                 {
                     buildingInfo.GetComponent<BuildingInfo>().SetBuildingInfo(tmpTile.id, tmpTile.building);
                     buildingInfo.SetActive(true);

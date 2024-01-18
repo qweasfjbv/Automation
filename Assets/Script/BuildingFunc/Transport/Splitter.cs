@@ -41,7 +41,7 @@ public class Splitter : BuildingBase
             for(int i =0; i<3; i++)
             {
                 if (nextBelt[i] != null) continue;
-                nextBelt[i] = Managers.Map.FindBeltFromBuilding(transform.position, (i + 4-NEXTOFFSET)%4);
+                nextBelt[i] = Managers.Map.FindBeltFromBuilding(this, transform.position, (i + 4-NEXTOFFSET)%4);
             }
 
             if (this.beltItemId != -1)
@@ -66,5 +66,9 @@ public class Splitter : BuildingBase
 
     }
 
+    public override void EraseNextBelt(int rot)
+    {
+        nextBelt[(rot - Managers.Map.GetTileOnPoint(transform.position).rot + NEXTOFFSET + 4) % 4] = null;
+    }
 }
 

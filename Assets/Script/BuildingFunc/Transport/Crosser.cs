@@ -22,7 +22,7 @@ public class Crosser : BuildingBase
     public override void SetBeltId(int id, int rot = 0)
     {
 
-        rot = (rot - Managers.Map.UsingArea[Mathf.Abs((int)Mathf.Ceil(transform.position.y)), (int)Mathf.Floor(transform.position.x)].rot + 4) % 4;
+        rot = (rot - Managers.Map.GetTileOnPoint(transform.position).rot + 4) % 4;
 
         beltItemIds[rot] = id;
 
@@ -30,7 +30,7 @@ public class Crosser : BuildingBase
 
     public override bool IsTransferAble(int id, int rot)
     {
-        rot = (rot - Managers.Map.UsingArea[Mathf.Abs((int)Mathf.Ceil(transform.position.y)), (int)Mathf.Floor(transform.position.x)].rot + 4)%4;
+        rot = (rot - Managers.Map.GetTileOnPoint(transform.position).rot + 4)%4;
 
         return beltItemIds[rot] == -1;
     }
@@ -43,7 +43,7 @@ public class Crosser : BuildingBase
             for (int i = 0; i < 2; i++)
             {
                 if (nextBelt[i] != null) continue;
-                nextBelt[i] = Managers.Map.FindBeltFromBuilding(transform.position, i);
+                nextBelt[i] = Managers.Map.FindBeltFromBuilding(this, transform.position, i);
             }
 
             for (int i = 0; i < 2; i++)
@@ -63,5 +63,8 @@ public class Crosser : BuildingBase
 
     }
 
-
+    public override void EraseNextBelt(int rot)
+    {
+        nextBelt[(rot - Managers.Map.GetTileOnPoint(transform.position).rot + 4) % 4] = null;
+    }
 }

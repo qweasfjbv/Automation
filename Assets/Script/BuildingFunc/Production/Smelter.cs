@@ -38,7 +38,7 @@ public class Smelter : Production
         while (true)
         {
             if (nextBelt == null)
-                nextBelt = Managers.Map.FindBeltFromBuilding(transform.position);
+                nextBelt = Managers.Map.FindBeltFromBuilding(this, transform.position);
             else
             {
                 if (CheckIngsPrepared())
@@ -91,5 +91,10 @@ public class Smelter : Production
         StopCoroutine(smelterCoroutine);
 
         Init(id);
+    }
+
+    public override void EraseNextBelt(int rot)
+    {
+        nextBelt = null;
     }
 }

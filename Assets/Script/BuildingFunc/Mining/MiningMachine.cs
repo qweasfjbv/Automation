@@ -11,7 +11,7 @@ public class MiningMachine : BuildingBase
 
     const int ID = 102;
 
-    
+    [SerializeField]
     private Belt nextBelt;
     [SerializeField]
     private int veinId;
@@ -21,7 +21,7 @@ public class MiningMachine : BuildingBase
     {
         nextBelt = null;
         miningCoroutine = null;
-        veinId = Managers.Map.UsingArea[(int)Mathf.Abs(Mathf.Ceil(transform.position.y)), (int)Mathf.Floor(transform.position.x)].veinId;
+        veinId = Managers.Map.GetTileOnPoint(transform.position).veinId;
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class MiningMachine : BuildingBase
 
         if (nextBelt == null)
         {
-            GameObject tmpGo = Managers.Map.FindBeltFromBuilding(transform.position);
+            GameObject tmpGo = Managers.Map.FindBeltFromBuilding(this, transform.position);
             if (tmpGo != null) nextBelt = tmpGo.GetComponent<Belt>();
             else nextBelt = null;
 
@@ -65,5 +65,8 @@ public class MiningMachine : BuildingBase
         return false;
     }
 
-
+    public override void EraseNextBelt(int rot)
+    {
+        nextBelt = null;
+    }
 }
