@@ -54,7 +54,7 @@ public class MapManager
 
     public void Init()
     {
-        mapSizeX = mapSizeY = 10;
+        mapSizeX = mapSizeY = 100;
 
         usingArea = new Tile[mapSizeY, mapSizeX];
 
