@@ -103,11 +103,19 @@ public class BuildPreviewer : MonoBehaviour
                 {
                     id = 102;
                 }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    id = 108;
+                }
                 break;
             case InputManager.InputMode.F3:
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     id = 106;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    id = 109;
                 }
                 break;
             default:

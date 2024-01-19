@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
-  m_Name: 25_DiamondIngot
+  m_Name: 11_CooperOre
   m_EditorClassIdentifier: 
-  itemId: 25
-  itemName: DiamondIngot
-  sprite: {fileID: 21300000, guid: 79e8bb07ee5435048b138c5280104842, type: 3}
-  productTime: 4
-  ingredients:
-  - id: 20
-    cnt: 1
-  - id: 19
-    cnt: 4
+  itemId: 11
+  itemName: CooperOre
+  sprite: {fileID: 21300000, guid: 87e400469876ecc49b645973df58b2d4, type: 3}
+  productTime: 2
+  ingredients: []

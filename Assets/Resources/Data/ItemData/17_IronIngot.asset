@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153e925f6e9c8a54cb6cae6adc6a8de3, type: 3}
-  m_Name: 15_DiamondVein
+  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
+  m_Name: 17_IronIngot
   m_EditorClassIdentifier: 
-  veinID: 15
-  oreID: 20
-  veinSprite: {fileID: 21300000, guid: fbff754bdbe9b56439b380ef47286c55, type: 3}
-  miningTime: 16
+  itemId: 17
+  itemName: IronIngot
+  sprite: {fileID: 21300000, guid: 2d4be422ac27d884f99f9e57f8dc1606, type: 3}
+  productTime: 1
+  ingredients:
+  - id: 12
+    cnt: 1
+  - id: 14
+    cnt: 1

@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
-  m_Name: 18_GoldOre
+  m_Script: {fileID: 11500000, guid: 153e925f6e9c8a54cb6cae6adc6a8de3, type: 3}
+  m_Name: 4_CoalVein
   m_EditorClassIdentifier: 
-  itemId: 18
-  itemName: GoldOre
-  sprite: {fileID: 21300000, guid: 5ccb1d2cfb3e1d24b84ca2463d0195a2, type: 3}
-  productTime: 2
-  ingredients: []
+  veinID: 4
+  oreID: 14
+  veinSprite: {fileID: 21300000, guid: c5356998ea9fd124392737016b18efdb, type: 3}
+  miningTime: 2

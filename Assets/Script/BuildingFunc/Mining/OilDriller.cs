@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
-public class MiningMachine : Mining
+public class OilDriller : Mining
 {
-    const int ID = 102;
+
+    const int ID = 108;
 
     [SerializeField]
     private int veinId;
@@ -32,7 +30,7 @@ public class MiningMachine : Mining
         }
         else
         {
-            if (veinId >= 1 && veinId <= 5 && miningCoroutine == null)
+            if (veinId == 6 && miningCoroutine == null)
             {
                 miningCoroutine = StartCoroutine(MiningCoroutine());
             }
@@ -47,9 +45,7 @@ public class MiningMachine : Mining
             yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(Managers.Resource.GetVeinData(veinId).OreID, 0));
             nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
 
-            yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime/Managers.Resource.GetBuildingData(ID).Speed);
+            yield return new WaitForSeconds(Managers.Resource.GetVeinData(veinId).MiningTime / Managers.Resource.GetBuildingData(ID).Speed);
         }
     }
-
-
 }

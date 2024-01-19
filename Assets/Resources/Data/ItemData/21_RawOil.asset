@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
-  m_Name: 20_DiamondOre
+  m_Name: 21_RawOil
   m_EditorClassIdentifier: 
-  itemId: 20
-  itemName: DiamondOre
-  sprite: {fileID: 21300000, guid: bad6c51133dfa51468c8397b33dc9bb9, type: 3}
-  productTime: 4
+  itemId: 21
+  itemName: RawOil
+  sprite: {fileID: 21300000, guid: bece92abc5fb35a43a2b9053a52a193f, type: 3}
+  productTime: 2
   ingredients: []

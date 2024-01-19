@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 9418b2240d29c1a4482f6cde0b8634bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d90e72dadb417c49931a60dca5aff02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 259763267919246670, guid: d78a470703bfcdf4fb53f82bd846dca9, type: 3}
+  beltItemId: 0
+  nextBelt: {fileID: 0}
   veinId: 0

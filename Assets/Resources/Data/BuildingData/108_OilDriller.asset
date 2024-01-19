@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
-  m_Name: 106_Smelter
+  m_Name: 108_OilDriller
   m_EditorClassIdentifier: 
-  itemId: 106
-  itemName: Smelter
-  sprite: {fileID: 21300000, guid: 2fc7f82d04d4bbe42aa1c432e9dec711, type: 3}
+  itemId: 108
+  itemName: OilDriller
+  sprite: {fileID: 21300000, guid: 0776ab573cedb5147939bdb9d619097d, type: 3}
   productTime: 1
   ingredients: []
   size: {x: 1, y: 1}
-  prefab: {fileID: 8405567373021842114, guid: 1726e0787a9c05e45bf0ec95a2de112b, type: 3}
+  prefab: {fileID: 5840986408366645811, guid: 793720dcddeede74e93d78bfc2dd940a, type: 3}
   speed: 1
-  inputsDirs: 010000000200000003000000
-  outputIds: 1000000011000000120000001300000014000000
+  inputsDirs: 02000000
+  outputIds: 

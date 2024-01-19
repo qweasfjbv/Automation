@@ -9,9 +9,9 @@ public class ResourceManager
     
     private Sprite[] beltSprites;
 
-    private readonly int veinOffset = 11;
-    private readonly int buildingOffset = 101;
-    private readonly int itemOffset = 16;
+    private readonly int VEINOFFSET = 1;
+    private readonly int BUILDINGOFFSET = 101;
+    private readonly int ITEMOFFSET = 11;
 
     public void Init()
     {
@@ -26,17 +26,17 @@ public class ResourceManager
 
     public ItemData GetItemData(int id)
     {
-        return itemDatas[id-itemOffset];
+        return itemDatas[id-ITEMOFFSET];
     }
 
     public BuildingData GetBuildingData(int id)
     {
-        return buildingDatas[id - buildingOffset];
+        return buildingDatas[id - BUILDINGOFFSET];
     }
 
     public VeinData GetVeinData(int id)
     {
-        return veinDatas[id - veinOffset];
+        return veinDatas[id - VEINOFFSET];
     }
 
     public Sprite GetBeltSprite(int id)
