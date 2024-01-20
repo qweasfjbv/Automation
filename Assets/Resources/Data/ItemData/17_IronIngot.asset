@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 17
   itemName: IronIngot
-  sprite: {fileID: 21300000, guid: 2d4be422ac27d884f99f9e57f8dc1606, type: 3}
+  sprite: {fileID: 5525099, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 1
   ingredients:
   - id: 12

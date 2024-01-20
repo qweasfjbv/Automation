@@ -11,14 +11,22 @@ public class Belt : BuildingBase
 
     private static int _beltID;
     const int ID = 101;
-
-    [SerializeField]
     int inDir, outDir;
 
+    int prevOutDir;
+
+    [SerializeField]
+    private Animator animator;
     [SerializeField]
     private GameObject beltItem;
 
+    [SerializeField]
+    private GameObject scaleAxis;
+    [SerializeField]
+    private GameObject[] childs;
+
     private BuildingBase prevBuilding;
+
 
     public void SetDirs()
     {
@@ -49,15 +57,21 @@ public class Belt : BuildingBase
 
     private Vector3 startPos, endPos;
 
-    public BuildingBase nextBuilding;
+    public BuildingBase nextBelt;
 
     private void Init()
     {
+
+        childs[0].SetActive(true);
+        childs[0].GetComponent<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
+        childs[1].SetActive(false);
+
         beltItem.SetActive(false);
-        nextBuilding = null;
+        nextBelt = null;
         beltItemId = -1;
         SetDirs();
-        nextBuilding = FindNextBelt();
+        prevOutDir = outDir;
+        nextBelt = FindNextBelt();
 
     }
 
@@ -72,24 +86,26 @@ public class Belt : BuildingBase
     private void Update()
     {
 
-        if (nextBuilding == null)
-            nextBuilding = FindNextBelt();
+        if (nextBelt == null)
+            nextBelt = FindNextBelt();
 
 
         if (beltItemId != -1 && beltItem.activeSelf == false)
         {
-
-            beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(beltItemId);
             StartCoroutine(BeltMove(1/Managers.Resource.GetBuildingData(ID).Speed));
         }
 
-        updateDir();
-
+        if (prevOutDir != outDir)
+        {
+            UpdateDir();
+            prevOutDir = outDir;
+        }
     }
 
     public override void SetBeltId(int id, int rot = 0)
     {
         this.beltItemId = id;
+        beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(id);
     }
 
     public override bool IsTransferAble(int id,int rot)
@@ -97,19 +113,29 @@ public class Belt : BuildingBase
         return beltItemId == -1;
     }
 
-    private void updateDir()
+    private void UpdateDir()
     {
+        beltItem.transform.rotation = Quaternion.identity;
+
         if ((outDir + 1) % 4 == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(2);
+            scaleAxis.transform.localScale = new Vector3(-1, 1, 1);
+            childs[0].SetActive(false);
+            childs[1].SetActive(true);
         }
         else if (outDir == inDir)
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(0);
+            scaleAxis.transform.localScale = new Vector3(1, 1, 1);
+            childs[1].SetActive(false);
+            childs[0].SetActive(true);
+            this.GetComponentInChildren<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
+
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetBeltSprite(1);
+            scaleAxis.transform.localScale = new Vector3(1, 1, 1);
+            childs[0].SetActive(false);
+            childs[1].SetActive(true);
         }
     }
 
@@ -137,14 +163,14 @@ public class Belt : BuildingBase
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        yield return new WaitUntil(() => nextBuilding != null && nextBuilding.IsTransferAble(beltItemId, outDir));
+        yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(beltItemId, outDir));
 
-        nextBuilding.SetBeltId(beltItemId, outDir);
+        nextBelt.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
 
-        if(nextBuilding.GetComponent<Belt>() != null)
+        if(nextBelt.GetComponent<Belt>() != null)
         {
-            yield return new WaitUntil(() => nextBuilding != null && nextBuilding.GetComponent<Belt>().beltItem.activeSelf == true);
+            yield return new WaitUntil(() => nextBelt != null && nextBelt.GetComponent<Belt>().beltItem.activeSelf == true);
         }
 
         beltItem.SetActive(false);
@@ -167,7 +193,7 @@ public class Belt : BuildingBase
     public void SetOutdir(int dir)
     {
         outDir = dir;
-        nextBuilding = FindNextBelt();
+        nextBelt = FindNextBelt();
     }
     private BuildingBase FindNextBelt()
     {
@@ -181,6 +207,7 @@ public class Belt : BuildingBase
     {
         prevBuilding = bbase;
     }
+
     private void OnDisable()
     {
         if (prevBuilding != null) prevBuilding.EraseNextBelt(inDir);
@@ -193,6 +220,6 @@ public class Belt : BuildingBase
 
     public override void EraseNextBelt(int rot)
     {
-        nextBuilding = null;
+        nextBelt = null;
     }
 }

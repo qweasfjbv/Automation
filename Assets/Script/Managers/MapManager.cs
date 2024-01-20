@@ -9,35 +9,35 @@ public class Tile
 {
     // building pos
     public int x, y;
-    // building size
-    public float sizeX, sizeY;
     // building id
     public int id;
 
     public int rot;
 
-    public int veinId;
+    // -1 : unbuildable, 0:buildable, >0 : veinId
+    public int terrainInfo;
+
     public GameObject building;
-    public Tile(int py = -1, int px = -1, float psizeY = -1, float psizeX = -1, int pid = -1, int rot = -1, GameObject building = null, int veinId = -1)
+    public Tile(int py = -1, int px = -1, int pid = -1, int rot = -1, GameObject building = null, int terrainInfo = 0)
     {
-        SetTile(py, px, psizeY, psizeX, pid, rot , building, veinId);
+        SetTile(py, px, pid, rot , building, terrainInfo);
         this.building = building;
     }
 
-    public void SetTile(int py, int px, float psizeY, float psizeX, int pid, int rot, GameObject factory = null, int veinId = -1)
+    public void SetTile(int py, int px, int pid, int rot, GameObject factory = null, int terrainInfo = 0)
     {
-        x = px; y = py; sizeX = psizeX; sizeY = psizeY; id = pid; this.rot = rot; this.building = factory;
-        this.veinId = veinId;
+        x = px; y = py; id = pid; this.rot = rot; this.building = factory;
+        this.terrainInfo = terrainInfo;
     }
 
     public void DeepCopy(Tile t)
     {
-        x = t.x; y = t.y; sizeX = t.sizeX; sizeY = t.sizeY; id = t.id; rot = t.rot; building = t.building;
+        x = t.x; y = t.y; id = t.id; rot = t.rot; building = t.building;
     }
 
     public void EraseBuilding()
     {
-        x = -1; y = -1; sizeX = -1; sizeY = -1; id = -1; rot = -1;
+        x = -1; y = -1; id = -1; rot = -1;
         building = null;
     }
 };
@@ -62,8 +62,8 @@ public class MapManager
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
 
-        // Vein 积己 鞘夸
 
+        // Vein 积己 鞘夸
         GenerateVeinsOnMap();
     }
 
@@ -80,14 +80,14 @@ public class MapManager
         }
         else
         {
-            tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+            tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, 0));
         }
 
         for (int i = (int)start.y; i < (int)end.y; i++)
         {
             for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, size.y, size.x, id, rot, tmpGo, usingArea[i, j].veinId);
+                usingArea[i, j] = new Tile((int)pos.y, (int)pos.x, id, rot, tmpGo, usingArea[i, j].terrainInfo);
             }
         }
 
@@ -107,7 +107,7 @@ public class MapManager
 
         if (tile.id == -1) return;
 
-        CalDir(new Vector2(tile.x, tile.y), new Vector2(tile.sizeX, tile.sizeY), tile.rot);
+        CalDir(new Vector2(tile.x, tile.y), Managers.Resource.GetBuildingData(tile.id).Size, tile.rot);
 
 
         //pooling 备泅
@@ -237,9 +237,9 @@ public class MapManager
     {
         BuildingData bd = Managers.Resource.GetBuildingData(usingArea[y, x].id);
 
-        for (int i = 0; i < bd.Inputs.Count; i++)
+        for (int i = 0; i < bd.InputDirs.Count; i++)
         {
-            if ((bd.Inputs[i] + 2 + usingArea[y, x].rot) % 4 == com)
+            if ((bd.InputDirs[i] + 2 + usingArea[y, x].rot) % 4 == com)
             {
                 return true;
             }
@@ -263,10 +263,9 @@ public class MapManager
     private void GenerateVeinsOnMap()
     {
 
-        usingArea[1, 0].veinId = 4;
-        usingArea[1, 1].veinId = 1;
-        usingArea[0, 1].veinId = 6;
+        usingArea[0, 0].terrainInfo = 1;
 
+        usingArea[0, 3].terrainInfo = usingArea[0, 4].terrainInfo = 6;
         // TODO : Sprite 积己
 
     }

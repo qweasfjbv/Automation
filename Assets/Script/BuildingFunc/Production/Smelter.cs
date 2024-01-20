@@ -19,6 +19,7 @@ public class Smelter : Production
     private void Init(int itemId)
     {
         this.outputItemId = itemId;
+        this.GetComponentInChildren<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
 
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];

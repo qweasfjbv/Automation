@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 16
   itemName: CooperIngot
-  sprite: {fileID: 21300000, guid: b4a0e7d1d029fe54f9a0e3c59f06c1a4, type: 3}
+  sprite: {fileID: 283689705, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 1
   ingredients:
   - id: 11

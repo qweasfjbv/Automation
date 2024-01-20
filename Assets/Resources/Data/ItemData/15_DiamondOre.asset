@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 15
   itemName: DiamondOre
-  sprite: {fileID: 21300000, guid: bad6c51133dfa51468c8397b33dc9bb9, type: 3}
+  sprite: {fileID: 329800889, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 4
   ingredients: []

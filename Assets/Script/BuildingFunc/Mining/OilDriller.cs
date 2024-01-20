@@ -13,9 +13,11 @@ public class OilDriller : Mining
 
     private void Start()
     {
+        this.GetComponentInChildren<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
+
         nextBelt = null;
         miningCoroutine = null;
-        veinId = Managers.Map.GetTileOnPoint(transform.position).veinId;
+        veinId = Managers.Map.GetTileOnPoint(transform.position).terrainInfo;
     }
 
     private void Update()

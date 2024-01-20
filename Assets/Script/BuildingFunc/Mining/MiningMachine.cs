@@ -15,9 +15,11 @@ public class MiningMachine : Mining
 
     private void Start()
     {
+        transform.GetChild(0).GetComponent<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
+
         nextBelt = null;
         miningCoroutine = null;
-        veinId = Managers.Map.GetTileOnPoint(transform.position).veinId;
+        veinId = Managers.Map.GetTileOnPoint(transform.position).terrainInfo;
     }
 
     private void Update()

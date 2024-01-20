@@ -7,7 +7,6 @@ public class ResourceManager
     private BuildingData[] buildingDatas;
     private VeinData[] veinDatas;
     
-    private Sprite[] beltSprites;
 
     private readonly int VEINOFFSET = 1;
     private readonly int BUILDINGOFFSET = 101;
@@ -19,7 +18,7 @@ public class ResourceManager
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         veinDatas = Resources.LoadAll<VeinData>("Data/VeinData");
-        beltSprites = Resources.LoadAll<Sprite>("Sprites/Belts");
+
     }
 
 
@@ -39,14 +38,8 @@ public class ResourceManager
         return veinDatas[id - VEINOFFSET];
     }
 
-    public Sprite GetBeltSprite(int id)
-    {
-        // 0: straight, 1: turn right, 2: turn left;
-        return beltSprites[id];
-    }
     public Sprite GetBuildingSprite(int id)
     {
-        // start from id:102, 101 is belt;
         return GetBuildingData(id).Image;
     }
 

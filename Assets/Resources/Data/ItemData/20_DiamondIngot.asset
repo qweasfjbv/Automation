@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 20
   itemName: DiamondIngot
-  sprite: {fileID: 21300000, guid: 79e8bb07ee5435048b138c5280104842, type: 3}
+  sprite: {fileID: -1369739822, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 4
   ingredients:
   - id: 15

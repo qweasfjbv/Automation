@@ -10,13 +10,13 @@ public class Managers : MonoBehaviour
     MapManager _map = new MapManager();
     ResourceManager _resource = new ResourceManager();
     InputManager _input = new InputManager();
-    UtilManager _util = new UtilManager();
+    AnimatorManager _anim = new AnimatorManager();
     PoolManager _pool = new PoolManager();
 
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static InputManager Input { get { return Instance._input; } }
-    public static UtilManager Util { get {  return Instance._util; } }
+    public static AnimatorManager Anim { get {  return Instance._anim; } }
     public static PoolManager Pool { get { return Instance._pool; } }   
 
 
@@ -44,6 +44,7 @@ public class Managers : MonoBehaviour
 
         s_instance._map.Init();
         s_instance._resource.Init();
+        s_instance._anim.Init();
         s_instance._pool.Init();
 
     }

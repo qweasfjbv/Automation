@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 101
   itemName: Belt
-  sprite: {fileID: 21300000, guid: 0c572ac560d6dab499463742626a802a, type: 3}
+  sprite: {fileID: 21300000, guid: ff98c95668b5d2942b1de21034d4602e, type: 3}
   productTime: 0.5
   ingredients:
   - id: 0
     cnt: 0
   size: {x: 1, y: 1}
-  prefab: {fileID: 2139692038917354386, guid: b9b1c3f163f2d0f4e81467ff6f702ccc, type: 3}
+  prefab: {fileID: 5729584344416720362, guid: a9ee97eea94b4e14495be072e91e0435, type: 3}
   speed: 1
   inputsDirs: 02000000
+  outputDirs: 00000000
   outputIds: 

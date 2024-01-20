@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 18
   itemName: GoldIngot
-  sprite: {fileID: 21300000, guid: 2b088dc5c6c531d40903994dc0508712, type: 3}
+  sprite: {fileID: 1202018479, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 2
   ingredients:
   - id: 13

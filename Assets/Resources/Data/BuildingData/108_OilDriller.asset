@@ -18,7 +18,8 @@ MonoBehaviour:
   productTime: 1
   ingredients: []
   size: {x: 1, y: 1}
-  prefab: {fileID: 5840986408366645811, guid: 793720dcddeede74e93d78bfc2dd940a, type: 3}
+  prefab: {fileID: 986988009254039045, guid: 793720dcddeede74e93d78bfc2dd940a, type: 3}
   speed: 1
-  inputsDirs: 02000000
+  inputsDirs: 
+  outputDirs: 00000000
   outputIds: 

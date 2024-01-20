@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 22
   itemName: RefinedOil
-  sprite: {fileID: 21300000, guid: c2852b58489da5f428742fd3574570e5, type: 3}
+  sprite: {fileID: -1316562079, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
   productTime: 2
   ingredients:
   - id: 21

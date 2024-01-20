@@ -18,6 +18,7 @@ public class Refinery : Production
     private void Init(int itemId)
     {
         this.outputItemId = itemId;
+        this.GetComponentInChildren<Animator>().Play(Managers.Anim.GetAnimId(ID), 0, Managers.Anim.GetAnimTime(ID));
 
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];
@@ -42,7 +43,7 @@ public class Refinery : Production
                 if (CheckIngsPrepared())
                 {
                     yield return new WaitForSeconds(Managers.Resource.GetItemData(outputItemId).ProductTime / Managers.Resource.GetBuildingData(ID).Speed);
-                    Debug.Log("REFINE READY");
+
                     yield return new WaitUntil(() => nextBelt != null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(outputItemId, 0));
                     nextBelt.GetComponent<BuildingBase>().SetBeltId(outputItemId);
                     for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }

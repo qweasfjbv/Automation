@@ -109,7 +109,7 @@ public class CameraController : MonoBehaviour
                 var tmpTile = Managers.Map.GetTileOnPoint(mousePosition);
                 if (tmpTile == null)
                 {
-
+                    buildingInfo.SetActive(false);
                 }
                 else if (tmpTile.id != -1)
                 {

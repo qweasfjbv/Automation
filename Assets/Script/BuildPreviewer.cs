@@ -1,18 +1,20 @@
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.PlayerSettings;
 
 public class BuildPreviewer : MonoBehaviour
 {
     [SerializeField] private GameObject preview;
-
+    [SerializeField] private GameObject gridBound;
+    [SerializeField] private List<GameObject> dirSprites;
+    [SerializeField] private GameObject dirAxis;
+    [SerializeField] private SpriteRenderer sRenderer;
 
     private int id;
 
 
-    private Vector2 previewSize;
-    private SpriteRenderer sRenderer;
+    private Vector2 previewSize; 
     Color tmpC;
 
 
@@ -24,12 +26,15 @@ public class BuildPreviewer : MonoBehaviour
     private Vector2 rotateOffset;
 
     private int rotateDir;
+    private int prevId;
+    
 
     private void Init()
     {
-        id = 101;
+
+        prevId = id = 101;
+        OnPrevBuildingChanged();
         rotateDir = 0;
-        sRenderer = preview.GetComponent<SpriteRenderer>();
         tmpC = sRenderer.color;
     }
 
@@ -40,14 +45,7 @@ public class BuildPreviewer : MonoBehaviour
 
     private void SettingById(int id)
     {
-        if (id == 101)
-        {
-            sRenderer.sprite = Managers.Resource.GetBeltSprite(0);
-        }
-        else
-        {
-            sRenderer.sprite = Managers.Resource.GetBuildingSprite(id);
-        }
+        sRenderer.sprite = Managers.Resource.GetBuildingSprite(id);
         previewSize = Managers.Resource.GetBuildingData(id).Size;
         
     }
@@ -65,6 +63,7 @@ public class BuildPreviewer : MonoBehaviour
     
     private void RotateToDir(int dir)
     {
+
         while (rotateDir != dir)
         {
             RotatePreview();
@@ -123,6 +122,31 @@ public class BuildPreviewer : MonoBehaviour
         
         }
 
+        if (prevId != id)
+        {
+            OnPrevBuildingChanged();
+            prevId = id;
+        }
+    }
+
+    private void OnPrevBuildingChanged()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            dirSprites[i].transform.GetChild(0).gameObject.SetActive(false);
+            dirSprites[i].transform.GetChild(1).gameObject.SetActive(false);
+        }
+        var tmp = Managers.Resource.GetBuildingData(id).OutputDirs;
+        for(int i=0; i<tmp.Count; i++)
+        {
+            dirSprites[tmp[i]].transform.GetChild(0).gameObject.SetActive(true);
+        }
+        tmp = Managers.Resource.GetBuildingData(id).InputDirs;
+
+        for (int i = 0; i < tmp.Count; i++)
+        {
+            dirSprites[tmp[i]].transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 
     public bool MouseIsOnUI()
@@ -147,7 +171,17 @@ public class BuildPreviewer : MonoBehaviour
 
         preview.transform.localScale = previewSize;
         preview.transform.position = previewPosition;
-        preview.transform.rotation = Quaternion.Euler(0, 0, -90 * rotateDir);
+        // preview로 봤을때 스프라이트가 회전
+        if (id == 101)
+        {
+            dirAxis.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            preview.transform.rotation = Quaternion.Euler(0, 0, -90 * rotateDir);
+        }
+        else
+        {
+            dirAxis.transform.localRotation = Quaternion.Euler(0, 0, -90 * rotateDir);
+            preview.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
 
 
         if (Managers.Map.BoundCheck(previewPoint, previewSize, rotateDir))
@@ -177,6 +211,7 @@ public class BuildPreviewer : MonoBehaviour
                     if (lastPrevPoint.Value.y < previewPoint.y) tmpDir = 0;
                     else tmpDir = 2;
                 }
+
                 RotateToDir(tmpDir);
 
             }
@@ -185,7 +220,8 @@ public class BuildPreviewer : MonoBehaviour
 
 
             var tmpT = Managers.Map.GetTileOnPoint(previewPosition);
-            if (tmpT != null && tmpT.building.GetComponent<Belt>() != null)
+
+            if (tmpT != null && tmpT.id != -1 && tmpT.building.GetComponent<Belt>() != null)
             {
                 tmpT.building.GetComponent<Belt>().SetOutdir(tmpDir);
             }
@@ -211,7 +247,16 @@ public class BuildPreviewer : MonoBehaviour
     }
 
 
+    private void OnDisable()
+    {
+        if (gridBound != null)
+            gridBound.SetActive(false);
+    }
 
+    private void OnEnable()
+    {
+        gridBound.SetActive(true);
+    }
 
 
 }

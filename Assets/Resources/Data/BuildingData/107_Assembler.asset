@@ -20,5 +20,6 @@ MonoBehaviour:
   size: {x: 0, y: 0}
   prefab: {fileID: 0}
   speed: 0
-  inputsDirs: 
+  inputsDirs: 010000000200000003000000
+  outputDirs: 00000000
   outputIds: 
