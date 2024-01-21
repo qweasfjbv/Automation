@@ -48,10 +48,20 @@ public class Merger : Transport
                 for (int i = 0; i < 4; i++)
                 {
                     beltDir = (beltDir + 1) % 4;
+
                     if (beltItemIds[beltDir] != -1)
                     {
-                        yield return new WaitUntil(() => nextBelt!=null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(beltItemIds[beltDir], 0));
-                        nextBelt.GetComponent<BuildingBase>().SetBeltId(beltItemIds[beltDir]);
+
+                        while(nextBelt == null || !nextBelt.GetComponent<BuildingBase>().IsTransferAble(beltItemIds[beltDir], 0))
+                        {
+
+                            if (nextBelt == null)
+                                nextBelt = Managers.Map.FindBeltFromBuilding(this, transform.position);
+
+                            yield return new WaitForFixedUpdate();
+                        }
+                            
+                            nextBelt.GetComponent<BuildingBase>().SetBeltId(beltItemIds[beltDir]);
                         beltItemIds[beltDir] = -1;
                     }
 

@@ -9,6 +9,7 @@ public class Smelter : Production
 {
     const int ID = 106;
 
+    [SerializeField]
     private GameObject nextBelt;
     private List<Ingredient> ings;
 
@@ -45,7 +46,13 @@ public class Smelter : Production
                 if (CheckIngsPrepared())
                 {
                     yield return new WaitForSeconds(Managers.Resource.GetItemData(outputItemId).ProductTime / Managers.Resource.GetBuildingData(ID).Speed);
-                    yield return new WaitUntil(() => nextBelt != null && nextBelt.GetComponent<BuildingBase>().IsTransferAble(outputItemId, 0));
+                    
+                    while(nextBelt == null || !nextBelt.GetComponent<BuildingBase>().IsTransferAble(outputItemId, 0))
+                    {
+                        if (nextBelt == null)
+                            nextBelt = Managers.Map.FindBeltFromBuilding(this, transform.position);
+                        yield return new WaitForFixedUpdate();
+                    }
                     nextBelt.GetComponent<BuildingBase>().SetBeltId(outputItemId);
                     for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
                 }

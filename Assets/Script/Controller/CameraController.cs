@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,9 @@ public class CameraController : MonoBehaviour
     private float dragSpeed;
     [SerializeField]
     private float dragHoldTime;
+
+    Vector2 minCameraPos = new Vector2(0, -10);
+    Vector3 maxCameraPos = new Vector2(30, 0);
 
     private Camera thisCamera;
     private float scroll;
@@ -83,6 +87,9 @@ public class CameraController : MonoBehaviour
         thisCamera.orthographicSize = targetSize;
             
         currentCameraPosition += offsetCamera;
+
+        currentCameraPosition.x = Mathf.Clamp(currentCameraPosition.x, minCameraPos.x, maxCameraPos.x);
+        currentCameraPosition.y = Mathf.Clamp(currentCameraPosition.y, minCameraPos.y, maxCameraPos.y);
         cameraTransform.position = currentCameraPosition;
     }
     void ViewMoving()
@@ -99,7 +106,8 @@ public class CameraController : MonoBehaviour
             if (onMouseTime > dragHoldTime)
             {
                 Vector3 move = (-mousePosition + firstClickPoint) * dragSpeed;
-                transform.position += new Vector3(move.x, move.y, 0);
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x + move.x, minCameraPos.x, maxCameraPos.x)
+                    , Mathf.Clamp(transform.position.y + move.y, minCameraPos.y, maxCameraPos.y), -10);
             }
         }
         else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())

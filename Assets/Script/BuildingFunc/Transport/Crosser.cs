@@ -51,8 +51,11 @@ public class Crosser : Transport
                 if (nextBelt[i] == null || !nextBelt[i].GetComponent<Belt>().IsTransferAble(beltItemIds[i], i)) continue;
                 else
                 {
-                    nextBelt[i].GetComponent<Belt>().SetBeltId(beltItemIds[i]);
-                    beltItemIds[i] = -1;
+                    if (beltItemIds[i] != -1)
+                    {
+                        nextBelt[i].GetComponent<Belt>().SetBeltId(beltItemIds[i]);
+                        beltItemIds[i] = -1;
+                    }
                 }
             }
 
