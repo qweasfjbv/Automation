@@ -19,6 +19,8 @@ public class BuildingInfo : MonoBehaviour
     [SerializeField] private Image outputImage;
     [SerializeField] private Image[] ingrImages = new Image[3];
 
+    [SerializeField] private Sprite shortSprite;
+    [SerializeField] private Sprite longSprite;
 
     private List<Transform> outputItemSlots = new List<Transform>();
 
@@ -26,10 +28,6 @@ public class BuildingInfo : MonoBehaviour
     private Production production;
     private int[] ids;
 
-    public void Start()
-    {
-
-    }
 
     public void SetBuildingInfo(int id, GameObject gameObject)
     {
@@ -40,6 +38,7 @@ public class BuildingInfo : MonoBehaviour
         if(Managers.Resource.GetBuildingData(id).OutputIds.Count == 0)
         {
             outputSetting.SetActive(false);
+            GetComponent<Image>().sprite = shortSprite;
             GetComponent<RectTransform>().sizeDelta = new Vector2(320, 100);
         }
         else
@@ -55,6 +54,7 @@ public class BuildingInfo : MonoBehaviour
 
             SetOutputSetting(production.OutputItemId);
             outputSetting.SetActive(true);
+            GetComponent<Image>().sprite = longSprite;
             GetComponent<RectTransform>().sizeDelta = new Vector2(320, 200);
         }
 
