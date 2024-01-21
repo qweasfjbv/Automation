@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class Splitter : BuildingBase
+public class Splitter : Transport
 {
     // 출구가 0,1,3번임. 1더해서 1,2,0 으로 만들고 배열관리
     readonly int NEXTOFFSET = 1;

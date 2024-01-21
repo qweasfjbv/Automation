@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
-public class Crosser : BuildingBase
+public class Crosser : Transport
 {
 
     int[] beltItemIds;

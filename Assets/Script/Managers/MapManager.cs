@@ -78,6 +78,10 @@ public class MapManager
         {
             tmpGo = Managers.Pool.Pop(buildPos, new Vector3(0, 0, -1 * rot * 90));
         }
+        else if(Managers.Resource.GetBuildingData(id).Prefab.GetComponentInChildren<Transport>() != null)
+        {
+            tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, -1 * rot * 90));
+        }
         else
         {
             tmpGo = GameObject.Instantiate(Managers.Resource.GetBuildingData(id).Prefab, buildPos, Quaternion.Euler(0, 0, 0));
@@ -264,6 +268,7 @@ public class MapManager
     {
 
         usingArea[0, 0].terrainInfo = 1;
+        usingArea[0, 1].terrainInfo = 4;
 
         usingArea[0, 3].terrainInfo = usingArea[0, 4].terrainInfo = 6;
         // TODO : Sprite »ý¼º

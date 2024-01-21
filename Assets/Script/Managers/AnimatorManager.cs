@@ -5,69 +5,40 @@ using UnityEngine;
 
 public class AnimatorManager
 {
-    private GameObject[] crits;
     private AnimatorStateInfo stateInfo;
+    Dictionary<int, GameObject> crits = new Dictionary<int, GameObject>();
 
     public void Init()
     {
-        crits = new GameObject[5];
-        crits[0] = GameObject.Find("BeltAnimCrit");
-        crits[1] = GameObject.Find("MMAnimCrit");
-        crits[2] = GameObject.Find("SmelterAnimCrit");
-        crits[3] = GameObject.Find("OilDrillAnimCrit");
-        crits[4] = GameObject.Find("RefineryAnimCrit");
+        crits.Add(101, GameObject.Find("BeltAnimCrit"));
+        crits.Add(102, GameObject.Find("MMAnimCrit"));
+        crits.Add(106, GameObject.Find("SmelterAnimCrit"));
+        crits.Add(108, GameObject.Find("OilDrillAnimCrit"));
+        crits.Add(109, GameObject.Find("RefineryAnimCrit"));
     }
 
     public int GetAnimId(int id)
     {
-
-        switch (id)
+        GameObject obj;
+        if (!crits.TryGetValue(id, out obj))
         {
-            case 101:
-                return crits[0].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
-            case 102:
-                return crits[1].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
-            case 106:
-                return crits[2].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
-            case 108:
-                return crits[3].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
-            case 109:
-                return crits[4].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
-
-            default:
-                break;
+            return -1;
         }
 
-        return -1;
+        return obj.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).shortNameHash;
+
     }
 
     public float GetAnimTime(int id)
     {
-        switch (id) {
-
-            case 101: 
-                stateInfo = crits[0].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-                break;
-
-            case 102: 
-                stateInfo = crits[1].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-                break;
-
-            case 106:
-                stateInfo = crits[2].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-                break;
-            case 108:
-                stateInfo = crits[3].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-                break;
-            case 109:
-                stateInfo = crits[4].transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-                break;
-
-            default:
-                break;
+        GameObject obj;
+        if (!crits.TryGetValue(id, out obj))
+        {
+            return -1;
         }
 
-        return stateInfo.normalizedTime;
+        return obj.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime;
+
     }
 
 }

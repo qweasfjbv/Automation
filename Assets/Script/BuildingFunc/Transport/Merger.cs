@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Merger : BuildingBase
+public class Merger : Transport
 {
     private GameObject nextBelt;
 

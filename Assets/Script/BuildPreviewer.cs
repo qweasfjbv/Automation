@@ -10,6 +10,7 @@ public class BuildPreviewer : MonoBehaviour
     [SerializeField] private List<GameObject> dirSprites;
     [SerializeField] private GameObject dirAxis;
     [SerializeField] private SpriteRenderer sRenderer;
+    [SerializeField] private InputModeUI inputModeUI;
 
     private int id;
 
@@ -147,6 +148,8 @@ public class BuildPreviewer : MonoBehaviour
         {
             dirSprites[tmp[i]].transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        inputModeUI.OnPrevIdChanged(prevId, id);
     }
 
     public bool MouseIsOnUI()

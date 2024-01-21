@@ -6,7 +6,7 @@ using UnityEditor.AssetImporters;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Belt : BuildingBase
+public class Belt : Transport
 {
 
     private static int _beltID;

@@ -20,7 +20,8 @@ MonoBehaviour:
   - id: 0
     cnt: 0
   size: {x: 1, y: 1}
-  prefab: {fileID: 8169708638869646858, guid: 12773af18aab7f5469d36b694e8a3a41, type: 3}
+  prefab: {fileID: 5446002295006716757, guid: 7e04807da3eb8404d9709b5ca4549c84, type: 3}
   speed: 1
   inputsDirs: 0200000003000000
+  outputDirs: 0000000001000000
   outputIds: 
