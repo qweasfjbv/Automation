@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
@@ -19,8 +20,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float dragHoldTime;
 
-    Vector2 minCameraPos = new Vector2(0, -10);
-    Vector3 maxCameraPos = new Vector2(30, 0);
+    Vector2 minCameraPos = new Vector2(0, -100);
+    Vector3 maxCameraPos = new Vector2(100, 0);
 
     private Camera thisCamera;
     private float scroll;

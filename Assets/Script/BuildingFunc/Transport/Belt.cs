@@ -28,6 +28,7 @@ public class Belt : Transport
     private BuildingBase prevBuilding;
 
 
+
     public void SetDirs()
     {
         float tmp = transform.eulerAngles.z;
@@ -59,6 +60,8 @@ public class Belt : Transport
 
     public BuildingBase nextBelt;
 
+    private Coroutine beltUpdateCoroutine;
+
     private void Init()
     {
 
@@ -73,6 +76,7 @@ public class Belt : Transport
         prevOutDir = outDir;
         nextBelt = FindNextBelt();
 
+        beltUpdateCoroutine = StartCoroutine(BeltUpdate());
     }
 
 
@@ -82,25 +86,30 @@ public class Belt : Transport
         Init();
         gameObject.name = $"Belt:{_beltID++}";
     }
-
-    private void Update()
+    
+    private IEnumerator BeltUpdate()
     {
-
-        if (nextBelt == null)
-            nextBelt = FindNextBelt();
-
-
-        if (beltItemId != -1 && beltItem.activeSelf == false)
+        while (true)
         {
-            StartCoroutine(BeltMove(1/Managers.Resource.GetBuildingData(ID).Speed));
-        }
+            if (nextBelt == null)
+                nextBelt = FindNextBelt();
 
-        if (prevOutDir != outDir)
-        {
-            UpdateDir();
-            prevOutDir = outDir;
+
+            if (beltItemId != -1 && beltItem.activeSelf == false)
+            {
+                StartCoroutine(BeltMove(1 / Managers.Resource.GetBuildingData(ID).Speed));
+            }
+
+            if (prevOutDir != outDir)
+            {
+                UpdateDir();
+                prevOutDir = outDir;
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
+
 
     public override void SetBeltId(int id, int rot = 0)
     {
@@ -210,6 +219,7 @@ public class Belt : Transport
 
     private void OnDisable()
     {
+        StopCoroutine(beltUpdateCoroutine);
         if (prevBuilding != null) prevBuilding.EraseNextBelt(inDir);
     }
 

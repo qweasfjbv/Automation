@@ -191,7 +191,7 @@ public class MapManager
     {
         pos = new Vector2(Mathf.Floor(pos.x), Mathf.Ceil(pos.y));
         int tmpDir = usingArea[Mathf.Abs((int)pos.y), (int)pos.x].rot;
-        tmpDir = (tmpDir + 3) % 4;
+        tmpDir = (outDir + 3) % 4;
 
         for (int i = 0; i < 4; i++)
         {

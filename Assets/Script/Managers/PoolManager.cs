@@ -18,7 +18,7 @@ public class PoolManager
             Object.DontDestroyOnLoad(_root);
         }
 
-        SetPooling(100);
+        SetPooling(1000);
     }
 
     private void SetPooling(int count)
