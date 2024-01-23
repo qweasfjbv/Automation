@@ -18,4 +18,4 @@ MonoBehaviour:
   productTime: 2
   ingredients:
   - id: 21
-    cnt: 1
+    cnt: 2

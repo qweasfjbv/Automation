@@ -267,10 +267,36 @@ public class MapManager
     private void GenerateVeinsOnMap()
     {
 
-        usingArea[0, 0].terrainInfo = 1;
-        usingArea[0, 1].terrainInfo = 4;
+        usingArea[0, 2].terrainInfo = 1;
+        usingArea[0, 3].terrainInfo = 1;
+        usingArea[1, 3].terrainInfo = 4;
+        usingArea[1, 2].terrainInfo = 4;
 
-        usingArea[0, 3].terrainInfo = usingArea[0, 4].terrainInfo = 6;
+        usingArea[5, 2].terrainInfo = 2;
+        usingArea[5, 3].terrainInfo = 2;
+        usingArea[6, 3].terrainInfo = 4;
+        usingArea[6, 2].terrainInfo = 4;
+
+        usingArea[10, 2].terrainInfo = 3;
+        usingArea[10, 3].terrainInfo = 3;
+        usingArea[11, 3].terrainInfo = 4;
+        usingArea[11, 2].terrainInfo = 4;
+
+        usingArea[15, 0].terrainInfo = 4;
+        usingArea[15, 1].terrainInfo = 4;
+        usingArea[16, 1].terrainInfo = 4;
+        usingArea[16, 0].terrainInfo = 4;
+
+
+        usingArea[20, 2].terrainInfo = 5;
+        usingArea[20, 3].terrainInfo = 5;
+        usingArea[21, 3].terrainInfo = 4;
+        usingArea[21, 2].terrainInfo = 4;
+
+        usingArea[25, 0].terrainInfo = 6;
+        usingArea[25, 1].terrainInfo = 6;
+        usingArea[26, 1].terrainInfo = 6;
+        usingArea[26, 0].terrainInfo = 6;
         // TODO : Sprite »ý¼º
 
     }

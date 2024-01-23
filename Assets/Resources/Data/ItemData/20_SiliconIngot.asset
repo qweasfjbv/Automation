@@ -15,7 +15,7 @@ MonoBehaviour:
   itemId: 20
   itemName: SiliconIngot
   sprite: {fileID: -1369739822, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
-  productTime: 4
+  productTime: 2
   ingredients:
   - id: 15
     cnt: 1

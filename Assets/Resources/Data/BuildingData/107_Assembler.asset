@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
   m_Name: 107_Assembler
   m_EditorClassIdentifier: 
-  itemId: 0
-  itemName: 
-  sprite: {fileID: 0}
+  itemId: 107
+  itemName: Assembler
+  sprite: {fileID: 21300000, guid: 7aa0cbd9d43095540bfb701a6d367ead, type: 3}
   productTime: 0
   ingredients: []
-  size: {x: 0, y: 0}
-  prefab: {fileID: 0}
-  speed: 0
+  size: {x: 1, y: 1}
+  prefab: {fileID: 4553250907538534395, guid: 57d3b32db42b1644c86cda8ef6b879d9, type: 3}
+  speed: 1
   inputsDirs: 010000000200000003000000
   outputDirs: 00000000
-  outputIds: 
+  outputIds: 1d0000001e0000001f00000020000000210000002200000023000000

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemId: 16
   itemName: CooperIngot
   sprite: {fileID: 283689705, guid: 044119f59638e384ab57e6c968f34c57, type: 3}
-  productTime: 1
+  productTime: 2
   ingredients:
   - id: 11
     cnt: 1

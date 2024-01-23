@@ -35,4 +35,13 @@ public class ItemData : ScriptableObject
     public float ProductTime { get => productTime;}
     public List<Ingredient> Ingredients { get => ingredients; }
 
+
+    public void SetItemData(ItemJsonData data)
+    {
+        itemId = data.ID;
+        itemName = data.Name;
+        ingredients.Clear();
+        ingredients = data.Ingredient;
+        productTime = data.ProductTime;
+    }
 }

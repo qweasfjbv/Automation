@@ -28,6 +28,9 @@ public class InputModeUI : MonoBehaviour
 
         uiDict.Add(106, popups[2].transform.GetChild(0));
         uiDict.Add(109, popups[2].transform.GetChild(1));
+        uiDict.Add(107, popups[2].transform.GetChild(2));
+        uiDict.Add(110, popups[2].transform.GetChild(3));
+
     }
 
     private void Update()

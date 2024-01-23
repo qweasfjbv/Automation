@@ -117,6 +117,14 @@ public class BuildPreviewer : MonoBehaviour
                 {
                     id = 109;
                 }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    id = 107;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    id = 110;
+                }
                 break;
             default:
                 break;
@@ -175,7 +183,7 @@ public class BuildPreviewer : MonoBehaviour
         preview.transform.localScale = previewSize;
         preview.transform.position = previewPosition;
         // preview로 봤을때 스프라이트가 회전
-        if (id == 101)
+        if (Managers.Resource.GetBuildingData(id).Prefab.GetComponent<Transport>() != null)
         {
             dirAxis.transform.localRotation = Quaternion.Euler(0, 0, 0);
             preview.transform.rotation = Quaternion.Euler(0, 0, -90 * rotateDir);
