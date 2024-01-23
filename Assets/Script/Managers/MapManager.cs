@@ -97,9 +97,12 @@ public class MapManager
 
 
 
+        InvokeNearbyBelts(pos);
+
         return;
 
     }
+
 
     public void Unbuild(Vector2 pos)
     {
@@ -235,6 +238,20 @@ public class MapManager
         }
 
         return null;
+    }
+
+    private void InvokeNearbyBelts(Vector2 pos)
+    {
+        int ty, tx;
+        for(int i=0; i<4; i++)
+        {
+            ty = -(int)pos.y + DY[i]; tx = (int)pos.x + DX[i];
+
+            if (ty < 0 || tx < 0 || ty >= mapSizeY || tx >= mapSizeX) continue;
+            if (usingArea[ty, tx].id == -1 || usingArea[ty, tx].building.GetComponent<Belt>() == null) continue;
+
+            usingArea[ty, tx].building.GetComponent<Belt>().InvokeBelt();
+        }
     }
 
     private bool IsCanConnect(int y, int x, int com)

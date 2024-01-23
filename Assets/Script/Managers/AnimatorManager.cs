@@ -12,9 +12,7 @@ public class AnimatorManager
     {
         crits.Add(101, GameObject.Find("BeltAnimCrit"));
         crits.Add(102, GameObject.Find("MMAnimCrit"));
-        crits.Add(106, GameObject.Find("SmelterAnimCrit"));
         crits.Add(108, GameObject.Find("OilDrillAnimCrit"));
-        crits.Add(109, GameObject.Find("RefineryAnimCrit"));
     }
 
     public int GetAnimId(int id)

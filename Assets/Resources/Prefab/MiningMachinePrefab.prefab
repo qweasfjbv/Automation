@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: drill_idle
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 223ecb6c13dc13c449f0dd1247d23f35, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 223ecb6c13dc13c449f0dd1247d23f35, type: 3}
       propertyPath: m_SortingOrder
       value: 4

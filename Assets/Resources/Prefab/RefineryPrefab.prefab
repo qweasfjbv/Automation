@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Refinery
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 0abe6a71819a955409a12ba758ef617e, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 0abe6a71819a955409a12ba758ef617e, type: 3}
       propertyPath: m_SortingOrder
       value: 4

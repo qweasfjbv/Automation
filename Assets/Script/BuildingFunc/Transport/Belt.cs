@@ -91,8 +91,6 @@ public class Belt : Transport
     {
         while (true)
         {
-            if (nextBelt == null)
-                nextBelt = FindNextBelt();
 
 
             if (beltItemId != -1 && beltItem.activeSelf == false)
@@ -186,6 +184,12 @@ public class Belt : Transport
 
         yield return null;
 
+    }
+
+    public void InvokeBelt()
+    {
+        if (nextBelt == null)
+            nextBelt = FindNextBelt();
     }
 
     float[] by = {0.5f, 0, -0.5f, 0 };

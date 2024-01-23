@@ -126,6 +126,11 @@ public class BuildPreviewer : MonoBehaviour
                     id = 110;
                 }
                 break;
+            case InputManager.InputMode.F6:
+                if (Input.GetKeyDown(KeyCode.Alpha1)){
+                    id = 111;
+                }
+                break;
             default:
                 break;
         

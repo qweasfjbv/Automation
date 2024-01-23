@@ -58,6 +58,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Splitter
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 203bd72eb566c174cb8776f669f8f0e7, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 203bd72eb566c174cb8776f669f8f0e7, type: 3}
       propertyPath: m_SortingOrder
       value: 4

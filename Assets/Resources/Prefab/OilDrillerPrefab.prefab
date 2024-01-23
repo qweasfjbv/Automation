@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OilDriller
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: d828cd8e18aed1740a5faf70b8211c1d, type: 3}
+      propertyPath: m_CullingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: d828cd8e18aed1740a5faf70b8211c1d, type: 3}
       propertyPath: m_SortingOrder
       value: 4

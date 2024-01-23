@@ -52,7 +52,14 @@ public class ResourceManager
 
     public ItemData GetItemData(int id)
     {
-        return itemDatas[id-ITEMOFFSET];
+        if (id < 100)
+        {
+            return itemDatas[id - ITEMOFFSET];
+        }
+        else
+        {
+            return GetBuildingData(id);
+        }
     }
 
     public BuildingData GetBuildingData(int id)
