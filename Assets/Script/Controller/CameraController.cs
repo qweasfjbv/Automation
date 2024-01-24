@@ -35,10 +35,14 @@ public class CameraController : MonoBehaviour
     private Vector3 firstClickPoint;
     private Vector3 mousePosition;
 
-    private void Awake()
+    private void Start()
     {
         thisCamera = GetComponent<Camera>();
         targetSize = thisCamera.orthographicSize;
+
+        minCameraPos.y = -Managers.Map.MapSizeY;
+        maxCameraPos.x = Managers.Map.MapSizeX;
+
 
         buildPreviewer.SetActive(false);
     }

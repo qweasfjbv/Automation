@@ -39,4 +39,9 @@ public class AnimatorManager
 
     }
 
+    public void Clear()
+    {
+        crits.Clear();
+    }
+
 }

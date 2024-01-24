@@ -24,7 +24,7 @@ public class ButtonController : MonoBehaviour
 
     private void OnPressButtonNewGame()
     {
-
+        Managers.Scene.LoadScene(SceneEnum.Game);
     }
 
     private void OnPressButtonContinue()

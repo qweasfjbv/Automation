@@ -22,7 +22,7 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }   
     public static SceneManagerEx Scene { get { return Instance._scene; } }
 
-    void Start()
+    void Awake()
     {
         Init();
     }
@@ -44,7 +44,15 @@ public class Managers : MonoBehaviour
 
         }
 
-        s_instance._map.Init();
+        if (GameObject.FindObjectOfType<TutorialScene>() != null)
+        {
+            s_instance._map.Init(30);
+        }
+        else if(GameObject.FindObjectOfType<GameScene>() != null)
+        {
+            s_instance._map.Init(100);
+        }
+
         s_instance._resource.Init();
         s_instance._anim.Init();
         s_instance._pool.Init();
@@ -56,5 +64,6 @@ public class Managers : MonoBehaviour
         s_instance._input.Clear();
         s_instance._pool.Clear();
         s_instance._map.Clear();
+        s_instance._anim.Clear();
     }
 }

@@ -40,7 +40,7 @@ public class BuildPreviewer : MonoBehaviour
         tmpC = sRenderer.color;
     }
 
-    public void Awake()
+    public void Start()
     {
         Init();
     }

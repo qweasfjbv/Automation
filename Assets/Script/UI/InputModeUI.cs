@@ -72,6 +72,7 @@ public class InputModeUI : MonoBehaviour
     public void OnPrevIdChanged(int prevId, int id)
     {
         Transform tmp;
+        Debug.Log(prevId);
         if (!uiDict.TryGetValue(prevId, out tmp)) {
             Debug.Log("ERROR : prevId Doesn't exist");
             return; 

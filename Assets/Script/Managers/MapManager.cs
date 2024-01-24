@@ -54,22 +54,23 @@ public class MapManager
 {
     private int mapSizeX;
     private int mapSizeY;
+    public int MapSizeX { get => mapSizeX; }
+    public int MapSizeY { get => mapSizeY; }
     private Tile[,] usingArea;
     private Tile nullTile = null;
 
     private Vector2 start = new Vector2(0, 0);
     private Vector2 end = new Vector2(0, 0);
 
-    public void Init()
+    public void Init(int mapSize)
     {
-        mapSizeX = mapSizeY = 100;
+        mapSizeX = mapSizeY = mapSize;
 
         usingArea = new Tile[mapSizeY, mapSizeX];
 
         for (int i = 0; i < mapSizeY; i++)
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
-
 
         // Vein 생성 필요
         GenerateVeinsOnMap();

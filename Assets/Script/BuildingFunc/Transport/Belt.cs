@@ -226,7 +226,8 @@ public class Belt : Transport
 
     private void OnDisable()
     {
-        StopCoroutine(beltUpdateCoroutine);
+        if (beltUpdateCoroutine != null)
+            StopCoroutine(beltUpdateCoroutine);
         if (prevBuilding != null) prevBuilding.EraseNextBelt(inDir);
     }
 
