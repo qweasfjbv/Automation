@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,6 +40,13 @@ public class Tile
     {
         x = -1; y = -1; id = -1; rot = -1;
         building = null;
+    }
+
+    public void ClearBuilding()
+    {
+        if (building != null) GameObject.Destroy(building);
+        EraseBuilding();
+        terrainInfo = 0;
     }
 };
 
@@ -281,6 +289,7 @@ public class MapManager
         return ref usingArea[tmpV.y, tmpV.x];
     }
 
+
     private void GenerateVeinsOnMap()
     {
 
@@ -316,6 +325,19 @@ public class MapManager
         usingArea[26, 0].terrainInfo = 6;
         // TODO : Sprite »ý¼º
 
+    }
+
+    public void Clear() {
+        for (int i = 0; i < mapSizeX; i++)
+        {
+            for (int j = 0; j < mapSizeY; j++)
+            {
+                usingArea[j, i].ClearBuilding();
+            }
+        }
+
+        usingArea = null;
+        GC.Collect();
     }
 
 }

@@ -57,4 +57,15 @@ public class PoolManager
         obj.transform.parent = _root;
         beltPool.Push(obj);
     }
+
+    public void Clear()
+    {
+        while(beltPool.Count > 0)
+        {
+            var tmp = beltPool.Pop();
+            GameObject.Destroy(tmp);
+        }
+
+        beltPool.Clear();
+    }
 }

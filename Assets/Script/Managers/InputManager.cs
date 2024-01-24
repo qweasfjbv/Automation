@@ -14,4 +14,8 @@ public class InputManager
 
     public InputMode Mode { get => inputMode; set => inputMode = value; }
 
+    public void Clear()
+    {
+        inputMode = InputMode.None;
+    }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Managers : MonoBehaviour
@@ -12,13 +13,14 @@ public class Managers : MonoBehaviour
     InputManager _input = new InputManager();
     AnimatorManager _anim = new AnimatorManager();
     PoolManager _pool = new PoolManager();
+    SceneManagerEx _scene = new SceneManagerEx();
 
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static InputManager Input { get { return Instance._input; } }
     public static AnimatorManager Anim { get {  return Instance._anim; } }
     public static PoolManager Pool { get { return Instance._pool; } }   
-
+    public static SceneManagerEx Scene { get { return Instance._scene; } }
 
     void Start()
     {
@@ -49,4 +51,10 @@ public class Managers : MonoBehaviour
 
     }
 
+    public static void Clear()
+    {
+        s_instance._input.Clear();
+        s_instance._pool.Clear();
+        s_instance._map.Clear();
+    }
 }
