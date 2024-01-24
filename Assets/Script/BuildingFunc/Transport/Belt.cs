@@ -175,11 +175,14 @@ public class Belt : Transport
         nextBelt.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
 
-        if(nextBelt.GetComponent<Belt>() != null)
+        while (nextBelt != null && nextBelt.GetComponent<Belt>() != null)
         {
-            yield return new WaitUntil(() => nextBelt != null && nextBelt.GetComponent<Belt>().beltItem.activeSelf == true);
+            if (nextBelt.GetComponent<Belt>().beltItem.activeSelf == true)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.05f);
         }
-
         beltItem.SetActive(false);
 
         yield return null;

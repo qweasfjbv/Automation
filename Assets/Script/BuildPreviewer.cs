@@ -11,6 +11,7 @@ public class BuildPreviewer : MonoBehaviour
     [SerializeField] private GameObject dirAxis;
     [SerializeField] private SpriteRenderer sRenderer;
     [SerializeField] private InputModeUI inputModeUI;
+    [SerializeField] private BuildingInfo buildingInfo;
 
     private int id;
 
@@ -212,24 +213,28 @@ public class BuildPreviewer : MonoBehaviour
         }
         sRenderer.color = tmpC;
 
+
         if (Input.GetMouseButton(0) && !MouseIsOnUI())
         {
-            tmpDir = rotateDir;
-            if (lastPrevPoint != null)
+            if (!Input.GetKey(KeyCode.LeftShift))
             {
-                if (lastPrevPoint.Value.x != previewPoint.x)
+                tmpDir = rotateDir;
+                if (lastPrevPoint != null)
                 {
-                    if (lastPrevPoint.Value.x < previewPoint.x) tmpDir = 1;
-                    else tmpDir = 3;
-                }
-                else if (lastPrevPoint.Value.y != previewPoint.y)
-                {
-                    if (lastPrevPoint.Value.y < previewPoint.y) tmpDir = 0;
-                    else tmpDir = 2;
-                }
+                    if (lastPrevPoint.Value.x != previewPoint.x)
+                    {
+                        if (lastPrevPoint.Value.x < previewPoint.x) tmpDir = 1;
+                        else tmpDir = 3;
+                    }
+                    else if (lastPrevPoint.Value.y != previewPoint.y)
+                    {
+                        if (lastPrevPoint.Value.y < previewPoint.y) tmpDir = 0;
+                        else tmpDir = 2;
+                    }
 
-                RotateToDir(tmpDir);
+                    RotateToDir(tmpDir);
 
+                }
             }
 
             Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
@@ -249,6 +254,7 @@ public class BuildPreviewer : MonoBehaviour
             lastPrevPoint = null;
             if (Input.GetMouseButton(1))
             {
+                buildingInfo.gameObject.SetActive(false);
                 Managers.Map.Unbuild(previewPoint);
             }
             else if (Input.GetKeyDown(KeyCode.R))

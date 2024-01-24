@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 111_Crasher
   m_EditorClassIdentifier: 
   itemId: 111
-  itemName: Crasher
+  itemName: Crusher
   sprite: {fileID: 21300000, guid: 1b0ce05c0ac872341a4f70670a815c13, type: 3}
   productTime: 0
   ingredients: []
