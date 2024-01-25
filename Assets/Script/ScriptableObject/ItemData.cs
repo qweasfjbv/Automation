@@ -18,7 +18,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private int itemId;
     [SerializeField] private string itemName;
     [SerializeField] private Sprite sprite;
-    
+    [SerializeField] private string itemDescription;
     
     [SerializeField] private float productTime;
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();

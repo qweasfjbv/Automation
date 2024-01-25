@@ -1,0 +1,268 @@
+{
+  "buildingJsonDatas": [
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    },
+    {
+      "ID": 101,
+      "Name": "Belt",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "Belt can transport items building to building.",
+      "Size": {
+        "x": 1,
+        "y": 1
+      },
+      "Speed": 1,
+      "InputDirs": [
+        2
+      ],
+      "OutputDirs": [
+        0
+      ],
+      "OutputIds": []
+    }
+  ]
+}

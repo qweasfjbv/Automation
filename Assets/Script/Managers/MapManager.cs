@@ -329,15 +329,18 @@ public class MapManager
     }
 
     public void Clear() {
-        for (int i = 0; i < mapSizeX; i++)
+        if (usingArea != null)
         {
-            for (int j = 0; j < mapSizeY; j++)
+            for (int i = 0; i < mapSizeX; i++)
             {
-                usingArea[j, i].ClearBuilding();
+                for (int j = 0; j < mapSizeY; j++)
+                {
+                    usingArea[j, i].ClearBuilding();
+                }
             }
+            usingArea = null;
         }
 
-        usingArea = null;
         GC.Collect();
     }
 

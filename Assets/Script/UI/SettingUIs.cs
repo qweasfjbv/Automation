@@ -24,7 +24,7 @@ public class SettingUIs : MonoBehaviour
 
     private GameObject curOpeningUI = null;
 
-    const int minItemId = 16;
+    const int minItemId = 11;
     const int maxItemId = 35;
 
     const int minBuildingId = 101;
@@ -64,11 +64,13 @@ public class SettingUIs : MonoBehaviour
                 {
                     itemButtonList[i].transform.GetComponent<Image>().sprite = null;
                     itemButtonList[i].transform.GetComponent<Image>().color = Color.clear;
+                    itemButtonList[i].transform.parent.gameObject.SetActive(false);
                 }
                 else
                 {
                     itemButtonList[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minItemId);
                     itemButtonList[i].transform.GetComponent<Image>().color = Color.white;
+                    itemButtonList[i].transform.parent.gameObject.SetActive(true);
                 }
             }
         }
@@ -96,11 +98,13 @@ public class SettingUIs : MonoBehaviour
                 {
                     buildingButtonList[i].transform.GetComponent<Image>().sprite = null;
                     buildingButtonList[i].transform.GetComponent<Image>().color = Color.clear;
+                    buildingButtonList[i].transform.parent.gameObject.SetActive(false);
                 }
                 else
                 {
                     buildingButtonList[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetBuildingSprite(i + minBuildingId);
                     buildingButtonList[i].transform.GetComponent<Image>().color = Color.white;
+                    buildingButtonList[i].transform.parent.gameObject.SetActive(true);
                 }
             }
         }
@@ -110,6 +114,10 @@ public class SettingUIs : MonoBehaviour
     {
         if (setting.activeSelf == false)
         {
+            if (curOpeningUI != null)
+            {
+                curOpeningUI.SetActive(false);
+            }
             setting.SetActive(true);
             curOpeningUI = setting;
         }

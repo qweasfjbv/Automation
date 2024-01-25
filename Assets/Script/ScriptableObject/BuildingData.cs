@@ -11,6 +11,8 @@ public class BuildingData : ItemData
     [SerializeField] private List<int> inputsDirs;
     [SerializeField] private List<int> outputDirs;
     [SerializeField] private List<int> outputIds;
+
+
     public Vector2 Size { get => size; }
     public GameObject Prefab { get => prefab; }
     public float Speed { get => speed;}
