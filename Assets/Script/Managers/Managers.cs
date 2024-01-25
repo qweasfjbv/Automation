@@ -44,18 +44,19 @@ public class Managers : MonoBehaviour
 
         }
 
+        s_instance._anim.Init();
+        s_instance._resource.Init();
         if (GameObject.FindObjectOfType<TutorialScene>() != null)
         {
             s_instance._map.Init(30);
+            s_instance._pool.Init(100);
         }
         else if(GameObject.FindObjectOfType<GameScene>() != null)
         {
             s_instance._map.Init(100);
+            s_instance._pool.Init(1000);
         }
 
-        s_instance._resource.Init();
-        s_instance._anim.Init();
-        s_instance._pool.Init();
 
     }
 

@@ -296,18 +296,18 @@ public class MapManager
 
         usingArea[0, 2].terrainInfo = 1;
         usingArea[0, 3].terrainInfo = 1;
-        usingArea[1, 3].terrainInfo = 4;
-        usingArea[1, 2].terrainInfo = 4;
+        usingArea[1, 3].terrainInfo = 1;
+        usingArea[1, 2].terrainInfo = 1;
 
-        usingArea[5, 2].terrainInfo = 2;
-        usingArea[5, 3].terrainInfo = 2;
+        usingArea[5, 2].terrainInfo = 4;
+        usingArea[5, 3].terrainInfo = 4;
         usingArea[6, 3].terrainInfo = 4;
         usingArea[6, 2].terrainInfo = 4;
 
-        usingArea[10, 2].terrainInfo = 3;
-        usingArea[10, 3].terrainInfo = 3;
-        usingArea[11, 3].terrainInfo = 4;
-        usingArea[11, 2].terrainInfo = 4;
+        usingArea[10, 2].terrainInfo = 2;
+        usingArea[10, 3].terrainInfo = 2;
+        usingArea[11, 3].terrainInfo = 2;
+        usingArea[11, 2].terrainInfo = 2;
 
         usingArea[15, 0].terrainInfo = 4;
         usingArea[15, 1].terrainInfo = 4;

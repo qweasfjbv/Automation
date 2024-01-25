@@ -19,7 +19,7 @@ public class ButtonController : MonoBehaviour
 
     private void OnPressButtonTutorial()
     {
-
+        Managers.Scene.LoadScene(SceneEnum.Tutorial);
     }
 
     private void OnPressButtonNewGame()

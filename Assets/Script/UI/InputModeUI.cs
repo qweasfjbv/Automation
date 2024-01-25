@@ -33,7 +33,10 @@ public class InputModeUI : MonoBehaviour
 
         uiDict.Add(111, popups[5].transform.GetChild(0));
 
+
+
     }
+
 
     private void Update()
     {
@@ -41,7 +44,7 @@ public class InputModeUI : MonoBehaviour
         {
             OnModButtonClicked(1);
         }
-        else if(Input.GetKeyDown(KeyCode.F2))
+        else if (Input.GetKeyDown(KeyCode.F2))
         {
             OnModButtonClicked(2);
         }
@@ -60,11 +63,10 @@ public class InputModeUI : MonoBehaviour
             OnModButtonClicked(5);
         }
         */
-        else if(Input.GetKeyDown(KeyCode.F6))
+        else if (Input.GetKeyDown(KeyCode.F6))
         {
             OnModButtonClicked(6);
         }
-        
 
 
     }

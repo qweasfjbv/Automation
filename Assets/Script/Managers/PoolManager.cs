@@ -10,7 +10,7 @@ public class PoolManager
     Stack<GameObject> beltPool = new Stack<GameObject>();
 
     private Transform _root;
-    public void Init()
+    public void Init(int cnt)
     {
         if (_root == null)
         {
@@ -18,7 +18,7 @@ public class PoolManager
             Object.DontDestroyOnLoad(_root);
         }
 
-        SetPooling(1000);
+        SetPooling(cnt);
     }
 
     private void SetPooling(int count)
