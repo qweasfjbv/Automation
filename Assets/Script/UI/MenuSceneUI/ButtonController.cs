@@ -24,12 +24,13 @@ public class ButtonController : MonoBehaviour
 
     private void OnPressButtonNewGame()
     {
+        Managers.Data.DeleteMap();
         Managers.Scene.LoadScene(SceneEnum.Game);
     }
 
     private void OnPressButtonContinue()
     {
-
+        Managers.Scene.LoadScene(SceneEnum.Game);
     }
 
     private void OnPressButtonSetting()

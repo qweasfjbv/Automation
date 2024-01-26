@@ -9,5 +9,6 @@ public abstract class Production : BuildingBase
 
     public int OutputItemId { get { return outputItemId; } set => outputItemId = value; }
 
+    abstract public void Init(int itemId);
     abstract public void ChangeOutputItemId(int id);
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class BuildingBase : MonoBehaviour
 {
     [SerializeField]
-    protected int beltItemId;
+    protected int beltItemId = -1;
 
 
 

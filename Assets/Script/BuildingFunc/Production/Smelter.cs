@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Smelter : Production
 {
@@ -16,16 +17,22 @@ public class Smelter : Production
     [SerializeField]
     private int[] stores;
     Coroutine smelterCoroutine;
-    
-    private void Init(int itemId)
-    {
-        this.outputItemId = itemId;
-       
-        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-        stores = new int[ings.Count];
-        for (int i=0; i<ings.Count; i++) { stores[i] = 0; }
 
-        smelterCoroutine = StartCoroutine(SmelterCoroutine());
+    private bool initOnce = false;
+
+    public override void Init(int itemId)
+    {
+        if (!initOnce)
+        {
+            this.outputItemId = itemId;
+
+            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+            stores = new int[ings.Count];
+            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+            smelterCoroutine = StartCoroutine(SmelterCoroutine());
+            initOnce = true;
+        }
     }
 
     private void Start()
@@ -97,7 +104,13 @@ public class Smelter : Production
     {
         StopCoroutine(smelterCoroutine);
 
-        Init(id);
+        this.outputItemId = id;
+
+        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+        stores = new int[ings.Count];
+        for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+        smelterCoroutine = StartCoroutine(SmelterCoroutine());
     }
 
     public override void EraseNextBelt(int rot)

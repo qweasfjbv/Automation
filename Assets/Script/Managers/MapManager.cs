@@ -72,7 +72,6 @@ public class MapManager
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
 
-        GenerateVeinsOnMap();
     }
 
 
@@ -290,7 +289,7 @@ public class MapManager
     }
 
 
-    private void GenerateVeinsOnMap()
+    public void GenerateVeinsOnMap()
     {
 
         usingArea[0, 2].terrainInfo = 1;

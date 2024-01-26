@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Refinery : Production
 {
@@ -14,16 +15,21 @@ public class Refinery : Production
     private int[] stores;
     Coroutine refineryCoroutine;
 
+    private bool initOnce = false;
 
-    private void Init(int itemId)
+    public override void Init(int itemId)
     {
-        this.outputItemId = itemId;
-        
-        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-        stores = new int[ings.Count];
-        for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+        if (!initOnce)
+        {
+            this.outputItemId = itemId;
 
-        refineryCoroutine = StartCoroutine(RefineryCoroutine());
+            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+            stores = new int[ings.Count];
+            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+            refineryCoroutine = StartCoroutine(RefineryCoroutine());
+            initOnce = true;
+        }
     }
 
     private void Start()
@@ -95,7 +101,13 @@ public class Refinery : Production
     {
         StopCoroutine(refineryCoroutine);
 
-        Init(id);
+        this.outputItemId = id;
+
+        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+        stores = new int[ings.Count];
+        for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+        refineryCoroutine = StartCoroutine(RefineryCoroutine());
     }
 
     public override void EraseNextBelt(int rot)

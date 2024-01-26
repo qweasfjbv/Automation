@@ -106,10 +106,7 @@ public class DataManager
             }
         }
 
-        if (File.Exists(path + fileName))
-        {
-            File.Delete(path + fileName);
-        }
+        DeleteMap();
 
         File.AppendAllText(path + fileName, JsonUtility.ToJson(tileDatas));
 
@@ -120,6 +117,7 @@ public class DataManager
     public bool LoadMap()
     {
         if(!File.Exists(path+fileName)) {
+            Managers.Map.GenerateVeinsOnMap();
             return false;
         }
         tileDatas = JsonUtility.FromJson<TileDatas>(File.ReadAllText(path + fileName));
@@ -149,18 +147,26 @@ public class DataManager
 
             if (tile.building.GetComponent<Belt>() != null)
             {
-                tile.building.GetComponent<Belt>().BeltItemId = tileDatas.tileData[i].itemId;
+                tile.building.GetComponent<Belt>().SetBeltId(tileDatas.tileData[i].itemId);
                 tile.building.GetComponent<Belt>().SetOutdir(tileDatas.tileData[i].outDir);
             }
             else if (tile.building.GetComponent<Production>() != null)
             {
-                tile.building.GetComponent<Production>().OutputItemId = tileDatas.tileData[i].itemId;
+                tile.building.GetComponent<Production>().Init(tileDatas.tileData[i].itemId);
             }
         }
 
         tileDatas.tileData.Clear();
 
         return true;
+    }
+
+    public void DeleteMap()
+    {
+        if (File.Exists(path + fileName))
+        {
+            File.Delete(path + fileName);
+        }
     }
 
 }

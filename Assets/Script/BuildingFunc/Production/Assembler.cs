@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Assembler : Production
 {
@@ -17,15 +18,22 @@ public class Assembler : Production
     private int[] stores;
     Coroutine assemblerCoroutine;
 
-    private void Init(int itemId)
-    {
-        this.outputItemId = itemId;
-        
-        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-        stores = new int[ings.Count];
-        for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+    private bool initOnce = false;
 
-        assemblerCoroutine = StartCoroutine(SmelterCoroutine());
+    public override void Init(int itemId)
+    {
+        if (!initOnce)
+        {
+            this.outputItemId = itemId;
+
+            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+            stores = new int[ings.Count];
+            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+            assemblerCoroutine = StartCoroutine(SmelterCoroutine());
+
+            initOnce = true;
+        }
     }
 
     private void Start()
@@ -97,7 +105,13 @@ public class Assembler : Production
     {
         StopCoroutine(assemblerCoroutine);
 
-        Init(id);
+        this.outputItemId = id;
+
+        ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
+        stores = new int[ings.Count];
+        for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+
+        assemblerCoroutine = StartCoroutine(SmelterCoroutine());
     }
 
     public override void EraseNextBelt(int rot)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.AssetImporters;
@@ -72,7 +73,6 @@ public class Belt : Transport
 
         beltItem.SetActive(false);
         nextBelt = null;
-        beltItemId = -1;
         SetDirs();
         prevOutDir = outDir;
         nextBelt = FindNextBelt();
@@ -84,7 +84,6 @@ public class Belt : Transport
 
     void Start()
     {
-        Init();
         gameObject.name = $"Belt:{_beltID++}";
     }
     
@@ -92,7 +91,6 @@ public class Belt : Transport
     {
         while (true)
         {
-
 
             if (beltItemId != -1 && beltItem.activeSelf == false)
             {
@@ -112,6 +110,8 @@ public class Belt : Transport
 
     public override void SetBeltId(int id, int rot = 0)
     {
+        if (id == -1) return;
+        Debug.Log(id);
         this.beltItemId = id;
         beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(id);
     }
@@ -234,6 +234,7 @@ public class Belt : Transport
 
     private void OnEnable()
     {
+        beltItemId = -1;
         Init();
     }
 
