@@ -111,7 +111,6 @@ public class Belt : Transport
     public override void SetBeltId(int id, int rot = 0)
     {
         if (id == -1) return;
-        Debug.Log(id);
         this.beltItemId = id;
         beltItem.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetItemSprite(id);
     }
@@ -150,6 +149,10 @@ public class Belt : Transport
     private IEnumerator BeltMove(float dl)
     {
         beltItem.SetActive(true);
+        if(prevBuilding.transform.GetComponent<Belt>() != null)
+        {
+            prevBuilding.GetComponent<Belt>().beltItem.SetActive(false);
+        }
         float t = 0f;
 
         SetStartPos();
@@ -176,19 +179,11 @@ public class Belt : Transport
         nextBelt.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
 
-        while (nextBelt != null && nextBelt.GetComponent<Belt>() != null)
-        {
-            if (nextBelt.GetComponent<Belt>().beltItem.activeSelf == true)
-            {
-                break;
-            }
-            yield return new WaitForSeconds(0.05f);
-        }
-        beltItem.SetActive(false);
 
         yield return null;
-
     }
+
+    
 
     public void InvokeBelt()
     {
