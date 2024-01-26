@@ -72,16 +72,15 @@ public class MapManager
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
 
-        // Vein 생성 필요
         GenerateVeinsOnMap();
     }
 
 
-
-    public void Build(int id, Vector2 pos, Vector2 size, Vector2 buildPos, int rot)
+    public void Build(int id, Vector2 pos, Vector2 size, int rot)
     {
         if (!BoundCheck(pos, size, rot)) return;
         GameObject tmpGo;
+        Vector2 buildPos = new Vector2(pos.x + size.x / 2, pos.y - size.y / 2);
 
         if (id == 101)
         {

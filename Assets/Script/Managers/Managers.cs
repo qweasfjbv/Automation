@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     AnimatorManager _anim = new AnimatorManager();
     PoolManager _pool = new PoolManager();
     SceneManagerEx _scene = new SceneManagerEx();
+    DataManager _data = new DataManager();
 
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
@@ -21,6 +22,7 @@ public class Managers : MonoBehaviour
     public static AnimatorManager Anim { get {  return Instance._anim; } }
     public static PoolManager Pool { get { return Instance._pool; } }   
     public static SceneManagerEx Scene { get { return Instance._scene; } }
+    public static DataManager Data { get { return Instance._data; } }
 
     void Awake()
     {
@@ -44,6 +46,7 @@ public class Managers : MonoBehaviour
 
         }
 
+
         s_instance._anim.Init();
         s_instance._resource.Init();
         if (GameObject.FindObjectOfType<TutorialScene>() != null)
@@ -56,6 +59,7 @@ public class Managers : MonoBehaviour
             s_instance._map.Init(100);
             s_instance._pool.Init(1000);
         }
+        s_instance._data.Init();
 
 
     }

@@ -237,7 +237,7 @@ public class BuildPreviewer : MonoBehaviour
                 }
             }
 
-            Managers.Map.Build(id, previewPoint, previewSize, previewPosition, rotateDir);
+            Managers.Map.Build(id, previewPoint, previewSize, rotateDir);
 
 
             var tmpT = Managers.Map.GetTileOnPoint(previewPosition);

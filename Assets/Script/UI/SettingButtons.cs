@@ -23,7 +23,7 @@ public class SettingButtons : MonoBehaviour
 
     private void OnExitButton()
     {
-        // TODO : 저장하는 기능 필요
+        Managers.Data.SaveMap();
         Managers.Scene.LoadScene(SceneEnum.Mainmenu);
     }
 }

@@ -27,7 +27,8 @@ public class Belt : Transport
 
     private BuildingBase prevBuilding;
 
-
+    public int BeltItemId { get => beltItemId; set => beltItemId = value; }
+    public int OutDir { get => outDir; }
 
     public void SetDirs()
     {

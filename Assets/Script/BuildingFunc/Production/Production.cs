@@ -7,7 +7,7 @@ public abstract class Production : BuildingBase
     [SerializeField]
     protected int outputItemId = -1;
 
-    public int OutputItemId { get { return outputItemId; } }
+    public int OutputItemId { get { return outputItemId; } set => outputItemId = value; }
 
     abstract public void ChangeOutputItemId(int id);
 }
