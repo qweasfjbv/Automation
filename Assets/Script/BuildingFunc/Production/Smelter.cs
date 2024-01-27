@@ -24,12 +24,7 @@ public class Smelter : Production
     {
         if (!initOnce)
         {
-            this.outputItemId = itemId;
-
-            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-            stores = new int[ings.Count];
-            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
-
+            SetOutputItemId(itemId);
             smelterCoroutine = StartCoroutine(SmelterCoroutine());
             initOnce = true;
         }
@@ -100,15 +95,19 @@ public class Smelter : Production
         }
     }
 
-    public override void ChangeOutputItemId(int id)
+    private void SetOutputItemId(int id)
     {
-        StopCoroutine(smelterCoroutine);
 
         this.outputItemId = id;
 
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];
         for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+    }
+    public override void ChangeOutputItemId(int id)
+    {
+        StopCoroutine(smelterCoroutine);
+        SetOutputItemId(id);
 
         smelterCoroutine = StartCoroutine(SmelterCoroutine());
     }

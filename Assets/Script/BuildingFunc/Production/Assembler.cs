@@ -24,13 +24,8 @@ public class Assembler : Production
     {
         if (!initOnce)
         {
-            this.outputItemId = itemId;
-
-            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-            stores = new int[ings.Count];
-            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
-
-            assemblerCoroutine = StartCoroutine(SmelterCoroutine());
+            SetOutputItemId(itemId);
+            assemblerCoroutine = StartCoroutine(AssemblerCoroutine());
 
             initOnce = true;
         }
@@ -42,7 +37,7 @@ public class Assembler : Production
     }
 
 
-    private IEnumerator SmelterCoroutine()
+    private IEnumerator AssemblerCoroutine()
     {
         while (true)
         {
@@ -101,17 +96,21 @@ public class Assembler : Production
         }
     }
 
-    public override void ChangeOutputItemId(int id)
+    private void SetOutputItemId(int id)
     {
-        StopCoroutine(assemblerCoroutine);
+
 
         this.outputItemId = id;
 
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];
         for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
-
-        assemblerCoroutine = StartCoroutine(SmelterCoroutine());
+    }
+    public override void ChangeOutputItemId(int id)
+    {
+        StopCoroutine(assemblerCoroutine);
+        SetOutputItemId(id);
+        assemblerCoroutine = StartCoroutine(AssemblerCoroutine());
     }
 
     public override void EraseNextBelt(int rot)

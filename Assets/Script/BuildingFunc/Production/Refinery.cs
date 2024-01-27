@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,11 +22,7 @@ public class Refinery : Production
     {
         if (!initOnce)
         {
-            this.outputItemId = itemId;
-
-            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-            stores = new int[ings.Count];
-            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+            SetOutputItemId(itemId);
 
             refineryCoroutine = StartCoroutine(RefineryCoroutine());
             initOnce = true;
@@ -97,16 +94,20 @@ public class Refinery : Production
         }
     }
 
-    public override void ChangeOutputItemId(int id)
+    public void SetOutputItemId(int id)
     {
-        StopCoroutine(refineryCoroutine);
 
         this.outputItemId = id;
 
         ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
         stores = new int[ings.Count];
         for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
+    }
 
+    public override void ChangeOutputItemId(int id)
+    {
+        StopCoroutine(refineryCoroutine);
+        SetOutputItemId(id);
         refineryCoroutine = StartCoroutine(RefineryCoroutine());
     }
 

@@ -21,13 +21,8 @@ public class Slicer : Production
     {
         if (!initOnce)
         {
-            this.outputItemId = itemId;
-
-            ings = Managers.Resource.GetItemData(outputItemId).Ingredients;
-            stores = new int[ings.Count];
-            for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
-
-            refineryCoroutine = StartCoroutine(RefineryCoroutine());
+            SetOutputItemId(itemId);
+            refineryCoroutine = StartCoroutine(SlicerCoroutine());
             initOnce = true;
         }
     }
@@ -37,7 +32,7 @@ public class Slicer : Production
         Init(Managers.Resource.GetBuildingData(ID).OutputIds[0]);
     }
 
-    private IEnumerator RefineryCoroutine()
+    private IEnumerator SlicerCoroutine()
     {
         while (true)
         {
@@ -97,9 +92,9 @@ public class Slicer : Production
         }
     }
 
-    public override void ChangeOutputItemId(int id)
+    private void SetOutputItemId(int id)
     {
-        StopCoroutine(refineryCoroutine);
+
 
         this.outputItemId = id;
 
@@ -107,7 +102,12 @@ public class Slicer : Production
         stores = new int[ings.Count];
         for (int i = 0; i < ings.Count; i++) { stores[i] = 0; }
 
-        refineryCoroutine = StartCoroutine(RefineryCoroutine());
+    }
+    public override void ChangeOutputItemId(int id)
+    {
+        StopCoroutine(refineryCoroutine);
+        SetOutputItemId(id);
+        refineryCoroutine = StartCoroutine(SlicerCoroutine());
     }
 
     public override void EraseNextBelt(int rot)
