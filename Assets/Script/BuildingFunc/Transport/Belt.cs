@@ -179,6 +179,10 @@ public class Belt : Transport
         nextBelt.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
 
+        if (nextBelt != null && nextBelt.GetComponent<Belt>() == null)
+        {
+            beltItem.SetActive(false);
+        }
 
         yield return null;
     }
