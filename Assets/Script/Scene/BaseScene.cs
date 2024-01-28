@@ -6,7 +6,8 @@ public enum SceneEnum {
     Unknown,
     Mainmenu,
     Tutorial,
-    Game
+    Game,
+    Loading
 };
 
 

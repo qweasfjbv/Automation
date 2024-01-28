@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -22,8 +23,7 @@ public class ItemData : ScriptableObject
     
     [SerializeField] private float productTime;
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
-
-
+    [SerializeField] private int makingBuildingId;
     
     
     
@@ -34,7 +34,8 @@ public class ItemData : ScriptableObject
     public Sprite Image { get => sprite; } 
     public float ProductTime { get => productTime;}
     public List<Ingredient> Ingredients { get => ingredients; }
-
+    public string Description { get => itemDescription; }   
+    public int MakingBuildingId { get => makingBuildingId; }
 
     public void SetItemData(ItemJsonData data)
     {
@@ -43,5 +44,7 @@ public class ItemData : ScriptableObject
         ingredients.Clear();
         ingredients = data.Ingredient;
         productTime = data.ProductTime;
+        itemDescription = data.Description;
+        makingBuildingId = data.MakingBuildingId;
     }
 }

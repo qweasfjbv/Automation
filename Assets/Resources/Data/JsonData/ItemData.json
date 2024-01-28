@@ -5,35 +5,40 @@
     "Name": "CooperOre",
     "Ingredient": [],
     "ProductTime": 2,
-    "Description": "It is obtained from mining CooperVein."
+    "Description": "It is obtained from mining CooperVein.",
+    "MakingBuildingId" : 102
   },
   {
     "ID": 12,
     "Name": "IronOre",
     "Ingredient": [],
     "ProductTime": 2,
-    "Description": "It is obtained from mining IronVein."
+    "Description": "It is obtained from mining IronVein.",
+    "MakingBuildingId": 102
   },
   {
     "ID": 13,
     "Name": "GoldOre",
     "Ingredient": [],
     "ProductTime": 2,
-    "Description": "It is obtained from mining GoldVein."
+    "Description": "It is obtained from mining GoldVein.",
+    "MakingBuildingId": 102
   },
   {
     "ID": 14,
     "Name": "CoalOre",
     "Ingredient": [],
     "ProductTime": 2,
-    "Description": "It is obtained from mining CoalVein."
+    "Description": "It is obtained from mining CoalVein.",
+    "MakingBuildingId": 102
   },
   {
     "ID": 15,
     "Name": "QuartzOre",
     "Ingredient": [],
     "ProductTime": 4,
-    "Description": "It is obtained from mining QuartzVein."
+    "Description": "It is obtained from mining QuartzVein.",
+    "MakingBuildingId": 102
   },
   {
     "ID": 16,
@@ -49,7 +54,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from smeting cooperore."
+    "Description": "It is obtained from smeting cooperore.",
+    "MakingBuildingId": 106
   },
   {
     "ID": 17,
@@ -66,7 +72,8 @@
     ],
     "ProductTime": 2,
 
-    "Description": "It is obtained from smeting IronOre."
+    "Description": "It is obtained from smeting IronOre.",
+    "MakingBuildingId": 106
   },
   {
     "ID": 18,
@@ -83,7 +90,8 @@
     ],
     "ProductTime": 2,
 
-    "Description": "It is obtained from smeting GoldOre."
+    "Description": "It is obtained from smeting GoldOre.",
+    "MakingBuildingId": 106
   },
   {
     "ID": 19,
@@ -95,7 +103,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from smeting CoalOre. it is ingredient of steel"
+    "Description": "It is obtained from smeting CoalOre. it is ingredient of steel",
+    "MakingBuildingId": 106
   },
   {
     "ID": 20,
@@ -111,14 +120,16 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from smeting QuartzOre. It can be a siliconwafer if sliced thinly."
+    "Description": "It is obtained from smeting QuartzOre. It can be a siliconwafer if sliced thinly.",
+    "MakingBuildingId": 106
   },
   {
     "ID": 21,
     "Name": "CrudeOil",
     "Ingredient": [],
     "ProductTime": 2,
-    "Description": "It is obtained from drilling groundcrack. it can be used only after refination."
+    "Description": "It is obtained from drilling groundcrack. it can be used only after refination.",
+    "MakingBuildingId": 108
   },
   {
     "ID": 22,
@@ -130,7 +141,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from refining crudeoil. it is main ingredient of plastic."
+    "Description": "It is obtained from refining crudeoil. it is main ingredient of plastic.",
+    "MakingBuildingId": 109
   },
   {
     "ID": 23,
@@ -142,7 +154,8 @@
       }
     ],
     "ProductTime": 3,
-    "Description": "It is obtained from refining crudeoil. it reduces friction."
+    "Description": "It is obtained from refining crudeoil. it reduces friction.",
+    "MakingBuildingId": 109
   },
   {
     "ID": 24,
@@ -158,7 +171,8 @@
       }
     ],
     "ProductTime": 3,
-    "Description": "It is made from oil and lubricant. it is light and bends well compared to steel."
+    "Description": "It is made from oil and lubricant. it is light and bends well compared to steel.",
+    "MakingBuildingId": 109
   },
   {
     "ID": 25,
@@ -174,7 +188,8 @@
       }
     ],
     "ProductTime": 3,
-    "Description": "It is made from coalingot and ironingot. it is main ingredient of buildings."
+    "Description": "It is made from coalingot and ironingot. it is main ingredient of buildings.",
+    "MakingBuildingId": 106
   },
   {
     "ID": 26,
@@ -186,7 +201,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from slicing copperingot. it has high electrical conductivity."
+    "Description": "It is obtained from slicing copperingot. it has high electrical conductivity.",
+    "MakingBuildingId": 110
   },
   {
     "ID": 27,
@@ -198,7 +214,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "It is obtained from slicing goldingot. it is used in for plating."
+    "Description": "It is obtained from slicing goldingot. it is used in for plating.",
+    "MakingBuildingId": 110
   },
   {
     "ID": 28,
@@ -210,7 +227,8 @@
       }
     ],
     "ProductTime": 5,
-    "Description": "It is obtained from slicing siliconingot. it required delicate techniques."
+    "Description": "It is obtained from slicing siliconingot. it required delicate techniques.",
+    "MakingBuildingId": 110
   },
   {
     "ID": 29,
@@ -222,7 +240,8 @@
       }
     ],
     "ProductTime": 2,
-    "Description": "it is bundle of copperwires. can make motor."
+    "Description": "it is bundle of copperwires. can make motor.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 30,
@@ -242,7 +261,8 @@
       }
     ],
     "ProductTime": 5,
-    "Description": "a device used to convert electrical energy into mechanical energy."
+    "Description": "a device used to convert electrical energy into mechanical energy.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 31,
@@ -258,7 +278,8 @@
       }
     ],
     "ProductTime": 4,
-    "Description": "a device used to convert sun's ray and convert them into electrical energy."
+    "Description": "a device used to convert sun's ray and convert them into electrical energy.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 32,
@@ -278,7 +299,8 @@
       }
     ],
     "ProductTime": 4,
-    "Description": "main ingredient of CPU. it is essential for a logical function."
+    "Description": "main ingredient of CPU. it is essential for a logical function.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 33,
@@ -298,7 +320,8 @@
       }
     ],
     "ProductTime": 6,
-    "Description": "a part of robot. but can't control itself."
+    "Description": "a part of robot. but can't control itself.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 34,
@@ -310,7 +333,8 @@
       }
     ],
     "ProductTime": 5,
-    "Description": "The key component of Robot. A robot without a CPU is just a lump of scrap metal."
+    "Description": "The key component of Robot. A robot without a CPU is just a lump of scrap metal.",
+    "MakingBuildingId": 107
   },
   {
     "ID": 35,
@@ -330,7 +354,8 @@
       }
     ],
     "ProductTime": 5,
-    "Description": "basic robot. parts can be added if necessary."
+    "Description": "basic robot. parts can be added if necessary.",
+    "MakingBuildingId": 107
   }
    ]
 }

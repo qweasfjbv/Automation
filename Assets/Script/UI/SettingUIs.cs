@@ -11,9 +11,13 @@ public class SettingUIs : MonoBehaviour
     [SerializeField]
     private GameObject itemDict;
     [SerializeField]
+    private GameObject itemDictInfo;
+    [SerializeField]
     private GameObject buildingDictButton;
     [SerializeField]
     private GameObject buildingDict;
+    [SerializeField]
+    private GameObject buildingDictInfo;
     [SerializeField]
     private GameObject settingButton;
     [SerializeField]
@@ -40,12 +44,20 @@ public class SettingUIs : MonoBehaviour
         buildingButtonList = buildingDict.GetComponentsInChildren<Button>();
 
         settingButton.GetComponent<Button>().onClick.AddListener(() => OnSettingButton());
+
+        itemDict.SetActive(false);
+        itemDictInfo.SetActive(false);
+
+        buildingDict.SetActive(false);
+        buildingDictInfo.SetActive(false);
+
     }
 
     private void OnItemDictButton()
     {
         if (itemDict.activeSelf == true)
         {
+            itemDictInfo.SetActive(false);
             itemDict.SetActive(false);
             curOpeningUI = null;
         }
@@ -54,6 +66,7 @@ public class SettingUIs : MonoBehaviour
             if (curOpeningUI != null)
             {
                 curOpeningUI.SetActive(false);
+                buildingDictInfo.SetActive(false);
             }
             itemDict.SetActive(true);
             curOpeningUI = itemDict;
@@ -71,8 +84,24 @@ public class SettingUIs : MonoBehaviour
                     itemButtonList[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minItemId);
                     itemButtonList[i].transform.GetComponent<Image>().color = Color.white;
                     itemButtonList[i].transform.parent.gameObject.SetActive(true);
+                    int idx = i + minItemId;
+                    itemButtonList[i].onClick.RemoveAllListeners();
+                    itemButtonList[i].onClick.AddListener(() => OnItemClicked(idx));
                 }
             }
+        }
+    }
+
+    private void OnItemClicked(int id)
+    {
+        if(itemDictInfo.GetComponent<ItemDictInfo>().id == id)
+        {
+            itemDictInfo.SetActive(false);
+        }
+        else
+        {
+            itemDictInfo.GetComponent<ItemDictInfo>().SetItemDictInfo(id);
+            itemDictInfo.SetActive(true);
         }
     }
 
@@ -80,6 +109,7 @@ public class SettingUIs : MonoBehaviour
     {
         if (buildingDict.activeSelf == true)
         {
+            buildingDictInfo.SetActive(false);
             buildingDict.SetActive(false);
             curOpeningUI = null;
         }
@@ -87,6 +117,7 @@ public class SettingUIs : MonoBehaviour
         {
             if (curOpeningUI != null)
             {
+                itemDictInfo.SetActive(false);
                 curOpeningUI.SetActive(false);
             }
             buildingDict.SetActive(true);
@@ -104,18 +135,37 @@ public class SettingUIs : MonoBehaviour
                 {
                     buildingButtonList[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetBuildingSprite(i + minBuildingId);
                     buildingButtonList[i].transform.GetComponent<Image>().color = Color.white;
-                    buildingButtonList[i].transform.parent.gameObject.SetActive(true);
+                    buildingButtonList[i].transform.parent.gameObject.SetActive(true); 
+                    int idx = i + minBuildingId;
+                    buildingButtonList[i].onClick.RemoveAllListeners();
+                    buildingButtonList[i].onClick.AddListener(() => OnBuildingClicked(idx));
                 }
             }
         }
     }
     
+    public void OnBuildingClicked(int id)
+    {
+        
+        if (buildingDictInfo.GetComponent<ItemDictInfo>().id == id)
+        {
+            buildingDictInfo.SetActive(false);
+        }
+        else
+        {
+            buildingDictInfo.GetComponent<ItemDictInfo>().SetItemDictInfo(id);
+            buildingDictInfo.SetActive(true);
+        }
+    }
+
     private void OnSettingButton()
     {
         if (setting.activeSelf == false)
         {
             if (curOpeningUI != null)
             {
+                buildingDictInfo.SetActive(false);
+                itemDictInfo.SetActive(false);
                 curOpeningUI.SetActive(false);
             }
             setting.SetActive(true);
@@ -127,6 +177,7 @@ public class SettingUIs : MonoBehaviour
             curOpeningUI = null;
         }
     }
+
 
     private void Update()
     {
@@ -146,9 +197,13 @@ public class SettingUIs : MonoBehaviour
             }
             else
             {
+                buildingDictInfo.SetActive(false);
+                itemDictInfo.SetActive(false);
                 curOpeningUI.SetActive(false);
                 curOpeningUI = null;
             }
         }
     }
+
+
 }

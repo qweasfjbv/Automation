@@ -10,12 +10,30 @@ public class ItemJsonData
     public string Name;
     public List<Ingredient> Ingredient;
     public float ProductTime;
+    public string Description;
+    public int MakingBuildingId;
 }
 [Serializable]
 public class ItemJsonDataArr
 {
     public ItemJsonData[] itemJsonDatas;
 }
+
+[Serializable]
+public class BuildingJsonData : ItemJsonData {
+    public Vector2 Size;
+    public float Speed;
+    public List<int> InputDirs;
+    public List<int> OutputDirs;
+    public List<int> OutputIds;
+}
+
+[Serializable]
+public class BuildingJsonDataArr {
+    public BuildingJsonData[] buildingJsonDatas;
+}
+
+
 public class ResourceManager
 {
 
@@ -29,23 +47,31 @@ public class ResourceManager
     private readonly int BUILDINGOFFSET = 101;
     private readonly int ITEMOFFSET = 11;
 
-    private ItemJsonDataArr tmpDatas;
+    private ItemJsonDataArr tmpItemDatas;
+    private BuildingJsonDataArr tmpBuildingDatas;
 
     public void Init()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/JsonData/ItemData");
-        tmpDatas = JsonUtility.FromJson<ItemJsonDataArr>(textAsset.text);
+        tmpItemDatas = JsonUtility.FromJson<ItemJsonDataArr>(textAsset.text);
+        tmpBuildingDatas = JsonUtility.FromJson<BuildingJsonDataArr>(
+            Resources.Load<TextAsset>("Data/JsonData/BuildingData").text);
+
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
+        buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
 
-        for (int i = 0; i < tmpDatas.itemJsonDatas.Length; i++)
+        for (int i = 0; i < tmpItemDatas.itemJsonDatas.Length; i++)
         {
-            itemDatas[i].SetItemData(tmpDatas.itemJsonDatas[i]);
+            itemDatas[i].SetItemData(tmpItemDatas.itemJsonDatas[i]);
         }
 
+        for (int i = 0; i < tmpBuildingDatas.buildingJsonDatas.Length; i++)
+        {
+            buildingDatas[i].SetBuildingData(tmpBuildingDatas.buildingJsonDatas[i]);
+        }
         
 
-        buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         veinDatas = Resources.LoadAll<VeinData>("Data/VeinData");
 
     }

@@ -60,7 +60,7 @@ public class BuildingInfo : MonoBehaviour
 
         infoImage.sprite = Managers.Resource.GetBuildingSprite(id);
         infoName.text = Managers.Resource.GetBuildingData(id).Name;
-        infoDesc.text = "Info Description Needed.";
+        infoDesc.text = Managers.Resource.GetBuildingData(id).Description;
 
     }
 
