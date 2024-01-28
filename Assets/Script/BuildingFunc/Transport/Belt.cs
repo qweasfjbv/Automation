@@ -55,8 +55,8 @@ public class Belt : Transport
         beltItem.transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, 90 * inDir));
     }
 
-
-
+    private bool isWaitNextBelt = false;
+    public bool IsWaitNextBelt { get => isWaitNextBelt; set => isWaitNextBelt = value; }
 
     private Vector3 startPos, endPos;
 
@@ -94,6 +94,7 @@ public class Belt : Transport
 
             if (beltItemId != -1 && beltItem.activeSelf == false)
             {
+                
                 StartCoroutine(BeltMove(1 / Managers.Resource.GetBuildingData(ID).Speed));
             }
 
@@ -149,10 +150,13 @@ public class Belt : Transport
     private IEnumerator BeltMove(float dl)
     {
         beltItem.SetActive(true);
-        if(prevBuilding.transform.GetComponent<Belt>() != null)
+
+        if(prevBuilding.transform.GetComponent<Belt>() != null && prevBuilding.transform.GetComponent<Belt>().IsWaitNextBelt)
         {
+            prevBuilding.transform.GetComponent<Belt>().IsWaitNextBelt = false;
             prevBuilding.GetComponent<Belt>().beltItem.SetActive(false);
         }
+        
         float t = 0f;
 
         SetStartPos();
@@ -176,13 +180,16 @@ public class Belt : Transport
 
         yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(beltItemId, outDir));
 
+        isWaitNextBelt = true;
         nextBelt.SetBeltId(beltItemId, outDir);
         beltItemId = -1;
+
 
         if (nextBelt != null && nextBelt.GetComponent<Belt>() == null)
         {
             beltItem.SetActive(false);
         }
+
 
         yield return null;
     }
