@@ -43,6 +43,15 @@ public class DataManager
         {
             LoadMap();
         }
+        else if (Managers.Scene.CurScene.GetComponent<TutorialScene>() != null)
+        {
+            LoadTutorialMap();
+        }
+    }
+
+    private void LoadTutorialMap()
+    {
+        Managers.Map.GenerateTutorialMap();
     }
 
     // save on UserMapData.json

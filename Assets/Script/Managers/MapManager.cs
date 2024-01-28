@@ -326,6 +326,27 @@ public class MapManager
 
     }
 
+    public void GenerateTutorialMap()
+    {
+
+        usingArea[2, 2].terrainInfo = 1;
+
+        usingArea[4, 2].terrainInfo = 4;
+        usingArea[5, 2].terrainInfo = 4;
+
+        usingArea[7, 2].terrainInfo = 2;
+
+        usingArea[9, 2].terrainInfo = 3;
+
+        usingArea[11, 2].terrainInfo = 4;
+        usingArea[12, 2].terrainInfo = 4;
+
+        usingArea[14, 2].terrainInfo = 5;
+
+        usingArea[16, 2].terrainInfo = 6;
+        usingArea[17, 2].terrainInfo = 6;
+    }
+
     public void Clear() {
         if (usingArea != null)
         {
