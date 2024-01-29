@@ -6,6 +6,7 @@ public class Mining : BuildingBase
 {
     [SerializeField]
     protected Belt nextBelt;
+    public Belt NextBelt {  get { return nextBelt; } }
 
     public override void SetBeltId(int id, int rot = 0)
     {

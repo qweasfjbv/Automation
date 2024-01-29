@@ -62,6 +62,7 @@ public class Belt : Transport
 
     public BuildingBase nextBelt;
 
+
     private Coroutine beltUpdateCoroutine;
 
     private void Init()
