@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialData : MonoBehaviour
+[CreateAssetMenu(menuName = "Automation/Tutorial")]
+public class TutorialData : ScriptableObject
 {
-    void Start()
-    {
-        
-    }
+    [SerializeField] private List<string> lines;
 
-    void Update()
-    {
-        
-    }
+
 }

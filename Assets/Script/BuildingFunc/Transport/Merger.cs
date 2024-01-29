@@ -60,7 +60,7 @@ public class Merger : Transport
 
                             yield return new WaitForFixedUpdate();
                         }
-                            
+
                             nextBelt.GetComponent<BuildingBase>().SetBeltId(beltItemIds[beltDir]);
                         beltItemIds[beltDir] = -1;
                     }

@@ -118,7 +118,7 @@ public class Belt : Transport
 
     public override bool IsTransferAble(int id,int rot)
     {
-        return beltItemId == -1;
+        return beltItemId == -1 && beltItem.activeSelf == false;
     }
 
     private void UpdateDir()
