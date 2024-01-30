@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Tile
 {
@@ -50,6 +47,8 @@ public class Tile
     }
 };
 
+
+
 public class MapManager
 {
     private int mapSizeX;
@@ -62,6 +61,31 @@ public class MapManager
     private Vector2 start = new Vector2(0, 0);
     private Vector2 end = new Vector2(0, 0);
 
+    private readonly bool[,,] VEINPOS = new bool[4, 3, 3]
+    {
+        {
+            {true, true, false},
+            {true, true, false},
+            {false, false, false},
+        },
+        {
+
+            {true, true, false},
+            {false, true, false},
+            {false, false, true},
+        },
+        {
+            {false, false, false},
+            {true, false, false},
+            {true, true, true},
+        },
+        {
+            {true, false, false},
+            {true, true, false},
+            {false, true, false},
+        }
+    };
+
     public void Init(int mapSize)
     {
         mapSizeX = mapSizeY = mapSize;
@@ -71,6 +95,7 @@ public class MapManager
         for (int i = 0; i < mapSizeY; i++)
             for (int j = 0; j < mapSizeX; j++)
                 usingArea[i, j] = new Tile();
+
 
     }
 
@@ -291,39 +316,68 @@ public class MapManager
 
     public void GenerateVeinsOnMap()
     {
+        const int veinStart = 1;
+        const int veinEnd = 6;
+        const int veinCount = 3;
+        int rdIdx, rdY, rdX;
+        int tmpY, tmpX;
+        bool isCanBuild = true;
+        GameObject veinPrefab = Managers.Resource.GetVeinData(1).Prefab;
 
-        usingArea[0, 2].terrainInfo = 1;
-        usingArea[0, 3].terrainInfo = 1;
-        usingArea[1, 3].terrainInfo = 1;
-        usingArea[1, 2].terrainInfo = 1;
+        for (int i = veinStart; i <= veinEnd; i++)
+        {
+            for(int j=0; j< veinCount; j++)
+            {
+                rdIdx = UnityEngine.Random.Range(0, 4);
 
-        usingArea[5, 2].terrainInfo = 4;
-        usingArea[5, 3].terrainInfo = 4;
-        usingArea[6, 3].terrainInfo = 4;
-        usingArea[6, 2].terrainInfo = 4;
+                while (true)
+                {
+                    rdY = UnityEngine.Random.Range(0, mapSizeY - 3);
+                    rdX = UnityEngine.Random.Range(0, mapSizeX - 3);
 
-        usingArea[10, 2].terrainInfo = 2;
-        usingArea[10, 3].terrainInfo = 2;
-        usingArea[11, 3].terrainInfo = 2;
-        usingArea[11, 2].terrainInfo = 2;
+                    isCanBuild = true;
+                    for (int r = 0; r < 3; r++)
+                    {
+                        for (int s = 0; s < 3; s++)
+                        {
+                            tmpY = rdY + r; tmpX = rdX + s;
+                            if (usingArea[tmpY, tmpX].terrainInfo != 0 && !VEINPOS[rdIdx, r, s])
+                            {
+                                isCanBuild = false;
+                                break;
+                            }
+                        }
+                        if (!isCanBuild) break;
+                    }
 
-        usingArea[15, 0].terrainInfo = 4;
-        usingArea[15, 1].terrainInfo = 4;
-        usingArea[16, 1].terrainInfo = 4;
-        usingArea[16, 0].terrainInfo = 4;
+                    if (isCanBuild)
+                    {
+                        for (int r = 0; r < 3; r++)
+                        {
+                            for (int s = 0; s < 3; s++)
+                            {
+                                tmpY = rdY + r; tmpX = rdX + s;
+                                if (VEINPOS[rdIdx, r, s])
+                                {
+                                    BuildVein(veinPrefab, tmpY, tmpX, i);
+                                }
+                            }
+                        }
 
+                        break;
+                    }
+                }
 
-        usingArea[20, 2].terrainInfo = 5;
-        usingArea[20, 3].terrainInfo = 5;
-        usingArea[21, 3].terrainInfo = 4;
-        usingArea[21, 2].terrainInfo = 4;
+            }
+        }
 
-        usingArea[25, 0].terrainInfo = 6;
-        usingArea[25, 1].terrainInfo = 6;
-        usingArea[26, 1].terrainInfo = 6;
-        usingArea[26, 0].terrainInfo = 6;
-        // TODO : Sprite »ý¼º
+    }
 
+    private void BuildVein(GameObject obj, int y, int x, int veinId)
+    {
+        var tmp = GameObject.Instantiate(obj, new Vector3(x + 0.5f, -y - 0.5f, 0), Quaternion.identity);
+        tmp.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetVeinData(veinId).VeinImage;
+        usingArea[y, x].terrainInfo = veinId;
     }
 
     public void GenerateTutorialMap()
