@@ -23,7 +23,7 @@ public class SettingButtons : MonoBehaviour
 
     private void OnExitButton()
     {
-        Managers.Data.SaveMap();
+        Managers.Data.SaveAll();
         Managers.Scene.LoadScene(SceneEnum.Mainmenu);
     }
 }

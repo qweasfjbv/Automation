@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -28,9 +29,12 @@ public class DataManager
 
     private TileDatas tileDatas;
     private string path;
-    private string fileName = "/UserMapData.json";
+    private string mapFileName = "/UserMapData.json";
+    private string invenItemFileName = "/UserInvenItemData.json";
+    private string invenBuildingFileName = "/UserInvenBuildingData.json";
 
-
+    private List<int> invenItemData;
+    private List<int> invenBuildingData;
     public void Init()
     {
         tileDatas = new TileDatas();
@@ -47,6 +51,12 @@ public class DataManager
         {
             LoadTutorialMap();
         }
+    }
+
+    public void SaveAll()
+    {
+        SaveMap();
+        SaveInven();
     }
 
     private void LoadTutorialMap()
@@ -117,7 +127,7 @@ public class DataManager
 
         DeleteMap();
 
-        File.AppendAllText(path + fileName, JsonUtility.ToJson(tileDatas));
+        File.AppendAllText(path + mapFileName, JsonUtility.ToJson(tileDatas));
 
         tileDatas.tileData.Clear();
 
@@ -127,11 +137,11 @@ public class DataManager
     {
 
 
-        if(!File.Exists(path+fileName)) {
+        if(!File.Exists(path+mapFileName)) {
             Managers.Map.GenerateVeinsOnMap();
             return false;
         }
-        tileDatas = JsonUtility.FromJson<TileDatas>(File.ReadAllText(path + fileName));
+        tileDatas = JsonUtility.FromJson<TileDatas>(File.ReadAllText(path + mapFileName));
 
         if (tileDatas == null || tileDatas.tileData == null) return false;
 
@@ -178,10 +188,54 @@ public class DataManager
 
     public void DeleteMap()
     {
-        if (File.Exists(path + fileName))
+        if (File.Exists(path + mapFileName))
         {
-            File.Delete(path + fileName);
+            File.Delete(path + mapFileName);
         }
+    }
+
+    public ref List<int> LoadInvenItem() {
+
+        if (!File.Exists(path + invenItemFileName))
+        {
+            invenItemData = new List<int>();
+            for (int i = 0; i < Managers.Resource.GetItemCount(); i++)
+            {
+                invenItemData.Add(0);
+            }
+
+        }
+        else
+        {
+            Debug.Log("Data Empty. Inven Save/Load Needed");
+            //load
+        }
+
+        return ref invenItemData;
+    }
+    public ref List<int> LoadInvenBuilding()
+    {
+
+        if (!File.Exists(path + invenBuildingFileName))
+        {
+            invenBuildingData = new List<int>();
+            for (int i = 0; i < Managers.Resource.GetBuildingCount(); i++)
+            {
+                invenBuildingData.Add(0);
+            }
+
+        }
+        else
+        {
+            Debug.Log("Data Empty. Inven Save/Load Needed");
+            //load
+        }
+
+        return ref invenBuildingData;
+    }
+    public void SaveInven()
+    {
+
     }
 
 }

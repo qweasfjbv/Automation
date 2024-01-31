@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.U2D;
 using UnityEngine.UI;
+using static UnityEngine.TerrainTools.PaintContext;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,11 +17,14 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private GameObject buildingInfo;
     [SerializeField]
+    private InventoryUI inven;
+    [SerializeField]
     private float zoomSpeed;
     [SerializeField]
     private float dragSpeed;
     [SerializeField]
     private float dragHoldTime;
+   
 
     Vector2 minCameraPos = new Vector2(0, -100);
     Vector3 maxCameraPos = new Vector2(100, 0);
@@ -31,6 +37,7 @@ public class CameraController : MonoBehaviour
     private readonly float maxZoomSize = 20.0f;
 
     private float onMouseTime = 0f;
+    private float onMouseTimeR = 0f;
 
     private Vector3 firstClickPoint;
     private Vector3 mousePosition;
@@ -59,7 +66,7 @@ public class CameraController : MonoBehaviour
         if (Managers.Input.Mode == InputManager.InputMode.None) {
 
             buildPreviewer.SetActive(false);
-            ViewMoving();
+            OnMouseClickEvent();
         }
         else
         {
@@ -77,7 +84,6 @@ public class CameraController : MonoBehaviour
 
         targetSize = Mathf.Clamp(newSize, minZoomSize, maxZoomSize);
     }
-
     private void UpdateZoom()
     {
         if (Mathf.Abs(targetSize - thisCamera.orthographicSize) < Mathf.Epsilon)
@@ -97,7 +103,7 @@ public class CameraController : MonoBehaviour
         currentCameraPosition.y = Mathf.Clamp(currentCameraPosition.y, minCameraPos.y, maxCameraPos.y);
         cameraTransform.position = currentCameraPosition;
     }
-    void ViewMoving()
+    private void OnMouseClickEvent()
     {
         // 마우스 최초 클릭 시의 위치 기억
         if (Input.GetMouseButtonDown(0))
@@ -135,9 +141,28 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetMouseButton(1))
+        {
+            var tile = Managers.Map.GetTileOnPoint(mousePosition);
+
+            if (tile != null && tile.terrainInfo>= 1 && tile.terrainInfo <= 6)
+            {
+                onMouseTimeR += Time.deltaTime;
+
+                if (onMouseTimeR >= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime)
+                {
+                    onMouseTimeR -= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime;
+                    inven.GetItem(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID, 1);
+                }
+
+            }
+
+        }
         else
         {
+            onMouseTimeR = 0;
             onMouseTime = 0;
         }
     }
+
 }

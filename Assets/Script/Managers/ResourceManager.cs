@@ -43,9 +43,9 @@ public class ResourceManager
     private VeinData[] terrainDatas;
     
 
-    private readonly int VEINOFFSET = 1;
-    private readonly int BUILDINGOFFSET = 101;
-    private readonly int ITEMOFFSET = 11;
+    public readonly int VEINOFFSET = 1;
+    public readonly int BUILDINGOFFSET = 101;
+    public readonly int ITEMOFFSET = 11;
 
     private ItemJsonDataArr tmpItemDatas;
     private BuildingJsonDataArr tmpBuildingDatas;
@@ -78,6 +78,7 @@ public class ResourceManager
 
     public ItemData GetItemData(int id)
     {
+
         if (id < 100)
         {
             return itemDatas[id - ITEMOFFSET];
@@ -88,6 +89,15 @@ public class ResourceManager
         }
     }
 
+    public int GetItemCount()
+    {
+        return itemDatas.Length;
+    }
+
+    public int GetBuildingCount()
+    {
+        return buildingDatas.Length;
+    }
     public BuildingData GetBuildingData(int id)
     {
         return buildingDatas[id - BUILDINGOFFSET];
