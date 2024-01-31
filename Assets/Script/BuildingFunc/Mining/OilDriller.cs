@@ -44,10 +44,10 @@ public class OilDriller : Mining
     {
         while (true)
         {
-            yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(Managers.Resource.GetVeinData(veinId).OreID, 0));
-            nextBelt.SetBeltId(Managers.Resource.GetVeinData(veinId).OreID, 0);
+            yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(Managers.Resource.GetTerrainData(veinId).OreID, 0));
+            nextBelt.SetBeltId(Managers.Resource.GetTerrainData(veinId).OreID, 0);
 
-            yield return new WaitForSeconds(Managers.Resource.GetItemData(Managers.Resource.GetVeinData(veinId).OreID).ProductTime / Managers.Resource.GetBuildingData(ID).Speed);
+            yield return new WaitForSeconds(Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(veinId).OreID).ProductTime / Managers.Resource.GetBuildingData(ID).Speed);
         }
     }
 }

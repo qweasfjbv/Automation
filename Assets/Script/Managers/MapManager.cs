@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -183,9 +184,10 @@ public class MapManager
         {
             for (int j = (int)start.x; j < (int)end.x; j++)
             {
-                if (usingArea[i, j].id != -1) return false;
+                if (usingArea[i, j].id != -1 || usingArea[i, j].terrainInfo == 7 || usingArea[i, j].terrainInfo < 0) return false;
             }
         }
+
 
         return true;
     }
@@ -322,7 +324,6 @@ public class MapManager
         int rdIdx, rdY, rdX;
         int tmpY, tmpX;
         bool isCanBuild = true;
-        GameObject veinPrefab = Managers.Resource.GetVeinData(1).Prefab;
 
         for (int i = veinStart; i <= veinEnd; i++)
         {
@@ -359,7 +360,8 @@ public class MapManager
                                 tmpY = rdY + r; tmpX = rdX + s;
                                 if (VEINPOS[rdIdx, r, s])
                                 {
-                                    BuildVein(veinPrefab, tmpY, tmpX, i);
+                                    BuildVein(tmpY, tmpX, i);
+                                    usingArea[tmpY, tmpX].terrainInfo = i;
                                 }
                             }
                         }
@@ -369,15 +371,72 @@ public class MapManager
                 }
 
             }
+
+
         }
 
+        int rockCnt = 0;
+        const int maxRockCnt = 20;
+        while (rockCnt <= maxRockCnt)
+        {
+
+            rdY = UnityEngine.Random.Range(0, mapSizeY - 3);
+            rdX = UnityEngine.Random.Range(0, mapSizeX - 3);
+
+            isCanBuild = true;
+            for (int r = 0; r < 3; r++)
+            {
+                for (int s = 0; s < 3; s++)
+                {
+                    tmpY = rdY + r; tmpX = rdX + s;
+                    if (usingArea[tmpY, tmpX].terrainInfo != 0 && !VEINPOS[0, r, s])
+                    {
+                        isCanBuild = false;
+                        break;
+                    }
+                }
+                if (!isCanBuild) break;
+            }
+
+            if (isCanBuild)
+            {
+
+                BuildVein(rdY, rdX, 7);
+
+                for (int r = 0; r < 3; r++)
+                {
+                    for (int s = 0; s < 3; s++)
+                    {
+                        if (VEINPOS[0, r, s])
+                        {
+                            tmpY = rdY + r; tmpX = rdX + s;
+                            usingArea[tmpY, tmpX].terrainInfo = -1;
+                        }
+                    }
+                }
+                usingArea[rdY, rdX].terrainInfo = 7;
+
+                rockCnt++;
+            }
+
+
+        }
     }
 
-    private void BuildVein(GameObject obj, int y, int x, int veinId)
+    public void BuildVein(int y, int x, int veinId)
     {
-        var tmp = GameObject.Instantiate(obj, new Vector3(x + 0.5f, -y - 0.5f, 0), Quaternion.identity);
-        tmp.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetVeinData(veinId).VeinImage;
-        usingArea[y, x].terrainInfo = veinId;
+        GameObject obj = Managers.Resource.GetTerrainData(1).Prefab;
+        GameObject tmpGo;
+        if (veinId != 7)
+        {
+            tmpGo = GameObject.Instantiate(obj , new Vector3(x + 0.5f, -y - 0.5f, 0), Quaternion.identity);
+        }
+        else
+        {
+            tmpGo = GameObject.Instantiate(obj, new Vector3(x + 1f, -y - 1f, 0), Quaternion.identity);
+        }
+        tmpGo.GetComponent<SpriteRenderer>().sprite = Managers.Resource.GetTerrainData(veinId).VeinImage;
+
     }
 
     public void GenerateTutorialMap()

@@ -40,7 +40,7 @@ public class ResourceManager
 
     private ItemData[] itemDatas;
     private BuildingData[] buildingDatas;
-    private VeinData[] veinDatas;
+    private VeinData[] terrainDatas;
     
 
     private readonly int VEINOFFSET = 1;
@@ -72,7 +72,7 @@ public class ResourceManager
         }
         
 
-        veinDatas = Resources.LoadAll<VeinData>("Data/VeinData");
+        terrainDatas = Resources.LoadAll<VeinData>("Data/TerrainData");
 
     }
 
@@ -93,9 +93,9 @@ public class ResourceManager
         return buildingDatas[id - BUILDINGOFFSET];
     }
 
-    public VeinData GetVeinData(int id)
+    public VeinData GetTerrainData(int id)
     {
-        return veinDatas[id - VEINOFFSET];
+        return terrainDatas[id - VEINOFFSET];
     }
 
     public Sprite GetBuildingSprite(int id)

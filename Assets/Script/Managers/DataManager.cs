@@ -125,6 +125,8 @@ public class DataManager
 
     public bool LoadMap()
     {
+
+
         if(!File.Exists(path+fileName)) {
             Managers.Map.GenerateVeinsOnMap();
             return false;
@@ -140,6 +142,10 @@ public class DataManager
 
             tile.terrainInfo = tileDatas.tileData[i].terrainInfo;
 
+            if(tile.terrainInfo >= 1 && tile.terrainInfo <= 7)
+            {
+                Managers.Map.BuildVein(tileDatas.tileData[i].y, tileDatas.tileData[i].x, tile.terrainInfo);
+            }
 
             if (tileDatas.tileData[i].id != -1)
             {
