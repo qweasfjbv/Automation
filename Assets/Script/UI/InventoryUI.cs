@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,10 @@ public class InventoryUI : MonoBehaviour
     List<int> invenBuildingList;
 
     private Button[] craftButton;
+    [SerializeField]
     private int[] craftButtonId;
+    [SerializeField]
+    private int[] craftWaitItemIds;
     private Coroutine craftCoroutine;
     private bool isCoroutineRunning = false;
 
@@ -31,9 +35,55 @@ public class InventoryUI : MonoBehaviour
     const int minBuildingId = 101;
     const int maxBuildingId = 111;
 
-    private int rear = 0;
-    private int end = 0;
+    private int front = 0, rear = 0;
 
+    private bool Dequeue()
+    {
+        if (rear == front) return false;
+
+        front = (front + 1) % craftButtonId.Length;
+        craftButtonId[front] = -1;
+
+        return true;
+    }
+
+    private bool Enqueue(int id)
+    {
+        if ((rear + 1) % craftButtonId.Length == front)
+        {
+            return false;
+        }
+        rear = (rear + 1) % craftButtonId.Length;
+        craftButtonId[rear] = id;
+
+        return true;
+    }
+    private void EraseQueue(int idx)
+    {
+        //idx ´Â craftButtonÀÇ idx;
+        int start = -1;
+        for (int i = 0; i < craftButtonId.Length; i++)
+        {
+            if (craftButtonId[i] == idx)
+            {
+                start = i; break;
+            }
+        }
+        if (start == -1) return;
+
+        while (start != rear)
+        {
+            craftButtonId[start] = craftButtonId[(start + 1) % craftButtonId.Length];
+            start = (start + 1) % craftButtonId.Length;
+        }
+
+        if (start == rear)
+        {
+            craftButtonId[start] = craftButtonId[(start + 1) % craftButtonId.Length];
+        }
+        rear--;
+        if (rear < 0) rear += craftButtonId.Length;
+    }
 
     private void Awake()
     {
@@ -47,7 +97,17 @@ public class InventoryUI : MonoBehaviour
             craftButton[i].transform.parent.gameObject.SetActive(false);
         }
 
-        craftButtonId = new int[craftButton.Length];
+        craftButtonId = new int[craftButton.Length+1];
+        for (int i = 0; i <= craftButton.Length; i++)
+        {
+            craftButtonId[i] = -1;
+        }
+        craftWaitItemIds = new int[craftButton.Length];
+
+        for (int i = 0; i < craftWaitItemIds.Length; i++)
+        {
+            craftWaitItemIds[i] = -1;
+        }
 
         if (!isActive)
         {
@@ -63,11 +123,11 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        if (!isCoroutineRunning && craftButton[rear].transform.parent.gameObject.activeSelf)
+        if (!isCoroutineRunning && craftButtonId[(front+1)% craftButtonId.Length] != -1)
         {
             isCoroutineRunning = true;
-            craftCoroutine = StartCoroutine(ItemCraftCoroutine(craftButtonId[rear], rear));
-            rear = (rear + 1) % craftButtonId.Length;
+            craftCoroutine = StartCoroutine(ItemCraftCoroutine(craftWaitItemIds[craftButtonId[(front + 1) % craftButtonId.Length]], craftButtonId[(front + 1) % craftButtonId.Length]));
+
         }
     }
 
@@ -187,15 +247,11 @@ public class InventoryUI : MonoBehaviour
 
     private void OnItemClicked(int id)
     {
-        if ((end + 1) % craftButton.Length == rear)
-        {
-            Debug.Log("Queue FULL!");
-            return;
-        }
 
         if (MakeItem(id))
         {
-            AddCircularQueue(id);
+            if (!AddQueue(id)) Debug.Log("Queue Full");
+
         }
         else
         {
@@ -203,41 +259,59 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void AddCircularQueue(int id)
+    private bool AddQueue(int id)
     {
-        craftButton[end].GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(id);
-        craftButtonId[end] = id;
-        craftButton[end].transform.parent.SetAsLastSibling();
-        craftButton[end].transform.parent.gameObject.SetActive(true);
-        craftButton[end].onClick.RemoveAllListeners();
-        int e = end;
-        craftButton[end].onClick.AddListener(() => OnCraftingButtonClicked(e));
-        end = (end + 1) % craftButton.Length;
+        int tmpIdx = -1;
+        for (int i = 0; i < craftButton.Length; i++)
+        {
+            if (!craftButton[i].transform.parent.gameObject.activeSelf) {
+                tmpIdx = i;
+                break;
+                }
+        }
+        if (tmpIdx == -1)
+        {
+            return false;
+        }
+        else
+        {
+
+            craftButton[tmpIdx].GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(id);
+            Enqueue(tmpIdx);
+            craftWaitItemIds[tmpIdx] = id;
+            craftButton[tmpIdx].transform.parent.SetAsLastSibling();
+            craftButton[tmpIdx].transform.parent.gameObject.SetActive(true);
+            craftButton[tmpIdx].onClick.RemoveAllListeners();
+            int i = id; int e = tmpIdx;
+            craftButton[tmpIdx].onClick.AddListener(() => OnCraftingButtonClicked(i, e));
+
+            return true;
+        }
     }
 
-    public void OnCraftingButtonClicked(int idx)
+    public void OnCraftingButtonClicked(int id, int idx)
     {
 
-        int id = craftButtonId[idx];
-
-        if ((idx+1) % craftButtonId.Length == rear)
+        if (craftButtonId[(front + 1) % craftButtonId.Length] == idx)
         {
             StopCoroutine(craftCoroutine);
             craftSlider.gameObject.SetActive(false);
             isCoroutineRunning = false;
         }
+
+
         for (int i = 0; i < Managers.Resource.GetItemData(id).Ingredients.Count; i++)
         {
             GetItem(Managers.Resource.GetItemData(id).Ingredients[i].id, Managers.Resource.GetItemData(id).Ingredients[i].cnt);
         }
         craftButton[idx].transform.parent.gameObject.SetActive(false);
 
+        EraseQueue(idx);
     }
-
-
+    
+    
     private IEnumerator ItemCraftCoroutine(int id, int idx)
     {
-        Debug.Log("Rear and END : " + rear + ", " + end);
         craftSlider.value = 0;
         craftSlider.gameObject.SetActive(true);
         float elapsedTime = 0f;
@@ -253,7 +327,7 @@ public class InventoryUI : MonoBehaviour
         GetItem(id, 1);
         yield return null;
         craftButton[idx].transform.parent.gameObject.SetActive(false);
-        craftButtonId[idx] = -1;
+        Dequeue();
         isCoroutineRunning = false;
         craftSlider.gameObject.SetActive(false);
     }
