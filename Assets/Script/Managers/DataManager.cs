@@ -22,6 +22,12 @@ public class TileDatas {
     public List<TileData> tileData;
 }
 
+public class InvenItemDatas {
+    public int[] invenItemData;
+}
+public class InvenBuildingDatas {
+    public int[] invenBuildingData;
+}
 
 
 public class DataManager
@@ -33,8 +39,10 @@ public class DataManager
     private string invenItemFileName = "/UserInvenItemData.json";
     private string invenBuildingFileName = "/UserInvenBuildingData.json";
 
-    private List<int> invenItemData;
-    private List<int> invenBuildingData;
+    InvenItemDatas invenItemDatas = new InvenItemDatas();
+    InvenBuildingDatas invenBuildingDatas = new InvenBuildingDatas();
+
+
     public void Init()
     {
         tileDatas = new TileDatas();
@@ -43,6 +51,7 @@ public class DataManager
 
         path = Application.persistentDataPath;
 
+        Debug.Log(path);
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();
@@ -194,48 +203,88 @@ public class DataManager
         }
     }
 
-    public ref List<int> LoadInvenItem() {
+    public ref int[] LoadInvenItem() {
 
         if (!File.Exists(path + invenItemFileName))
         {
-            invenItemData = new List<int>();
+
+            invenItemDatas.invenItemData = new int[Managers.Resource.GetItemCount()];
             for (int i = 0; i < Managers.Resource.GetItemCount(); i++)
             {
-                invenItemData.Add(0);
+                invenItemDatas.invenItemData[i] = 0;
             }
 
         }
         else
         {
-            Debug.Log("Data Empty. Inven Save/Load Needed");
-            //load
+            invenItemDatas = JsonUtility.FromJson<InvenItemDatas>(File.ReadAllText(path + invenItemFileName));
         }
 
-        return ref invenItemData;
+        if (invenItemDatas == null) invenItemDatas = new InvenItemDatas();
+
+        if (invenItemDatas.invenItemData == null || invenItemDatas.invenItemData.Length <= 0)
+        {
+            invenItemDatas.invenItemData = new int[Managers.Resource.GetItemCount()];
+            for (int i = 0; i < Managers.Resource.GetItemCount(); i++)
+            {
+                invenItemDatas.invenItemData[i] = 0;
+            }
+
+
+        }
+
+        return ref invenItemDatas.invenItemData;
     }
-    public ref List<int> LoadInvenBuilding()
+    public ref int[] LoadInvenBuilding()
     {
 
         if (!File.Exists(path + invenBuildingFileName))
         {
-            invenBuildingData = new List<int>();
+
+            invenBuildingDatas.invenBuildingData = new int[Managers.Resource.GetBuildingCount()];
             for (int i = 0; i < Managers.Resource.GetBuildingCount(); i++)
             {
-                invenBuildingData.Add(0);
+                invenBuildingDatas.invenBuildingData[i] = 0;
             }
 
         }
         else
         {
-            Debug.Log("Data Empty. Inven Save/Load Needed");
-            //load
+            invenBuildingDatas = JsonUtility.FromJson<InvenBuildingDatas>(File.ReadAllText(path + invenBuildingFileName));
         }
 
-        return ref invenBuildingData;
+        if (invenBuildingDatas == null) invenItemDatas = new InvenItemDatas();
+
+        if (invenBuildingDatas.invenBuildingData == null || invenBuildingDatas.invenBuildingData.Length <= 0)
+        {
+            invenBuildingDatas.invenBuildingData = new int[Managers.Resource.GetBuildingCount()];
+            for (int i = 0; i < Managers.Resource.GetBuildingCount(); i++)
+            {
+                invenBuildingDatas.invenBuildingData[i] = 0;
+            }
+
+
+        }
+
+        return ref invenBuildingDatas.invenBuildingData;
     }
     public void SaveInven()
     {
+        DeleteInvenData();
 
+        File.AppendAllText(path + invenItemFileName, JsonUtility.ToJson(invenItemDatas));
+        File.AppendAllText(path + invenBuildingFileName, JsonUtility.ToJson(invenBuildingDatas));
+    }
+    private void DeleteInvenData()
+    {
+        if (File.Exists(path + invenBuildingFileName))
+        {
+            File.Delete(path + invenBuildingFileName);
+        }
+        if (File.Exists(path + invenItemFileName))
+        {
+            File.Delete(path + invenItemFileName);
+        }
     }
 
 }

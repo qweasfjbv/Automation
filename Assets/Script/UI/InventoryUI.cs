@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +16,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private ItemLogQueue logQueue;
 
     [SerializeField]
-    List<int> invenItemList;
-    List<int> invenBuildingList;
+    int[] invenItemList;
+    int[] invenBuildingList;
 
     private Button[] craftButton;
     [SerializeField]
@@ -29,7 +30,7 @@ public class InventoryUI : MonoBehaviour
     private Button[] itemButtons;
     private Button[] buildingButtons;
 
-    const int minCraftItemId = 16;
+    const int minItemId = 11;
     const int maxItemId = 35;
 
     const int minBuildingId = 101;
@@ -120,6 +121,16 @@ public class InventoryUI : MonoBehaviour
     {
         invenItemList = Managers.Data.LoadInvenItem();
         invenBuildingList = Managers.Data.LoadInvenBuilding();
+
+        for (int i = 0; i < invenItemList.Length; i++)
+        {
+            UpdateItemCount(i + minItemId);
+        }
+
+        for (int i = 0; i < invenBuildingList.Length; i++)
+        {
+            UpdateItemCount(i + minBuildingId);
+        }
     }
 
     private void Update()
@@ -129,6 +140,11 @@ public class InventoryUI : MonoBehaviour
             isCoroutineRunning = true;
             craftCoroutine = StartCoroutine(ItemCraftCoroutine(craftWaitItemIds[craftButtonId[(front + 1) % craftButtonId.Length]], craftButtonId[(front + 1) % craftButtonId.Length]));
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Toggle();
         }
     }
 
@@ -144,6 +160,7 @@ public class InventoryUI : MonoBehaviour
         {
             invenItemList[id - Managers.Resource.ITEMOFFSET] += cnt;
         }
+        UpdateItemCount(id);
     }
     private bool MakeItem(int id)
     {
@@ -158,6 +175,11 @@ public class InventoryUI : MonoBehaviour
             }
         }
 
+        if (tmpData.Ingredients.Count == 0) {
+            // 만들수 없는 물건
+            logQueue.AddErrLog(id, 2);
+            return false; }
+
         if (isPossible)
         {
             for (int i = 0; i < tmpData.Ingredients.Count; i++)
@@ -167,6 +189,8 @@ public class InventoryUI : MonoBehaviour
             return true;
         }
 
+        //재료부족
+        logQueue.AddErrLog(id, 1);
         return false;
     }
 
@@ -185,6 +209,7 @@ public class InventoryUI : MonoBehaviour
 
             invenItemList[id - Managers.Resource.ITEMOFFSET] -= cnt;
         }
+        UpdateItemCount(id);
     }
     public void Toggle()
     {
@@ -208,7 +233,7 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < itemButtons.Length; i++)
         {
-            if (i + minCraftItemId > maxItemId)
+            if (i + minItemId > maxItemId)
             {
                 itemButtons[i].transform.GetComponent<Image>().sprite = null;
                 itemButtons[i].transform.GetComponent<Image>().color = Color.clear;
@@ -216,10 +241,10 @@ public class InventoryUI : MonoBehaviour
             }
             else
             {
-                itemButtons[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minCraftItemId);
+                itemButtons[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minItemId);
                 itemButtons[i].transform.GetComponent<Image>().color = Color.white;
                 itemButtons[i].transform.parent.gameObject.SetActive(true);
-                int idx = i + minCraftItemId;
+                int idx = i + minItemId;
                 itemButtons[i].onClick.RemoveAllListeners();
                 itemButtons[i].onClick.AddListener(() => OnItemClicked(idx));
             }
@@ -250,13 +275,13 @@ public class InventoryUI : MonoBehaviour
 
         if (MakeItem(id))
         {
-            if (!AddQueue(id)) Debug.Log("Queue Full");
+            if (!AddQueue(id))
+            {
+                // 큐가 가득참
+            }
 
         }
-        else
-        {
-            Debug.Log("크래프팅 아이템 부족!!");
-        }
+        // 재료부족 or 재료가 없음
     }
 
     private bool AddQueue(int id)
@@ -332,4 +357,15 @@ public class InventoryUI : MonoBehaviour
         craftSlider.gameObject.SetActive(false);
     }
 
+    private void UpdateItemCount(int id)
+    {
+        if (id < 100)
+        {
+            itemButtons[id - minItemId].transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = invenItemList[id - minItemId].ToString();
+        }
+        else
+        {
+            buildingButtons[id - minBuildingId].transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = invenBuildingList[id - minBuildingId].ToString();
+        }
+    }
 }

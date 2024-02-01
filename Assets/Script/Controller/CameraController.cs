@@ -24,7 +24,13 @@ public class CameraController : MonoBehaviour
     private float dragSpeed;
     [SerializeField]
     private float dragHoldTime;
-   
+    [SerializeField]
+    private Texture2D defaultMouse;
+    [SerializeField]
+    private Texture2D drillMouse;
+    [SerializeField]
+    private Texture2D hammerMouse;
+
 
     Vector2 minCameraPos = new Vector2(0, -100);
     Vector3 maxCameraPos = new Vector2(100, 0);
@@ -70,6 +76,14 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.ForceSoftware);
+            }
+            else
+            {
+                Cursor.SetCursor(hammerMouse, new Vector2(0, hammerMouse.height / 2), CursorMode.ForceSoftware);
+            }
             buildPreviewer.SetActive(true);
         }
 
@@ -144,9 +158,11 @@ public class CameraController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             var tile = Managers.Map.GetTileOnPoint(mousePosition);
-            Debug.Log(tile.terrainInfo);
+
             if (tile != null && tile.terrainInfo>= 1 && tile.terrainInfo <= 6)
             {
+                Cursor.SetCursor(drillMouse, new Vector2(0, drillMouse.height), CursorMode.ForceSoftware);
+
                 onMouseTimeR += Time.deltaTime;
 
                 if (onMouseTimeR >= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime)
@@ -160,9 +176,12 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.ForceSoftware);
+
             onMouseTimeR = 0;
             onMouseTime = 0;
         }
     }
+
 
 }

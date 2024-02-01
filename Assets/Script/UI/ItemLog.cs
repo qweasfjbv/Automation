@@ -26,6 +26,12 @@ public class ItemLog : MonoBehaviour
         itemLogImage.sprite = Managers.Resource.GetItemSprite(id);
     }
 
+    public void SetErrLog(int id, string s)
+    {
+        itemLogText.text = s;
+        itemLogImage.sprite = Managers.Resource.GetItemSprite(id);
+    }
+
     private IEnumerator NaturalDisappear()
     {
         yield return new WaitForSeconds(showTime);

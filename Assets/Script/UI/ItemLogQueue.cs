@@ -43,6 +43,37 @@ public class ItemLogQueue : MonoBehaviour
         ElevateAllLog();
     }
 
+    // 1: 재료부족
+    // 2: 만들수없는 아이템
+    public void AddErrLog(int id, int num)
+    {
+        string s = "";
+        switch (num)
+        {
+            case 1:
+                s = "insufficient ingredients!";
+                break;
+            case 2:
+                s = "The item cannot be crafted.";
+                break;
+            default:
+                return;
+        }
+        end = (end + 1) % QSIZE;
+        if (end == start && itemLogQueue[(start + 1) % QSIZE] != null)
+        {
+            start = (start + 1) % QSIZE;
+            Destroy(itemLogQueue[start].gameObject);
+        }
+
+        itemLogQueue[end] = Instantiate(itemLogPrefab, transform).GetComponent<ItemLog>();
+        itemLogQueue[end].SetErrLog(id, s);
+
+
+        ElevateAllLog();
+
+    }
+
     private void ElevateAllLog()
     {
         // [start+1, end)
