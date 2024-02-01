@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject craftingQueue;
     [SerializeField] private GameObject invenItem;
     [SerializeField] private GameObject invenBuilding;
-
+    [SerializeField] private ItemLogQueue logQueue;
 
     [SerializeField]
     List<int> invenItemList;
@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
     private Button[] itemButtons;
     private Button[] buildingButtons;
 
-    const int minItemId = 11;
+    const int minCraftItemId = 16;
     const int maxItemId = 35;
 
     const int minBuildingId = 101;
@@ -113,6 +113,7 @@ public class InventoryUI : MonoBehaviour
         {
             gameObject.SetActive(true);
         }
+        isActive = false;
         this.transform.position = new Vector3(0, 1000, 0);
     }
     private void Start()
@@ -131,11 +132,10 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void GetItem(int id, int cnt)
+    public void OnGetItem(int id, int cnt, bool log=true)
     {
-
-        // Log ¶ç¿ì±â
-
+        if (log)
+            logQueue.AddItemLog(id, cnt);
         if (id >= 100)
         {
             invenBuildingList[id - Managers.Resource.BUILDINGOFFSET] += cnt;
@@ -208,7 +208,7 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < itemButtons.Length; i++)
         {
-            if (i + minItemId > maxItemId)
+            if (i + minCraftItemId > maxItemId)
             {
                 itemButtons[i].transform.GetComponent<Image>().sprite = null;
                 itemButtons[i].transform.GetComponent<Image>().color = Color.clear;
@@ -216,10 +216,10 @@ public class InventoryUI : MonoBehaviour
             }
             else
             {
-                itemButtons[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minItemId);
+                itemButtons[i].transform.GetComponent<Image>().sprite = Managers.Resource.GetItemSprite(i + minCraftItemId);
                 itemButtons[i].transform.GetComponent<Image>().color = Color.white;
                 itemButtons[i].transform.parent.gameObject.SetActive(true);
-                int idx = i + minItemId;
+                int idx = i + minCraftItemId;
                 itemButtons[i].onClick.RemoveAllListeners();
                 itemButtons[i].onClick.AddListener(() => OnItemClicked(idx));
             }
@@ -302,7 +302,7 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < Managers.Resource.GetItemData(id).Ingredients.Count; i++)
         {
-            GetItem(Managers.Resource.GetItemData(id).Ingredients[i].id, Managers.Resource.GetItemData(id).Ingredients[i].cnt);
+            OnGetItem(Managers.Resource.GetItemData(id).Ingredients[i].id, Managers.Resource.GetItemData(id).Ingredients[i].cnt, false);
         }
         craftButton[idx].transform.parent.gameObject.SetActive(false);
 
@@ -324,7 +324,7 @@ public class InventoryUI : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        GetItem(id, 1);
+        OnGetItem(id, 1);
         yield return null;
         craftButton[idx].transform.parent.gameObject.SetActive(false);
         Dequeue();

@@ -342,7 +342,7 @@ public class MapManager
                         for (int s = 0; s < 3; s++)
                         {
                             tmpY = rdY + r; tmpX = rdX + s;
-                            if (usingArea[tmpY, tmpX].terrainInfo != 0 && !VEINPOS[rdIdx, r, s])
+                            if (usingArea[tmpY, tmpX].terrainInfo != 0 && VEINPOS[rdIdx, r, s])
                             {
                                 isCanBuild = false;
                                 break;
@@ -389,7 +389,7 @@ public class MapManager
                 for (int s = 0; s < 3; s++)
                 {
                     tmpY = rdY + r; tmpX = rdX + s;
-                    if (usingArea[tmpY, tmpX].terrainInfo != 0 && !VEINPOS[0, r, s])
+                    if (usingArea[tmpY, tmpX].terrainInfo != 0 && VEINPOS[0, r, s])
                     {
                         isCanBuild = false;
                         break;
@@ -400,7 +400,6 @@ public class MapManager
 
             if (isCanBuild)
             {
-
                 BuildVein(rdY, rdX, 7);
 
                 for (int r = 0; r < 3; r++)

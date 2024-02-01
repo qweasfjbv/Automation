@@ -144,7 +144,7 @@ public class CameraController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             var tile = Managers.Map.GetTileOnPoint(mousePosition);
-
+            Debug.Log(tile.terrainInfo);
             if (tile != null && tile.terrainInfo>= 1 && tile.terrainInfo <= 6)
             {
                 onMouseTimeR += Time.deltaTime;
@@ -152,7 +152,7 @@ public class CameraController : MonoBehaviour
                 if (onMouseTimeR >= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime)
                 {
                     onMouseTimeR -= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime;
-                    inven.GetItem(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID, 1);
+                    inven.OnGetItem(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID, 1);
                 }
 
             }
