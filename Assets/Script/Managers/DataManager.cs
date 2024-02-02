@@ -88,7 +88,6 @@ public class DataManager
 
         path = Application.persistentDataPath;
 
-
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();

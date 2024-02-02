@@ -1,361 +1,467 @@
 {
-"itemJsonDatas": [
-  {
-    "ID": 11,
-    "Name": "CooperOre",
-    "Ingredient": [],
-    "ProductTime": 2,
-    "Description": "It is obtained from mining CooperVein.",
-    "MakingBuildingId" : 102
-  },
-  {
-    "ID": 12,
-    "Name": "IronOre",
-    "Ingredient": [],
-    "ProductTime": 2,
-    "Description": "It is obtained from mining IronVein.",
-    "MakingBuildingId": 102
-  },
-  {
-    "ID": 13,
-    "Name": "GoldOre",
-    "Ingredient": [],
-    "ProductTime": 2,
-    "Description": "It is obtained from mining GoldVein.",
-    "MakingBuildingId": 102
-  },
-  {
-    "ID": 14,
-    "Name": "CoalOre",
-    "Ingredient": [],
-    "ProductTime": 2,
-    "Description": "It is obtained from mining CoalVein.",
-    "MakingBuildingId": 102
-  },
-  {
-    "ID": 15,
-    "Name": "QuartzOre",
-    "Ingredient": [],
-    "ProductTime": 4,
-    "Description": "It is obtained from mining QuartzVein.",
-    "MakingBuildingId": 102
-  },
-  {
-    "ID": 16,
-    "Name": "CooperIngot",
-    "Ingredient": [
-      {
-        "id": 11,
-        "cnt": 1
-      },
-      {
-        "id": 14,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from smeting cooperore.",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 17,
-    "Name": "IronIngot",
-    "Ingredient": [
-      {
-        "id": 12,
-        "cnt": 1
-      },
-      {
-        "id": 14,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 2,
+  "itemJsonDatas": [
+    {
+      "ID": 11,
+      "Name": "CooperOre",
+      "Ingredient": [],
+      "ProductTime": 2,
+      "Description": "It is obtained from mining CooperVein.",
+      "MakingBuildingId": 102
+    },
+    {
+      "ID": 12,
+      "Name": "IronOre",
+      "Ingredient": [],
+      "ProductTime": 2,
+      "Description": "It is obtained from mining IronVein.",
+      "MakingBuildingId": 102
+    },
+    {
+      "ID": 13,
+      "Name": "GoldOre",
+      "Ingredient": [],
+      "ProductTime": 2,
+      "Description": "It is obtained from mining GoldVein.",
+      "MakingBuildingId": 102
+    },
+    {
+      "ID": 14,
+      "Name": "CoalOre",
+      "Ingredient": [],
+      "ProductTime": 2,
+      "Description": "It is obtained from mining CoalVein.",
+      "MakingBuildingId": 102
+    },
+    {
+      "ID": 15,
+      "Name": "QuartzOre",
+      "Ingredient": [],
+      "ProductTime": 4,
+      "Description": "It is obtained from mining QuartzVein.",
+      "MakingBuildingId": 102
+    },
+    {
+      "ID": 16,
+      "Name": "CooperIngot",
+      "Ingredient": [
+        {
+          "id": 11,
+          "cnt": 1
+        },
+        {
+          "id": 14,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from smeting cooperore.",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 17,
+      "Name": "IronIngot",
+      "Ingredient": [
+        {
+          "id": 12,
+          "cnt": 1
+        },
+        {
+          "id": 14,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 2,
 
-    "Description": "It is obtained from smeting IronOre.",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 18,
-    "Name": "GoldIngot",
-    "Ingredient": [
-      {
-        "id": 13,
-        "cnt": 2
-      },
-      {
-        "id": 14,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 2,
+      "Description": "It is obtained from smeting IronOre.",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 18,
+      "Name": "GoldIngot",
+      "Ingredient": [
+        {
+          "id": 13,
+          "cnt": 2
+        },
+        {
+          "id": 14,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 2,
 
-    "Description": "It is obtained from smeting GoldOre.",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 19,
-    "Name": "CoalIngot",
-    "Ingredient": [
-      {
-        "id": 14,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from smeting CoalOre. it is ingredient of steel",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 20,
-    "Name": "SiliconIngot",
-    "Ingredient": [
-      {
-        "id": 15,
-        "cnt": 1
-      },
-      {
-        "id": 14,
-        "cnt": 4
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from smeting QuartzOre. It can be a siliconwafer if sliced thinly.",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 21,
-    "Name": "CrudeOil",
-    "Ingredient": [],
-    "ProductTime": 2,
-    "Description": "It is obtained from drilling groundcrack. it can be used only after refination.",
-    "MakingBuildingId": 108
-  },
-  {
-    "ID": 22,
-    "Name": "RefinedOil",
-    "Ingredient": [
-      {
-        "id": 21,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from refining crudeoil. it is main ingredient of plastic.",
-    "MakingBuildingId": 109
-  },
-  {
-    "ID": 23,
-    "Name": "Lubricant",
-    "Ingredient": [
-      {
-        "id": 21,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 3,
-    "Description": "It is obtained from refining crudeoil. it reduces friction.",
-    "MakingBuildingId": 109
-  },
-  {
-    "ID": 24,
-    "Name": "Plastic",
-    "Ingredient": [
-      {
-        "id": 22,
-        "cnt": 2
-      },
-      {
-        "id": 23,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 3,
-    "Description": "It is made from oil and lubricant. it is light and bends well compared to steel.",
-    "MakingBuildingId": 109
-  },
-  {
-    "ID": 25,
-    "Name": "Steel",
-    "Ingredient": [
-      {
-        "id": 17,
-        "cnt": 4
-      },
-      {
-        "id": 19,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 3,
-    "Description": "It is made from coalingot and ironingot. it is main ingredient of buildings.",
-    "MakingBuildingId": 106
-  },
-  {
-    "ID": 26,
-    "Name": "CopperWire",
-    "Ingredient": [
-      {
-        "id": 16,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from slicing copperingot. it has high electrical conductivity.",
-    "MakingBuildingId": 110
-  },
-  {
-    "ID": 27,
-    "Name": "GoldPowder",
-    "Ingredient": [
-      {
-        "id": 18,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "It is obtained from slicing goldingot. it is used in for plating.",
-    "MakingBuildingId": 110
-  },
-  {
-    "ID": 28,
-    "Name": "SiliconWafer",
-    "Ingredient": [
-      {
-        "id": 20,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 5,
-    "Description": "It is obtained from slicing siliconingot. it's required delicate techniques.",
-    "MakingBuildingId": 110
-  },
-  {
-    "ID": 29,
-    "Name": "Coil",
-    "Ingredient": [
-      {
-        "id": 26,
-        "cnt": 2
-      }
-    ],
-    "ProductTime": 2,
-    "Description": "it is bundle of copperwires. can make motor.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 30,
-    "Name": "Motor",
-    "Ingredient": [
-      {
-        "id": 17,
-        "cnt": 5
-      },
-      {
-        "id": 23,
-        "cnt": 2
-      },
-      {
-        "id": 29,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 5,
-    "Description": "a device used to convert electrical energy into mechanical energy.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 31,
-    "Name": "SolarPanel",
-    "Ingredient": [
-      {
-        "id": 26,
-        "cnt": 3
-      },
-      {
-        "id": 28,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 4,
-    "Description": "a device used to convert sun's ray and convert them into electrical energy.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 32,
-    "Name": "ICChip",
-    "Ingredient": [
-      {
-        "id": 27,
-        "cnt": 2
-      },
-      {
-        "id": 28,
-        "cnt": 1
-      },
-      {
-        "id": 24,
-        "cnt": 1
-      }
-    ],
-    "ProductTime": 4,
-    "Description": "main ingredient of CPU. it is essential for a logical function.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 33,
-    "Name": "RobotBody",
-    "Ingredient": [
-      {
-        "id": 30,
-        "cnt": 5
-      },
-      {
-        "id": 24,
-        "cnt": 5
-      },
-      {
-        "id": 25,
-        "cnt": 7
-      }
-    ],
-    "ProductTime": 6,
-    "Description": "a part of robot. but can't control itself.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 34,
-    "Name": "CPU",
-    "Ingredient": [
-      {
-        "id": 32,
-        "cnt": 5
-      }
-    ],
-    "ProductTime": 5,
-    "Description": "The key component of Robot. A robot without a CPU is just a lump of scrap metal.",
-    "MakingBuildingId": 107
-  },
-  {
-    "ID": 35,
-    "Name": "Robot",
-    "Ingredient": [
-      {
-        "id": 33,
-        "cnt": 6
-      },
-      {
-        "id": 34,
-        "cnt": 4
-      },
-      {
-        "id": 31,
-        "cnt": 4
-      }
-    ],
-    "ProductTime": 5,
-    "Description": "basic robot. parts can be added if necessary.",
-    "MakingBuildingId": 107
-  }
-   ]
+      "Description": "It is obtained from smeting GoldOre.",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 19,
+      "Name": "CoalIngot",
+      "Ingredient": [
+        {
+          "id": 14,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from smeting CoalOre. it is ingredient of steel",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 20,
+      "Name": "SiliconIngot",
+      "Ingredient": [
+        {
+          "id": 15,
+          "cnt": 1
+        },
+        {
+          "id": 14,
+          "cnt": 4
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from smeting QuartzOre. It can be a siliconwafer if sliced thinly.",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 21,
+      "Name": "CrudeOil",
+      "Ingredient": [],
+      "ProductTime": 2,
+      "Description": "It is obtained from drilling groundcrack. it can be used only after refination.",
+      "MakingBuildingId": 108
+    },
+    {
+      "ID": 22,
+      "Name": "RefinedOil",
+      "Ingredient": [
+        {
+          "id": 21,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from refining crudeoil. it is main ingredient of plastic.",
+      "MakingBuildingId": 109
+    },
+    {
+      "ID": 23,
+      "Name": "Lubricant",
+      "Ingredient": [
+        {
+          "id": 21,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "It is obtained from refining crudeoil. it reduces friction.",
+      "MakingBuildingId": 109
+    },
+    {
+      "ID": 24,
+      "Name": "Plastic",
+      "Ingredient": [
+        {
+          "id": 22,
+          "cnt": 2
+        },
+        {
+          "id": 23,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "It is made from oil and lubricant. it is light and bends well compared to steel.",
+      "MakingBuildingId": 109
+    },
+    {
+      "ID": 25,
+      "Name": "Steel",
+      "Ingredient": [
+        {
+          "id": 17,
+          "cnt": 4
+        },
+        {
+          "id": 19,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "It is made from coalingot and ironingot. it is main ingredient of buildings.",
+      "MakingBuildingId": 106
+    },
+    {
+      "ID": 26,
+      "Name": "CopperWire",
+      "Ingredient": [
+        {
+          "id": 16,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from slicing copperingot. it has high electrical conductivity.",
+      "MakingBuildingId": 110
+    },
+    {
+      "ID": 27,
+      "Name": "GoldPowder",
+      "Ingredient": [
+        {
+          "id": 18,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "It is obtained from slicing goldingot. it is used in for plating.",
+      "MakingBuildingId": 110
+    },
+    {
+      "ID": 28,
+      "Name": "SiliconWafer",
+      "Ingredient": [
+        {
+          "id": 20,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 5,
+      "Description": "It is obtained from slicing siliconingot. it's required delicate techniques.",
+      "MakingBuildingId": 110
+    },
+    {
+      "ID": 29,
+      "Name": "Coil",
+      "Ingredient": [
+        {
+          "id": 26,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "it is bundle of copperwires. can make motor.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 30,
+      "Name": "Motor",
+      "Ingredient": [
+        {
+          "id": 17,
+          "cnt": 5
+        },
+        {
+          "id": 23,
+          "cnt": 2
+        },
+        {
+          "id": 29,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 5,
+      "Description": "a device used to convert electrical energy into mechanical energy.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 31,
+      "Name": "Graphene",
+      "Ingredient": [
+        {
+          "id": 19,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "A single layer of carbon atoms. it is very thin.",
+      "MakingBuildingId": 110
+    },
+    {
+      "ID": 32,
+      "Name": "Engineering Plastic",
+      "Ingredient": [
+        {
+          "id": 24,
+          "cnt": 2
+        },
+        {
+          "id": 31,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "it is harder and more heat resistant thatn plastic",
+      "MakingBuildingId": 109
+    },
+    {
+      "ID": 33,
+      "Name": "Super Capacitor",
+      "Ingredient": [
+        {
+          "id": 26,
+          "cnt": 2
+        },
+        {
+          "id": 31,
+          "cnt": 2
+        },
+        {
+          "id": 24,
+          "cnt": 3
+        }
+      ],
+      "ProductTime": 2,
+      "Description": "it can store a large volume of electric energy. userful when it is not able to supply energy.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 34,
+      "Name": "SolarPanel",
+      "Ingredient": [
+        {
+          "id": 26,
+          "cnt": 3
+        },
+        {
+          "id": 28,
+          "cnt": 6
+        },
+        {
+          "id": 33,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "a device used to convert sun's ray and convert them into electrical energy.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 35,
+      "Name": "ICChip",
+      "Ingredient": [
+        {
+          "id": 27,
+          "cnt": 2
+        },
+        {
+          "id": 28,
+          "cnt": 1
+        },
+        {
+          "id": 24,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "main ingredient of CPU. it is essential for a logical function.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 36,
+      "Name": "RobotBody",
+      "Ingredient": [
+        {
+          "id": 30,
+          "cnt": 5
+        },
+        {
+          "id": 32,
+          "cnt": 5
+        },
+        {
+          "id": 25,
+          "cnt": 7
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "a part of robot. but can't control itself.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 37,
+      "Name": "CPU",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 5
+        }
+      ],
+      "ProductTime": 5,
+      "Description": "The key component of Robot. A robot without a CPU is just a lump of scrap metal.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 38,
+      "Name": "Propeller",
+      "Ingredient": [
+        {
+          "id": 30,
+          "cnt": 1
+        },
+        {
+          "id": 32,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "Robots can fly with propeller.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 39,
+      "Name": "KPP-BS",
+      "Ingredient": [
+        {
+          "id": 37,
+          "cnt": 6
+        },
+        {
+          "id": 34,
+          "cnt": 4
+        },
+        {
+          "id": 36,
+          "cnt": 4
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "k-pler project base robot. parts can be added if necessary.",
+      "MakingBuildingId": 116
+    },
+    {
+      "ID": 40,
+      "Name": "KPP-DR",
+      "Ingredient": [
+        {
+          "id": 39,
+          "cnt": 1
+        },
+        {
+          "id": 38,
+          "cnt": 4
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "k-pler project drone robot. it can carry out a mission without ground.",
+      "MakingBuildingId": 116
+    },
+    {
+      "ID": 39,
+      "Name": "KPP-OG",
+      "Ingredient": [
+        {
+          "id": 39,
+          "cnt": 1
+        },
+        {
+          "id": 114,
+          "cnt": 1
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "k-pler project oxygen generating robot. it can generate oxygen on alien planets.",
+      "MakingBuildingId": 116
+    }
+  ]
 }
