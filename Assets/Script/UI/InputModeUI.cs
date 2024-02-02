@@ -40,6 +40,9 @@ public class InputModeUI : MonoBehaviour
 
     private void Update()
     {
+
+        
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
             OnModButtonClicked(1);

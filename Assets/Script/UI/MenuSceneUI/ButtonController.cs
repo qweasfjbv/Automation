@@ -24,7 +24,7 @@ public class ButtonController : MonoBehaviour
 
     private void OnPressButtonNewGame()
     {
-        Managers.Data.DeleteMap();
+        Managers.Data.DeleteAll();
         Managers.Scene.LoadScene(SceneEnum.Game);
     }
 

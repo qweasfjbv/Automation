@@ -2,9 +2,46 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Security.Cryptography;
+using System.Text;
+using UnityEditor;
+
+public static class AESManager {
+    private static byte[] key = Encoding.UTF8.GetBytes("1234qwer5678asdf");
+    private static byte[] iv = Encoding.UTF8.GetBytes("1234qwer5678asdf");
+
+    public static string EncryptString(string s)
+    {
+        using (Aes aesALg = Aes.Create())
+        {
+            aesALg.Key = key;
+            aesALg.IV = iv;
+
+            ICryptoTransform encryptor = aesALg.CreateEncryptor(aesALg.Key, aesALg.IV);
+            byte[] encrypted = encryptor.TransformFinalBlock(Encoding.UTF8.GetBytes(s), 0, s.Length);
+
+            return System.Convert.ToBase64String(encrypted);
+        }
+    }
+
+    public static string DecryptString(string cipherText)
+    {
+        byte[] buffer = System.Convert.FromBase64String(cipherText);
+
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = key;
+            aesAlg.IV = iv;
+
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+            byte[] decrypted = decryptor.TransformFinalBlock(buffer, 0, buffer.Length);
+
+            return Encoding.UTF8.GetString(decrypted);
+        }
+    }
+}
+
 
 [Serializable]
 public class TileData {
@@ -51,7 +88,7 @@ public class DataManager
 
         path = Application.persistentDataPath;
 
-        Debug.Log(path);
+
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();
@@ -66,6 +103,11 @@ public class DataManager
     {
         SaveMap();
         SaveInven();
+    }
+    public void DeleteAll()
+    {
+        DeleteMap();
+        DeleteInvenData();
     }
 
     private void LoadTutorialMap()
@@ -136,7 +178,7 @@ public class DataManager
 
         DeleteMap();
 
-        File.AppendAllText(path + mapFileName, JsonUtility.ToJson(tileDatas));
+        File.AppendAllText(path + mapFileName, AESManager.EncryptString(JsonUtility.ToJson(tileDatas)));
 
         tileDatas.tileData.Clear();
 
@@ -150,7 +192,7 @@ public class DataManager
             Managers.Map.GenerateVeinsOnMap();
             return false;
         }
-        tileDatas = JsonUtility.FromJson<TileDatas>(File.ReadAllText(path + mapFileName));
+        tileDatas = JsonUtility.FromJson<TileDatas>(AESManager.DecryptString(File.ReadAllText(path + mapFileName)));
 
         if (tileDatas == null || tileDatas.tileData == null) return false;
 
@@ -195,7 +237,7 @@ public class DataManager
         return true;
     }
 
-    public void DeleteMap()
+    private void DeleteMap()
     {
         if (File.Exists(path + mapFileName))
         {
@@ -217,7 +259,7 @@ public class DataManager
         }
         else
         {
-            invenItemDatas = JsonUtility.FromJson<InvenItemDatas>(File.ReadAllText(path + invenItemFileName));
+            invenItemDatas = JsonUtility.FromJson<InvenItemDatas>(AESManager.DecryptString(File.ReadAllText(path + invenItemFileName)));
         }
 
         if (invenItemDatas == null) invenItemDatas = new InvenItemDatas();
@@ -250,7 +292,7 @@ public class DataManager
         }
         else
         {
-            invenBuildingDatas = JsonUtility.FromJson<InvenBuildingDatas>(File.ReadAllText(path + invenBuildingFileName));
+            invenBuildingDatas = JsonUtility.FromJson<InvenBuildingDatas>(AESManager.DecryptString(File.ReadAllText(path + invenBuildingFileName)));
         }
 
         if (invenBuildingDatas == null) invenItemDatas = new InvenItemDatas();
@@ -272,8 +314,8 @@ public class DataManager
     {
         DeleteInvenData();
 
-        File.AppendAllText(path + invenItemFileName, JsonUtility.ToJson(invenItemDatas));
-        File.AppendAllText(path + invenBuildingFileName, JsonUtility.ToJson(invenBuildingDatas));
+        File.AppendAllText(path + invenItemFileName, AESManager.EncryptString(JsonUtility.ToJson(invenItemDatas)));
+        File.AppendAllText(path + invenBuildingFileName, AESManager.EncryptString(JsonUtility.ToJson(invenBuildingDatas)));
     }
     private void DeleteInvenData()
     {
@@ -286,5 +328,6 @@ public class DataManager
             File.Delete(path + invenItemFileName);
         }
     }
+
 
 }

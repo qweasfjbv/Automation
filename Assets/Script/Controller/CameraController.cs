@@ -30,7 +30,10 @@ public class CameraController : MonoBehaviour
     private Texture2D drillMouse;
     [SerializeField]
     private Texture2D hammerMouse;
+    [SerializeField]
+    private ParticleSystem dustParticle;
 
+    private bool isParticleOn;
 
     Vector2 minCameraPos = new Vector2(0, -100);
     Vector3 maxCameraPos = new Vector2(100, 0);
@@ -56,8 +59,10 @@ public class CameraController : MonoBehaviour
         minCameraPos.y = -Managers.Map.MapSizeY;
         maxCameraPos.x = Managers.Map.MapSizeX;
 
-
+        isParticleOn = false;
         buildPreviewer.SetActive(false);
+
+        dustParticle.Stop();
     }
 
     void Update()
@@ -85,6 +90,7 @@ public class CameraController : MonoBehaviour
                 Cursor.SetCursor(hammerMouse, new Vector2(0, hammerMouse.height / 2), CursorMode.ForceSoftware);
             }
             buildPreviewer.SetActive(true);
+            OffParticle();
         }
 
     }
@@ -158,11 +164,16 @@ public class CameraController : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             var tile = Managers.Map.GetTileOnPoint(mousePosition);
+            dustParticle.transform.position = new Vector3(mousePosition.x, mousePosition.y, 0);
+            
 
             if (tile != null && tile.terrainInfo>= 1 && tile.terrainInfo <= 6)
             {
                 Cursor.SetCursor(drillMouse, new Vector2(0, drillMouse.height), CursorMode.ForceSoftware);
-
+                if (!isParticleOn)
+                {
+                    OnParticle();
+                }
                 onMouseTimeR += Time.deltaTime;
 
                 if (onMouseTimeR >= Managers.Resource.GetItemData(Managers.Resource.GetTerrainData(tile.terrainInfo).OreID).ProductTime)
@@ -178,10 +189,21 @@ public class CameraController : MonoBehaviour
         {
             Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.ForceSoftware);
 
+            OffParticle();
             onMouseTimeR = 0;
             onMouseTime = 0;
         }
     }
 
+    private void OffParticle()
+    {
+        dustParticle.Stop();
+        isParticleOn = false;
+    }
 
+    private void OnParticle()
+    {
+        dustParticle.Play();
+        isParticleOn = false;
+    }
 }
