@@ -181,6 +181,7 @@ public class SettingUIs : MonoBehaviour
                 curOpeningUI.SetActive(false);
             }
             setting.SetActive(true);
+
             curOpeningUI = setting;
         }
         else

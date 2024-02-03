@@ -22,9 +22,6 @@ public class SettingButtons : MonoBehaviour
         OptionButton.onClick.AddListener(() => OnOptionButton());
         ExitButton.onClick.AddListener(() => OnExitButton());
 
-        QuestButton.gameObject.SetActive(false);
-        OptionButton.gameObject.SetActive(false);
-        ExitButton.gameObject.SetActive(false);
     }
 
     private void OnQuestButton()
