@@ -18,19 +18,33 @@ public class InputModeUI : MonoBehaviour
 
     private void Awake()
     {
+        // Transport
         uiDict.Add(101, popups[0].transform.GetChild(0));
         uiDict.Add(103, popups[0].transform.GetChild(1));
         uiDict.Add(104, popups[0].transform.GetChild(2));
         uiDict.Add(105, popups[0].transform.GetChild(3));
 
+        // Mining
         uiDict.Add(102, popups[1].transform.GetChild(0));
         uiDict.Add(108, popups[1].transform.GetChild(1));
 
+        // Production
         uiDict.Add(106, popups[2].transform.GetChild(0));
         uiDict.Add(109, popups[2].transform.GetChild(1));
         uiDict.Add(107, popups[2].transform.GetChild(2));
         uiDict.Add(110, popups[2].transform.GetChild(3));
+        uiDict.Add(112, popups[2].transform.GetChild(4));
 
+        // Storage
+        uiDict.Add(113, popups[3].transform.GetChild(0));
+
+        // SF
+        uiDict.Add(114, popups[4].transform.GetChild(0));
+        uiDict.Add(115, popups[4].transform.GetChild(1));
+        uiDict.Add(116, popups[4].transform.GetChild(2));
+
+
+        // etc..
         uiDict.Add(111, popups[5].transform.GetChild(0));
 
 
@@ -55,8 +69,6 @@ public class InputModeUI : MonoBehaviour
         {
             OnModButtonClicked(3);
         }
-
-        /*
         else if(Input.GetKeyDown(KeyCode.F4))
         {
             OnModButtonClicked(4);
@@ -65,7 +77,6 @@ public class InputModeUI : MonoBehaviour
         {
             OnModButtonClicked(5);
         }
-        */
         else if (Input.GetKeyDown(KeyCode.F6))
         {
             OnModButtonClicked(6);

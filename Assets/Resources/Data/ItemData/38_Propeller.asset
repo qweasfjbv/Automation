@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
+  m_Name: 38_Propeller
+  m_EditorClassIdentifier: 
+  itemId: 34
+  itemName: CPU
+  sprite: {fileID: 21300000, guid: d465429ff5674814da6192f2ab3c60e7, type: 3}
+  itemDescription: 
+  productTime: 5
+  ingredients:
+  - id: 32
+    cnt: 5
+  makingBuildingId: 0

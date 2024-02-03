@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -43,9 +44,9 @@ public class ResourceManager
     private VeinData[] terrainDatas;
     
 
-    public readonly int VEINOFFSET = 1;
-    public readonly int BUILDINGOFFSET = 101;
-    public readonly int ITEMOFFSET = 11;
+    public readonly static int VEINOFFSET = 1;
+    public readonly static int BUILDINGOFFSET = 101;
+    public readonly static int ITEMOFFSET = 11;
 
     private ItemJsonDataArr tmpItemDatas;
     private BuildingJsonDataArr tmpBuildingDatas;
@@ -60,7 +61,7 @@ public class ResourceManager
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
-
+        
         for (int i = 0; i < tmpItemDatas.itemJsonDatas.Length; i++)
         {
             itemDatas[i].SetItemData(tmpItemDatas.itemJsonDatas[i]);
@@ -76,6 +77,18 @@ public class ResourceManager
 
     }
 
+
+    public int GetItemCount()
+    {
+        return itemDatas.Length;
+    }
+
+    public int GetBuildingCount()
+    {
+        return buildingDatas.Length;
+    }
+
+
     public ItemData GetItemData(int id)
     {
 
@@ -89,15 +102,6 @@ public class ResourceManager
         }
     }
 
-    public int GetItemCount()
-    {
-        return itemDatas.Length;
-    }
-
-    public int GetBuildingCount()
-    {
-        return buildingDatas.Length;
-    }
     public BuildingData GetBuildingData(int id)
     {
         return buildingDatas[id - BUILDINGOFFSET];

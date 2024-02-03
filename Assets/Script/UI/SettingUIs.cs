@@ -28,14 +28,15 @@ public class SettingUIs : MonoBehaviour
 
     private GameObject curOpeningUI = null;
 
-    const int minItemId = 11;
-    const int maxItemId = 35;
+    int minItemId;
+    int maxItemId;
 
-    const int minBuildingId = 101;
-    const int maxBuildingId = 111;
+    int minBuildingId;
+    int maxBuildingId;
 
     private void Awake()
     {
+
 
         itemDictButton.GetComponent<Button>().onClick.AddListener(() => OnItemDictButton());
         itemButtonList = itemDict.GetComponentsInChildren<Button>();
@@ -50,6 +51,17 @@ public class SettingUIs : MonoBehaviour
 
         buildingDict.SetActive(false);
         buildingDictInfo.SetActive(false);
+
+    }
+
+    private void Start()
+    {
+
+        minItemId = ResourceManager.ITEMOFFSET;
+        maxItemId = minItemId + Managers.Resource.GetItemCount() -1;
+
+        minBuildingId = ResourceManager.BUILDINGOFFSET;
+        maxBuildingId = minBuildingId + Managers.Resource.GetBuildingCount()-1;
 
     }
 

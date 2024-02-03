@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
+  m_Name: 36_RobotBody
+  m_EditorClassIdentifier: 
+  itemId: 33
+  itemName: RobotBody
+  sprite: {fileID: 21300000, guid: 84d21a464dcba4e4ab886a9e76ff6415, type: 3}
+  productTime: 6
+  ingredients:
+  - id: 30
+    cnt: 5
+  - id: 24
+    cnt: 5
+  - id: 25
+    cnt: 7

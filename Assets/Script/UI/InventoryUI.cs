@@ -30,11 +30,11 @@ public class InventoryUI : MonoBehaviour
     private Button[] itemButtons;
     private Button[] buildingButtons;
 
-    const int minItemId = 11;
-    const int maxItemId = 35;
+    int minItemId;
+    int maxItemId;
 
-    const int minBuildingId = 101;
-    const int maxBuildingId = 111;
+    int minBuildingId;
+    int maxBuildingId;
 
     private int front = 0, rear = 0;
 
@@ -88,6 +88,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
+
         isActive = gameObject.activeSelf;
         itemButtons = invenItem.GetComponentsInChildren<Button>();
         buildingButtons = invenBuilding.GetComponentsInChildren<Button>();
@@ -117,8 +118,15 @@ public class InventoryUI : MonoBehaviour
         isActive = false;
         this.transform.position = new Vector3(0, 1000, 0);
     }
+
+
     private void Start()
     {
+        minItemId = ResourceManager.ITEMOFFSET;
+        maxItemId = minItemId + Managers.Resource.GetItemCount()-1;
+        minBuildingId = ResourceManager.BUILDINGOFFSET;
+        maxBuildingId = minBuildingId + Managers.Resource.GetBuildingCount()-1;
+
         invenItemList = Managers.Data.LoadInvenItem();
         invenBuildingList = Managers.Data.LoadInvenBuilding();
 
@@ -154,11 +162,11 @@ public class InventoryUI : MonoBehaviour
             logQueue.AddItemLog(id, cnt);
         if (id >= 100)
         {
-            invenBuildingList[id - Managers.Resource.BUILDINGOFFSET] += cnt;
+            invenBuildingList[id - ResourceManager.BUILDINGOFFSET] += cnt;
         }
         else
         {
-            invenItemList[id - Managers.Resource.ITEMOFFSET] += cnt;
+            invenItemList[id - ResourceManager.ITEMOFFSET] += cnt;
         }
         UpdateItemCount(id);
     }
@@ -196,18 +204,18 @@ public class InventoryUI : MonoBehaviour
 
     private bool CheckEnoughItem(int id, int cnt)
     {
-        return invenItemList[id - Managers.Resource.ITEMOFFSET] >= cnt;
+        return invenItemList[id - ResourceManager.ITEMOFFSET] >= cnt;
     }
     private void UseItem(int id, int cnt)
     {
         if(id >= 100)
         {
-            invenItemList[id - Managers.Resource.BUILDINGOFFSET] -= cnt;
+            invenItemList[id - ResourceManager.BUILDINGOFFSET] -= cnt;
         }
         else
         {
 
-            invenItemList[id - Managers.Resource.ITEMOFFSET] -= cnt;
+            invenItemList[id - ResourceManager.ITEMOFFSET] -= cnt;
         }
         UpdateItemCount(id);
     }

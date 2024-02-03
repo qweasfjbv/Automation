@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7d3c0ace8e0ef4b96259604c4b91cb, type: 3}
+  m_Name: 116_RoboticsLab
+  m_EditorClassIdentifier: 
+  itemId: 0
+  itemName: 
+  sprite: {fileID: 21300000, guid: dd58fe3828cb05348a5403ea83a2da4a, type: 3}
+  itemDescription: 
+  productTime: 0
+  ingredients: []
+  makingBuildingId: 0
+  size: {x: 0, y: 0}
+  prefab: {fileID: 3588146707157288820, guid: 3741830a1e27b81428b5b366e419a950, type: 3}
+  speed: 0
+  inputDirs: 
+  outputDirs: 
+  outputIds: 

@@ -11,4 +11,5 @@ public abstract class Production : BuildingBase
 
     abstract public void Init(int itemId);
     abstract public void ChangeOutputItemId(int id);
+
 }
