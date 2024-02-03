@@ -4,8 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[Serializable]
-public class ItemJsonData
+[Serializable] public class ItemJsonData
 {
     public int ID;
     public string Name;
@@ -14,26 +13,31 @@ public class ItemJsonData
     public string Description;
     public int MakingBuildingId;
 }
-[Serializable]
-public class ItemJsonDataArr
+[Serializable] public class ItemJsonDataArr
 {
     public ItemJsonData[] itemJsonDatas;
 }
-
-[Serializable]
-public class BuildingJsonData : ItemJsonData {
+[Serializable] public class BuildingJsonData : ItemJsonData {
     public Vector2 Size;
     public float Speed;
     public List<int> InputDirs;
     public List<int> OutputDirs;
     public List<int> OutputIds;
 }
-
-[Serializable]
-public class BuildingJsonDataArr {
+[Serializable] public class BuildingJsonDataArr {
     public BuildingJsonData[] buildingJsonDatas;
 }
-
+[Serializable] public class QuestJsonData
+{
+    public int questId;
+    public int questLv;
+    public List<Ingredient> ingredients;
+    public float timeLimit;
+}
+[Serializable] public class QuestJsonDataArr
+{
+    public QuestJsonData[] data;
+}
 
 public class ResourceManager
 {
@@ -42,7 +46,7 @@ public class ResourceManager
     private ItemData[] itemDatas;
     private BuildingData[] buildingDatas;
     private VeinData[] terrainDatas;
-    
+    private QuestData[] questDatas;
 
     public readonly static int VEINOFFSET = 1;
     public readonly static int BUILDINGOFFSET = 101;
@@ -50,6 +54,7 @@ public class ResourceManager
 
     private ItemJsonDataArr tmpItemDatas;
     private BuildingJsonDataArr tmpBuildingDatas;
+    private QuestJsonDataArr tmpQuestDatas;
 
     public void Init()
     {
@@ -57,11 +62,13 @@ public class ResourceManager
         tmpItemDatas = JsonUtility.FromJson<ItemJsonDataArr>(textAsset.text);
         tmpBuildingDatas = JsonUtility.FromJson<BuildingJsonDataArr>(
             Resources.Load<TextAsset>("Data/JsonData/BuildingData").text);
-
+        tmpQuestDatas = JsonUtility.FromJson<QuestJsonDataArr>(
+            Resources.Load<TextAsset>("Data/JsonData/QuestData").text);
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
-        
+        questDatas = Resources.LoadAll<QuestData>("Data/QuestData");
+
         for (int i = 0; i < tmpItemDatas.itemJsonDatas.Length; i++)
         {
             itemDatas[i].SetItemData(tmpItemDatas.itemJsonDatas[i]);
@@ -71,7 +78,15 @@ public class ResourceManager
         {
             buildingDatas[i].SetBuildingData(tmpBuildingDatas.buildingJsonDatas[i]);
         }
-        
+
+
+        if (tmpQuestDatas.data != null)
+        {
+            for (int i = 0; i < tmpQuestDatas.data.Length; i++)
+            {
+                questDatas[i].SetQuestData(tmpQuestDatas.data[i]);
+            }
+        }
 
         terrainDatas = Resources.LoadAll<VeinData>("Data/TerrainData");
 
@@ -122,5 +137,9 @@ public class ResourceManager
         return GetItemData(id).Image;
     }
 
+    public QuestData GetQuestData(int id)
+    {
+        return questDatas[id];
+    }
 
 }
