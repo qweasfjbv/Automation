@@ -79,6 +79,8 @@ public class DataManager
     InvenItemDatas invenItemDatas = new InvenItemDatas();
     InvenBuildingDatas invenBuildingDatas = new InvenBuildingDatas();
 
+    public delegate void UpdateDelegate<T1>(T1 a);
+    public UpdateDelegate<int> itemUpdateDelegate;
 
     public void Init()
     {
@@ -308,6 +310,18 @@ public class DataManager
         }
 
         return ref invenBuildingDatas.invenBuildingData;
+    }
+    public void AddInvenItem(int id, int cnt)
+    {
+        if (id >= 100)
+        {
+            invenBuildingDatas.invenBuildingData[id - ResourceManager.BUILDINGOFFSET] += cnt;
+        }
+        else
+        {
+            invenItemDatas.invenItemData[id - ResourceManager.ITEMOFFSET] += cnt;
+        }
+        itemUpdateDelegate(id);
     }
     public void SaveInven()
     {

@@ -22,4 +22,4 @@ MonoBehaviour:
     cnt: 3
   - id: 35
     cnt: 3
-  timeLimit: 500
+  timeLimit: 10

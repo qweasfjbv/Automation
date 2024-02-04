@@ -11,12 +11,19 @@ public class QuestManager
     public Action<int> SetQuestUI { get; set; }
     public Action QuestFail { get; set; }
 
+    public void Init()
+    {
+        QuestFail -= (() => curQuestId = -1);
+        QuestFail += (() => curQuestId = -1);
+    }
+
     public void SetQuestId(int id)
     {
         curQuestId = id;
         SetQuestUI(id);
     }
 
+    
 
 
 }

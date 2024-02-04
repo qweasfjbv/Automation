@@ -1,9 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.AssetImporters;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -200,7 +195,9 @@ public class Belt : Transport
     public void InvokeBelt()
     {
         if (nextBelt == null)
+        {
             nextBelt = FindNextBelt();
+        }
     }
 
     float[] by = {0.5f, 0, -0.5f, 0 };

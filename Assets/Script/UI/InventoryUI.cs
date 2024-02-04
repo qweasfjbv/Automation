@@ -119,9 +119,10 @@ public class InventoryUI : MonoBehaviour
         this.transform.position = new Vector3(0, 1000, 0);
     }
 
-
     private void Start()
     {
+        Managers.Data.itemUpdateDelegate = (int id) => UpdateItemCount(id);
+
         minItemId = ResourceManager.ITEMOFFSET;
         maxItemId = minItemId + Managers.Resource.GetItemCount()-1;
         minBuildingId = ResourceManager.BUILDINGOFFSET;
@@ -237,7 +238,6 @@ public class InventoryUI : MonoBehaviour
     }
     private void UpdateInven()
     {
-
 
         for (int i = 0; i < itemButtons.Length; i++)
         {
