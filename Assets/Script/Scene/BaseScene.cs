@@ -7,6 +7,7 @@ public enum SceneEnum {
     Mainmenu,
     Tutorial,
     Game,
+    SpaceMap,
     Loading
 };
 

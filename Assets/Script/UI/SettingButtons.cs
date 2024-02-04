@@ -8,6 +8,8 @@ public class SettingButtons : MonoBehaviour
     [SerializeField]
     private Button QuestButton;
     [SerializeField]
+    public GameObject QuestUI;
+    [SerializeField]
     private Button OptionButton;
     [SerializeField]
     private Button ExitButton;
@@ -26,7 +28,7 @@ public class SettingButtons : MonoBehaviour
 
     private void OnQuestButton()
     {
-
+        QuestUI.SetActive(true);
     }
     private void OnOptionButton()
     {

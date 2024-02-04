@@ -15,6 +15,7 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     SceneManagerEx _scene = new SceneManagerEx();
     DataManager _data = new DataManager();
+    QuestManager _quest = new QuestManager();
 
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
@@ -23,6 +24,7 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }   
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static DataManager Data { get { return Instance._data; } }
+    public static QuestManager Quest { get { return Instance._quest; } }
 
     void Awake()
     {

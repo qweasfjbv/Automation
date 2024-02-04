@@ -202,18 +202,28 @@ public class SettingUIs : MonoBehaviour
         {
             OnBuildingDictButton();
         }
+        else if(Input.GetKeyDown(KeyCode.Q)){
+
+        }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (curOpeningUI == null)
+            if (setting.GetComponent<SettingButtons>().QuestUI.activeSelf)
             {
-                OnSettingButton();
+                setting.GetComponent<SettingButtons>().QuestUI.SetActive(false);
             }
             else
             {
-                buildingDictInfo.SetActive(false);
-                itemDictInfo.SetActive(false);
-                curOpeningUI.SetActive(false);
-                curOpeningUI = null;
+                if (curOpeningUI == null)
+                {
+                    OnSettingButton();
+                }
+                else
+                {
+                    buildingDictInfo.SetActive(false);
+                    itemDictInfo.SetActive(false);
+                    curOpeningUI.SetActive(false);
+                    curOpeningUI = null;
+                }
             }
         }
     }

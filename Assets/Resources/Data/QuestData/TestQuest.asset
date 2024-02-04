@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TestQuest
   m_EditorClassIdentifier: 
   questId: 1
+  questName: Basic Quest
   questLv: 0
   ingredients:
   - id: 17

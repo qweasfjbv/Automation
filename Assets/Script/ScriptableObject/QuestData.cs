@@ -7,6 +7,7 @@ using UnityEngine;
 public class QuestData : ScriptableObject
 {
     [SerializeField] private int questId;
+    [SerializeField] private string questName;
     // Lv 0 : Inven, Lv 1 : Mass Driver
     [SerializeField] private int questLv;
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
@@ -17,6 +18,7 @@ public class QuestData : ScriptableObject
     public int Lv { get => questLv; }
     public List<Ingredient> Ingredients { get => ingredients; }
     public float TimeLimit { get => timeLimit; }
+    public string QuestName { get => questName; }
 
     public void SetQuestData(QuestJsonData data)
     {
@@ -24,5 +26,6 @@ public class QuestData : ScriptableObject
         questLv= data.questLv;
         ingredients = data.ingredients;
         timeLimit = data.timeLimit;
+        questName = data.questName;
     }
 }

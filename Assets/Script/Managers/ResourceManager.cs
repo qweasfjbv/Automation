@@ -33,6 +33,7 @@ using UnityEngine;
     public int questLv;
     public List<Ingredient> ingredients;
     public float timeLimit;
+    public string questName;
 }
 [Serializable] public class QuestJsonDataArr
 {
