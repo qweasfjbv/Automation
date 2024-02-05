@@ -4,26 +4,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestManager
-{
-    private int curQuestId = -1;
-    public int CurQuestId { get => curQuestId; }
+{ 
 
     public Action<int> SetQuestUI { get; set; }
     public Action QuestFail { get; set; }
+    public Action QuestSuccess { get; set; }
+
 
     public void Init()
     {
-        QuestFail -= (() => curQuestId = -1);
-        QuestFail += (() => curQuestId = -1);
+
+        QuestFail -= (() => Managers.Data.QuestProgress.inProgressId = -1);
+        QuestFail += (() => Managers.Data.QuestProgress.inProgressId = -1);
+
+        QuestSuccess -= OnSuccess;
+        QuestSuccess += OnSuccess;
+
     }
 
     public void SetQuestId(int id)
     {
-        curQuestId = id;
+        Managers.Data.QuestProgress.remainTimer = -1;
+        Managers.Data.QuestProgress.inProgressId = id;
         SetQuestUI(id);
     }
 
-    
+    public void OnSuccess()
+    {
+        Managers.Data.QuestProgress.inProgressId = -1;
+        Managers.Data.QuestProgress.successId++;
+    }
 
 
 }

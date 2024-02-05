@@ -21,8 +21,16 @@ public class SpaceMap : MonoBehaviour
 
     public void PointerEnter(int id)
     {
-        transform.GetChild(id).GetChild(0).gameObject.SetActive(true);
-        SetOutputSetting(id);
+        if (id > Managers.Data.QuestProgress.successId)
+        {
+            transform.GetChild(id).GetChild(0).gameObject.SetActive(true);
+            SetOutputSetting(id);
+        }
+        else
+        {
+            transform.GetChild(id).GetChild(0).gameObject.SetActive(true);
+            SetSuccessQuest(id);
+        }
     }
     public void PointerExit(int id)
     {
@@ -31,10 +39,13 @@ public class SpaceMap : MonoBehaviour
     }
     public void OnClick(int id)
     {
-        Managers.Quest.SetQuestId(id);
-        transform.GetChild(id).GetChild(0).gameObject.SetActive(false);
-        planetInfo.SetActive(false);
-        this.gameObject.SetActive(false);
+        if (id > Managers.Data.QuestProgress.successId)
+        {
+            Managers.Quest.SetQuestId(id);
+            transform.GetChild(id).GetChild(0).gameObject.SetActive(false);
+            planetInfo.SetActive(false);
+            this.gameObject.SetActive(false);
+        }
     }
     private void SetOutputSetting(int id)
     {
@@ -43,6 +54,27 @@ public class SpaceMap : MonoBehaviour
         RectTransform child = transform.GetChild(id).GetComponent<RectTransform>();
         planetInfo.transform.localPosition = new Vector3(child.localPosition.x + child.rect.width, child.localPosition.y, 0);
         planetName.text = Managers.Resource.GetQuestData(id).QuestName;
+
+        var tmp = Managers.Resource.GetQuestData(id).Ingredients;
+
+        for (int i = 0; i < tmp.Count; i++)
+        {
+            ingrImages[i].sprite = Managers.Resource.GetItemSprite(tmp[i].id);
+            ingrImages[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = tmp[i].cnt.ToString();
+            ingrImages[i].gameObject.SetActive(true);
+        }
+        for (int i = tmp.Count; i < ingrImages.Length; i++)
+        {
+            ingrImages[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void SetSuccessQuest(int id)
+    {
+        planetInfo.SetActive(true);
+        RectTransform child = transform.GetChild(id).GetComponent<RectTransform>();
+        planetInfo.transform.localPosition = new Vector3(child.localPosition.x + child.rect.width, child.localPosition.y, 0);
+        planetName.text = "SUCCESS!";
 
         var tmp = Managers.Resource.GetQuestData(id).Ingredients;
 

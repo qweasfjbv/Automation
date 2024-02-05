@@ -98,12 +98,14 @@ public class ResourceManager
     {
         return itemDatas.Length;
     }
-
     public int GetBuildingCount()
     {
         return buildingDatas.Length;
     }
-
+    public int GetQuestCount()
+    {
+        return questDatas.Length;
+    }
 
     public ItemData GetItemData(int id)
     {
@@ -142,5 +144,7 @@ public class ResourceManager
     {
         return questDatas[id];
     }
+
+
 
 }

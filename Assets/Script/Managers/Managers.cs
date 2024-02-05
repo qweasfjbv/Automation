@@ -62,7 +62,7 @@ public class Managers : MonoBehaviour
             s_instance._pool.Init(1000);
         }
         s_instance._data.Init();
-
+        s_instance._quest.Init();
 
     }
 

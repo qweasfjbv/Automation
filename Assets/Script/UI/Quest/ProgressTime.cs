@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProgressTime : MonoBehaviour
@@ -11,35 +12,40 @@ public class ProgressTime : MonoBehaviour
 
     public void SetProgTime(float t)
     {
+        Managers.Data.QuestProgress.remainTimer = t;
         timeText = GetComponent<TextMeshProUGUI>();
         if (!isProgress)
         {
             isProgress = true;
-            progress = StartCoroutine(progCoroutine(t));
+            progress = StartCoroutine(progCoroutine());
         }
         else
         {
             StopCoroutine(progress);
-            progress = StartCoroutine(progCoroutine(t));
+            progress = StartCoroutine(progCoroutine());
         }
     }
 
-    IEnumerator progCoroutine(float t)
+    private void Update()
     {
-        float tmpTime = t;
+    }
+
+    IEnumerator progCoroutine()
+    {
         string minutes;
         string seconds;
-        while(tmpTime >= 0)
+        while(Managers.Data.QuestProgress.remainTimer >= 0)
         {
-            tmpTime -= Time.deltaTime; 
-            minutes = Mathf.Floor(tmpTime / 60).ToString("00");
-            seconds = (tmpTime % 60).ToString("00");
+            Managers.Data.QuestProgress.remainTimer -= Time.deltaTime; 
+            minutes = Mathf.Floor(Managers.Data.QuestProgress.remainTimer / 60).ToString("00");
+            seconds = (Managers.Data.QuestProgress.remainTimer % 60).ToString("00");
             timeText.text = string.Format("{0}:{1}", minutes, seconds);
             yield return null;
         }
 
         yield return null;
         isProgress = false;
+        Managers.Data.QuestProgress.remainTimer =  -1;
         this.gameObject.SetActive(false);
         Managers.Quest.QuestFail.Invoke();
     }

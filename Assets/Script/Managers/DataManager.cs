@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEditor;
+using System.Runtime.CompilerServices;
 
 public static class AESManager {
     private static byte[] key = Encoding.UTF8.GetBytes("1234qwer5678asdf");
@@ -66,6 +67,13 @@ public class InvenBuildingDatas {
     public int[] invenBuildingData;
 }
 
+public class QuestProgressDatas {
+    public int successId;
+    public int inProgressId;
+    public int[] questItems;
+    public float remainTimer;
+}
+
 
 public class DataManager
 {
@@ -75,12 +83,16 @@ public class DataManager
     private string mapFileName = "/UserMapData.json";
     private string invenItemFileName = "/UserInvenItemData.json";
     private string invenBuildingFileName = "/UserInvenBuildingData.json";
+    private string questProgressFileName = "/UserQuestProgressData.json";
 
     InvenItemDatas invenItemDatas = new InvenItemDatas();
     InvenBuildingDatas invenBuildingDatas = new InvenBuildingDatas();
+    QuestProgressDatas questProgressDatas = new QuestProgressDatas();
+    public ref QuestProgressDatas QuestProgress { get => ref questProgressDatas; }
 
     public delegate void UpdateDelegate<T1>(T1 a);
     public UpdateDelegate<int> itemUpdateDelegate;
+    public UpdateDelegate<int> questUpdateDelegate;
 
     public void Init()
     {
@@ -104,11 +116,13 @@ public class DataManager
     {
         SaveMap();
         SaveInven();
+        SaveQuestProgress();
     }
     public void DeleteAll()
     {
         DeleteMap();
         DeleteInvenData();
+        DeleteQuestProgress();
     }
 
     private void LoadTutorialMap()
@@ -323,6 +337,26 @@ public class DataManager
         }
         itemUpdateDelegate(id);
     }
+    public void AddQuestItem(int id, int cnt)
+    {
+
+        if (questProgressDatas.inProgressId == -1) return;
+
+        int idx = -1;
+        for (int i = 0; i < Managers.Resource.GetQuestData(questProgressDatas.inProgressId).Ingredients.Count; i++)
+        {
+            if (Managers.Resource.GetQuestData(questProgressDatas.inProgressId).Ingredients[i].id == id)
+            {
+                idx = i; break;
+            }
+        }
+
+        if (idx == -1) return;
+
+        questProgressDatas.questItems[idx] += cnt;
+
+        questUpdateDelegate(idx);
+    }
     public void SaveInven()
     {
         DeleteInvenData();
@@ -340,6 +374,42 @@ public class DataManager
         {
             File.Delete(path + invenItemFileName);
         }
+    }
+
+    public ref int[] LoadQuestProgress()
+    {
+        if (!File.Exists(path + questProgressFileName))
+        {
+            questProgressDatas.successId = -1;
+            questProgressDatas.inProgressId = -1;
+            questProgressDatas.questItems = new int[3];
+            questProgressDatas.remainTimer = -1;
+            for(int i=0; i<3; i++)
+            {
+                questProgressDatas.questItems[i] = 0;
+            }
+        }
+        else
+        {
+            questProgressDatas = JsonUtility.FromJson<QuestProgressDatas>(AESManager.DecryptString(File.ReadAllText(path + questProgressFileName)));
+        }
+
+        return ref questProgressDatas.questItems;
+
+    }
+    private void DeleteQuestProgress()
+    {
+
+        if (File.Exists(path + questProgressFileName))
+        {
+            File.Delete(path + questProgressFileName);
+        }
+
+    }
+    public void SaveQuestProgress()
+    {
+        DeleteQuestProgress();
+        File.AppendAllText(path + questProgressFileName, AESManager.EncryptString(JsonUtility.ToJson(questProgressDatas)));
     }
 
 

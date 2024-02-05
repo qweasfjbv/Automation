@@ -16,8 +16,8 @@ MonoBehaviour:
   questName: Basic Quest
   questLv: 0
   ingredients:
-  - id: 17
+  - id: 11
     cnt: 2
-  - id: 18
+  - id: 12
     cnt: 3
-  timeLimit: 20
+  timeLimit: 200
