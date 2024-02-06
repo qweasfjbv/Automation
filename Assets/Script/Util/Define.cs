@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Define
 {
@@ -31,6 +28,11 @@ public class Define
         SMELTER,
         TRANSPORT,
         WELDING
+    }
+
+    public enum BgmType {
+        GAME,
+        SPACE,
     }
 
 

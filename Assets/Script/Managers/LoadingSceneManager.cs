@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,16 +9,27 @@ public class LoadingSceneManager : MonoBehaviour
 {
 
     [SerializeField] Slider slider;
-    public static string nextScene;
+    public static SceneEnum nextScene;
 
     private void Start()
     {
         StartCoroutine(LoadSceneCoroutine());
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(SceneEnum sceneName)
     {
         nextScene = sceneName;
+
+        switch (nextScene)
+        {
+            case SceneEnum.Mainmenu:
+                SoundManager.Instance.ChangeBGM(Define.BgmType.SPACE);
+                break;
+            case SceneEnum.Game:
+            case SceneEnum.Tutorial:
+                SoundManager.Instance.ChangeBGM(Define.BgmType.GAME);
+                break;
+        }
 
         SceneManager.LoadScene("Loading");
     }
@@ -26,7 +38,7 @@ public class LoadingSceneManager : MonoBehaviour
     {
         yield return null;
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync(nextScene);
+        AsyncOperation ao = SceneManager.LoadSceneAsync(System.Enum.GetName(typeof(SceneEnum), nextScene));
         ao.allowSceneActivation = false;
 
         float elapsedTime = 0.0f;

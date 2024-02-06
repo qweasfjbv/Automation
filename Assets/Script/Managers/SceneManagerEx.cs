@@ -9,7 +9,7 @@ public class SceneManagerEx
     {
         Managers.Clear();
 
-        LoadingSceneManager.LoadScene(System.Enum.GetName(typeof(SceneEnum), scene));
+        LoadingSceneManager.LoadScene(scene);
         //SceneManager.LoadScene(System.Enum.GetName(typeof(SceneEnum), scene));
     }
 

@@ -19,8 +19,20 @@ public class SpaceMap : MonoBehaviour
         planetInfo.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        SoundManager.Instance.ChangeBGM(Define.BgmType.GAME);
+    }
+
+    private void OnEnable()
+    {
+        SoundManager.Instance.ChangeBGM(Define.BgmType.SPACE);
+    }
+
     public void PointerEnter(int id)
     {
+
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (id > Managers.Data.QuestProgress.successId)
         {
             transform.GetChild(id).GetChild(0).gameObject.SetActive(true);

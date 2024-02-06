@@ -17,6 +17,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] audioClips;
     [SerializeField]
     public AudioClip[] factoryClips;
+    [SerializeField]
+    public AudioClip[] bgmClips;
 
     private AudioSource bgmPlayer;
     private AudioSource sfxPlayer;
@@ -165,6 +167,26 @@ public class SoundManager : MonoBehaviour
     public bool IsDrillPlaying()
     {
         return drillPlayer.isPlaying;
+    }
+
+    public void ChangeBGM(Define.BgmType type)
+    {
+        int idx = -1;
+        switch (type)
+        {
+            case Define.BgmType.GAME:
+                idx = 0;
+                break;
+            case Define.BgmType.SPACE:
+                idx = 1;
+                break;
+            default:
+                idx = -1;
+                break;
+        }
+
+        bgmPlayer.clip = bgmClips[idx];
+        bgmPlayer.Play();
     }
 
     private IEnumerator SoundFadeInCoroutine(AudioSource player, float fadeTime)
