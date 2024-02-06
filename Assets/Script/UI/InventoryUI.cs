@@ -222,6 +222,7 @@ public class InventoryUI : MonoBehaviour
     }
     public void Toggle()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (isActive)
         {
             // ²ø¶§

@@ -28,15 +28,19 @@ public class SettingButtons : MonoBehaviour
 
     private void OnQuestButton()
     {
+
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         QuestUI.SetActive(true);
     }
     private void OnOptionButton()
     {
 
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
     }
 
     private void OnExitButton()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         Managers.Data.SaveAll();
         Managers.Scene.LoadScene(SceneEnum.Mainmenu);
     }

@@ -31,6 +31,7 @@ public class QuestManager
 
     public void OnSuccess()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.SUCCESS);
         Managers.Data.QuestProgress.inProgressId = -1;
         Managers.Data.QuestProgress.successId++;
     }

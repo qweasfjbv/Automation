@@ -103,9 +103,17 @@ public class MapManager
 
     public void Build(int id, Vector2 pos, Vector2 size, int rot)
     {
-        if (!BoundCheck(pos, size, rot)) return;
+        if (!BoundCheck(pos, size, rot))
+        {
+            if (!SoundManager.Instance.IsSfxPlaying())
+            {
+                SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILDFAIL);
+            }
+            return;
+        }
         GameObject tmpGo;
         Vector2 buildPos = new Vector2(pos.x + size.x / 2, pos.y - size.y / 2);
+
 
         if (id == 101)
         {
@@ -129,9 +137,9 @@ public class MapManager
         }
 
 
-
         InvokeNearbyBelts(pos);
 
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILD);
         return;
 
     }
@@ -169,6 +177,8 @@ public class MapManager
                 usingArea[i, j].EraseBuilding();
             }
         }
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILD);
+
 
     }
 

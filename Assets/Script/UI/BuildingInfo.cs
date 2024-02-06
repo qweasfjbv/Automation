@@ -28,9 +28,47 @@ public class BuildingInfo : MonoBehaviour
     private Production production;
     private int[] ids;
 
-
+    private void OnDisable()
+    {
+        SoundManager.Instance.StopFactorySound();
+    }
     public void SetBuildingInfo(int id, GameObject gameObject)
     {
+        switch (id) {
+            case 101:
+            case 103:
+            case 104:
+            case 105:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.TRANSPORT);
+                break;
+            case 102:
+            case 108:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.DRILL);
+                break;
+            case 107:
+            case 112:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.ASSEMBLER);
+                break;
+            case 106:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.SMELTER);
+                break;
+            case 109:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.REFINERY);
+                break;
+            case 114:
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.AIR);
+                break;
+            case 110:
+            case 111:
+                SoundManager.Instance.StopFactorySound();
+                // 드릴소리 필요
+                break;
+            default:
+                SoundManager.Instance.StopFactorySound();
+                break;
+
+        }
+
         outputItemList.SetActive(false);
         buildingId = id;
         production = gameObject.GetComponent<Production>();

@@ -12,7 +12,26 @@ public class Define
     GOLD,
     COAL,
     QUARTZ,
-    ROCK
+        ROCK
     }
+
+    public enum SoundType {
+        BUILD,
+        BUILDFAIL,
+        BUTTON1,
+        SUCCESS,
+        TIMER
+    }
+
+    public enum FactoryType {
+        AIR,
+        ASSEMBLER,
+        DRILL,
+        REFINERY,
+        SMELTER,
+        TRANSPORT,
+        WELDING
+    }
+
 
 }

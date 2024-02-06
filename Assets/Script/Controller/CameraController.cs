@@ -169,6 +169,10 @@ public class CameraController : MonoBehaviour
 
             if (tile != null && tile.terrainInfo>= 1 && tile.terrainInfo <= 6)
             {
+                if (!SoundManager.Instance.IsDrillPlaying())
+                {
+                    SoundManager.Instance.PlayDrillSound();
+                }
                 Cursor.SetCursor(drillMouse, new Vector2(0, drillMouse.height), CursorMode.ForceSoftware);
                 if (!isParticleOn)
                 {
@@ -187,6 +191,11 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+
+            if (SoundManager.Instance.IsDrillPlaying())
+            {
+                SoundManager.Instance.StopDrillSound();
+            }
             Cursor.SetCursor(defaultMouse, Vector2.zero, CursorMode.ForceSoftware);
 
             OffParticle();

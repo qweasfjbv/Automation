@@ -19,28 +19,33 @@ public class ButtonController : MonoBehaviour
 
     private void OnPressButtonTutorial()
     {
+
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         Managers.Scene.LoadScene(SceneEnum.Tutorial);
     }
 
     private void OnPressButtonNewGame()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         Managers.Data.DeleteAll();
         Managers.Scene.LoadScene(SceneEnum.Game);
     }
 
     private void OnPressButtonContinue()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         Managers.Scene.LoadScene(SceneEnum.Game);
     }
 
     private void OnPressButtonSetting()
     {
 
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
     }
 
     private void OnPressButtonExit()
     {
-
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
     }
 
 }

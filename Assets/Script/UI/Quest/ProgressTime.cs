@@ -32,6 +32,7 @@ public class ProgressTime : MonoBehaviour
 
     IEnumerator progCoroutine()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.TIMER);
         string minutes;
         string seconds;
         while(Managers.Data.QuestProgress.remainTimer >= 0)
