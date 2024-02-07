@@ -57,6 +57,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Storage
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 4ca220828f7c080448da2f882fe719a7, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 4ca220828f7c080448da2f882fe719a7, type: 3}
       propertyPath: m_SortingOrder
       value: 4

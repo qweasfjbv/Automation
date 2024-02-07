@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AirPurifier
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 175bca6e6394e744bbcc259684279af5, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 175bca6e6394e744bbcc259684279af5, type: 3}
       propertyPath: m_SortingOrder
       value: 4

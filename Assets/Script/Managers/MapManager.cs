@@ -101,15 +101,11 @@ public class MapManager
     }
 
 
-    public void Build(int id, Vector2 pos, Vector2 size, int rot)
+    public bool Build(int id, Vector2 pos, Vector2 size, int rot)
     {
         if (!BoundCheck(pos, size, rot))
         {
-            if (!SoundManager.Instance.IsSfxPlaying())
-            {
-                SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILDFAIL);
-            }
-            return;
+            return false;
         }
         GameObject tmpGo;
         Vector2 buildPos = new Vector2(pos.x + size.x / 2, pos.y - size.y / 2);
@@ -139,8 +135,16 @@ public class MapManager
 
         InvokeNearbyBelts(pos);
 
+        if (tmpGo.GetComponent<AirPurifier>() == null)
+        {
+            EnvironmentManager.Instance.OnBuildBuilding();
+        }
+        else
+        {
+            EnvironmentManager.Instance.OnBuildPurifier();
+        }
         SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILD);
-        return;
+        return true;
 
     }
 
@@ -161,11 +165,20 @@ public class MapManager
         //pooling ±¸Çö
         if (tile.id == 101)
         {
+            EnvironmentManager.Instance.OnUnbuildBuilding();
             Managers.Pool.Push(tile.building);
             tile.building = null;
         }
         else
         {
+            if (tile.building.GetComponent<AirPurifier>() != null)
+            {
+                EnvironmentManager.Instance.OnUnbuildPurifier();
+            }
+            else
+            {
+                EnvironmentManager.Instance.OnUnbuildBuilding();
+            }
             GameObject.Destroy(usingArea[Mathf.Abs(tile.y), tile.x].building);
         }
         //

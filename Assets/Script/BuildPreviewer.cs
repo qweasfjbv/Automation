@@ -261,7 +261,13 @@ public class BuildPreviewer : MonoBehaviour
                 }
             }
 
-            Managers.Map.Build(id, previewPoint, previewSize, rotateDir);
+            if (!Managers.Map.Build(id, previewPoint, previewSize, rotateDir))
+            {
+                if(lastPrevPoint == null)
+                {
+                    SoundManager.Instance.PlaySfxSound(Define.SoundType.BUILDFAIL);
+                }
+            }
 
 
             var tmpT = Managers.Map.GetTileOnPoint(previewPosition);
