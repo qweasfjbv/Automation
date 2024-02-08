@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,9 +81,13 @@ public class EnvironmentManager : MonoBehaviour
 
         for (int i = 0; i < envTilemap.Count; i++)
         {
-            if(envBar.value / envBar.maxValue > envTilemap.Count-i / envTilemap.Count)
+            if(envBar.value / envBar.maxValue >= (envTilemap.Count-i) / (float)envTilemap.Count)
             {
-
+                envTilemap[i].SetActive(true);
+            }
+            else
+            {
+                envTilemap[i].SetActive(false);
             }
         }
     }
