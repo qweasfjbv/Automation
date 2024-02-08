@@ -64,6 +64,11 @@ public class EnvironmentManager : MonoBehaviour
 
     private void Update()
     {
+        if (Managers.Scene.CurScene.GetComponent<GameScene>() == null) return;
+
+
+        Debug.Log(Managers.Scene.CurScene);
+
         envBar.value -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
 
         if (envBar.value / envBar.maxValue > 0.5f)
