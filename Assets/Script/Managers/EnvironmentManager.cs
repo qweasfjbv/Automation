@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class EnvironmentManager : MonoBehaviour
@@ -13,6 +15,15 @@ public class EnvironmentManager : MonoBehaviour
     private int pollutionMul = 1;
     private const int purifierOs = 5;
 
+    private float curValue = 100000;
+    private float preValue = 100000;
+
+
+    private Dictionary<int, Coroutine> fadeCoroutines = new Dictionary<int, Coroutine>();
+
+
+    private bool isFadeOut = false;
+    private bool isFadeIn = false;
 
     [SerializeField]
     private Slider envBar;
@@ -66,10 +77,10 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (Managers.Scene.CurScene.GetComponent<GameScene>() == null) return;
 
+        //curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 10f;
+        //envBar.value = curValue;
 
-        Debug.Log(Managers.Scene.CurScene);
-
-        envBar.value -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
+        curValue = envBar.value;
 
         if (envBar.value / envBar.maxValue > 0.5f)
         {
@@ -84,18 +95,71 @@ public class EnvironmentManager : MonoBehaviour
             envBarColor.color = Color.red;
         }
 
-        for (int i = 0; i < envTilemap.Count; i++)
+
+        for (int i = 1; i <= envTilemap.Count; i++)
         {
-            if(envBar.value / envBar.maxValue >= (envTilemap.Count-i) / (float)envTilemap.Count)
+            float critic = envBar.maxValue * (1 - ((float)i / (float)(envTilemap.Count + 1)));
+
+            if((preValue >= critic) != (curValue >= critic))
             {
-                envTilemap[i].SetActive(true);
-            }
-            else
-            {
-                envTilemap[i].SetActive(false);
+                if (pollutionMul * bdCnt - purifierCnt * purifierOs > 0)
+                {
+                    StartFadeOut(envTilemap.Count - i, 3.0f);
+                }
+                else
+                {
+                    StartFadeIn(envTilemap.Count - i, 3.0f);
+                }
             }
         }
+
+        preValue = curValue;
+    }
+    public void StartFadeIn(int tilemapId, float duration)
+    {
+        StartFade(tilemapId, duration, targetAlpha: 1);
     }
 
+    // FadeOut 코루틴 시작
+    public void StartFadeOut(int tilemapId, float duration)
+    {
+        StartFade(tilemapId, duration, targetAlpha: 0);
+    }
+
+    private void StartFade(int tilemapId, float duration, float targetAlpha)
+    {
+        if (fadeCoroutines.ContainsKey(tilemapId))
+        {
+            // 이미 진행 중인 코루틴이 있다면 중지
+            StopCoroutine(fadeCoroutines[tilemapId]);
+        }
+
+        // 새 Fade 코루틴 시작
+        fadeCoroutines[tilemapId] = StartCoroutine(FadeTilemap(tilemapId, duration, targetAlpha));
+    }
+
+    private IEnumerator FadeTilemap(int tilemapId, float duration, float targetAlpha)
+    {
+
+        Tilemap baseMap = envTilemap[tilemapId].transform.GetChild(0).GetComponent<Tilemap>();
+        Tilemap objectMap = envTilemap[tilemapId].transform.GetChild(1).GetComponent<Tilemap>();
+
+        Color initialColor = baseMap.color;
+        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, targetAlpha);
+
+        float time = 0;
+        while (time < duration)
+        {
+            baseMap.color = Color.Lerp(initialColor, targetColor, time / duration);
+            objectMap.color = Color.Lerp(initialColor, targetColor, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // 최종 알파값 설정
+        baseMap.color = targetColor;
+        objectMap.color = targetColor;
+        fadeCoroutines.Remove(tilemapId);
+    }
 
 }
