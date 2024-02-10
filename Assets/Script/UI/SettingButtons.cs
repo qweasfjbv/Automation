@@ -12,6 +12,8 @@ public class SettingButtons : MonoBehaviour
     [SerializeField]
     private Button OptionButton;
     [SerializeField]
+    public GameObject OptionUI;
+    [SerializeField]
     private Button ExitButton;
 
     private void Start()
@@ -34,8 +36,8 @@ public class SettingButtons : MonoBehaviour
     }
     private void OnOptionButton()
     {
-
         SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
+        OptionUI.GetComponent<OptionUI>().Toggle();
     }
 
     private void OnExitButton()

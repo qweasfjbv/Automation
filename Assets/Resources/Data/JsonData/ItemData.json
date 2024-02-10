@@ -410,6 +410,27 @@
     },
     {
       "ID": 39,
+      "Name": "SpaceShip",
+      "Ingredient": [
+        {
+          "id": 32,
+          "cnt": 4
+        },
+        {
+          "id": 25,
+          "cnt": 3
+        },
+        {
+          "id": 34,
+          "cnt": 2
+        }
+      ],
+      "ProductTime": 3,
+      "Description": "Spaceship can send people to other planets.",
+      "MakingBuildingId": 107
+    },
+    {
+      "ID": 40,
       "Name": "KPP-BS",
       "Ingredient": [
         {
@@ -430,11 +451,11 @@
       "MakingBuildingId": 116
     },
     {
-      "ID": 40,
+      "ID": 41,
       "Name": "KPP-DR",
       "Ingredient": [
         {
-          "id": 39,
+          "id": 40,
           "cnt": 1
         },
         {
@@ -447,11 +468,11 @@
       "MakingBuildingId": 116
     },
     {
-      "ID": 39,
-      "Name": "KPP-OG",
+      "ID": 42,
+      "Name": "KPP-AP",
       "Ingredient": [
         {
-          "id": 39,
+          "id": 40,
           "cnt": 1
         },
         {
@@ -460,7 +481,7 @@
         }
       ],
       "ProductTime": 3,
-      "Description": "k-pler project oxygen generating robot. it can generate oxygen on alien planets.",
+      "Description": "k-pler project Air Purifier robot. it can generate oxygen on alien planets.",
       "MakingBuildingId": 116
     }
   ]

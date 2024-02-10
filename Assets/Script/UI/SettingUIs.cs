@@ -207,9 +207,10 @@ public class SettingUIs : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (setting.GetComponent<SettingButtons>().QuestUI.activeSelf)
+            if (setting.GetComponent<SettingButtons>().QuestUI.activeSelf || setting.GetComponent<SettingButtons>().OptionUI.activeSelf)
             {
                 setting.GetComponent<SettingButtons>().QuestUI.SetActive(false);
+                setting.GetComponent<SettingButtons>().OptionUI.SetActive(false);
             }
             else
             {

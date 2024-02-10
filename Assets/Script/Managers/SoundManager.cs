@@ -14,10 +14,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     public AudioClip[] bgmClips;
 
-    private AudioSource bgmPlayer;
-    private AudioSource sfxPlayer;
-    private AudioSource factoryPlayer;
-    private AudioSource drillPlayer;
+    public AudioSource bgmPlayer;
+    public AudioSource sfxPlayer;
+    public AudioSource factoryPlayer;
+    public AudioSource drillPlayer;
 
     private bool isFadeIn = false;
     private bool isFadeOut = false;
@@ -50,6 +50,18 @@ public class SoundManager : MonoBehaviour
         sfxPlayer = GameObject.Find("SFXPlayer").GetComponent<AudioSource>();
         factoryPlayer = GameObject.Find("FactoryPlayer").GetComponent<AudioSource>();
         drillPlayer = GameObject.Find("DrillPlayer").GetComponent<AudioSource>();
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        bgmPlayer.volume = volume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxPlayer.volume = volume;
+        factoryPlayer.volume = volume;
+        drillPlayer.volume = volume;
     }
 
     public void PlaySfxSound(Define.SoundType type)

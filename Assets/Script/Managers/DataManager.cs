@@ -351,7 +351,11 @@ public class DataManager
             }
         }
 
-        if (idx == -1) return;
+        if (idx == -1)
+        {
+            GameManagerEx.Instance.ThrowItemsToSpace(id);
+            return;
+        }
 
         questProgressDatas.questItems[idx] += cnt;
 

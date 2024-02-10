@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
+  m_Name: 41_KPP-DR
+  m_EditorClassIdentifier: 
+  itemId: 39
+  itemName: KPP-BS
+  sprite: {fileID: 21300000, guid: 9028064b4cfd3c14e8fe1a0a71561ea6, type: 3}
+  itemDescription: k-pler project base robot. parts can be added if necessary.
+  productTime: 3
+  ingredients:
+  - id: 37
+    cnt: 6
+  - id: 34
+    cnt: 4
+  - id: 36
+    cnt: 4
+  makingBuildingId: 116

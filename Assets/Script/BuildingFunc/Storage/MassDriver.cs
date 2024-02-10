@@ -12,15 +12,18 @@ public class MassDriver : BuildingBase
 
     public override bool IsTransferAble(int id, int rot)
     {
-        if (Managers.Data.QuestProgress.inProgressId != -1)
-        {
-            return true;
-        }
-        else return false;
+        return true;
     }
 
     public override void SetBeltId(int id, int rot = 0)
     {
-        Managers.Data.AddQuestItem(id, 1);
+        if (Managers.Data.QuestProgress.inProgressId != -1)
+        {
+            Managers.Data.AddQuestItem(id, 1);
+        }
+        else
+        {
+            GameManagerEx.Instance.ThrowItemsToSpace(id);
+        }
     }
 }

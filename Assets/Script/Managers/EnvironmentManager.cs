@@ -15,15 +15,14 @@ public class EnvironmentManager : MonoBehaviour
     private int pollutionMul = 1;
     private const int purifierOs = 5;
 
-    private float curValue = 100000;
-    private float preValue = 100000;
+    private const int MaxValue = 100000;
+    private float curValue = MaxValue;
+    private float preValue = MaxValue;
+    private float minValue = MaxValue;
 
+    public float MinRate { get => minValue/MaxValue; }
 
     private Dictionary<int, Coroutine> fadeCoroutines = new Dictionary<int, Coroutine>();
-
-
-    private bool isFadeOut = false;
-    private bool isFadeIn = false;
 
     [SerializeField]
     private Slider envBar;
@@ -52,6 +51,7 @@ public class EnvironmentManager : MonoBehaviour
     private void Awake()
     {
         Init();
+        if (envBar != null) envBar.maxValue = MaxValue;
     }
 
     public void OnBuildBuilding()
@@ -77,7 +77,7 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (Managers.Scene.CurScene.GetComponent<GameScene>() == null) return;
 
-        //curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 10f;
+        //curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
         //envBar.value = curValue;
 
         curValue = envBar.value;
@@ -114,6 +114,7 @@ public class EnvironmentManager : MonoBehaviour
         }
 
         preValue = curValue;
+        minValue = Mathf.Min(curValue, minValue);
     }
     public void StartFadeIn(int tilemapId, float duration)
     {

@@ -125,39 +125,45 @@ public class CameraController : MonoBehaviour
     }
     private void OnMouseClickEvent()
     {
-        // 마우스 최초 클릭 시의 위치 기억
-        if (Input.GetMouseButtonDown(0))
-        {
-            firstClickPoint = mousePosition;
-        }
+        bool IsntOnUI = !EventSystem.current.IsPointerOverGameObject();
 
-        if (Input.GetMouseButton(0))
+        // 마우스 최초 클릭 시의 위치 기억
+        if (IsntOnUI)
         {
-            onMouseTime += Time.deltaTime;
-            if (onMouseTime > dragHoldTime)
+
+            if (Input.GetMouseButtonDown(0))
             {
-                Vector3 move = (-mousePosition + firstClickPoint) * dragSpeed;
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x + move.x, minCameraPos.x, maxCameraPos.x)
-                    , Mathf.Clamp(transform.position.y + move.y, minCameraPos.y, maxCameraPos.y), -10);
+                firstClickPoint = mousePosition;
             }
-        }
-        else if (Input.GetMouseButtonUp(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            if (onMouseTime <= dragHoldTime)
+
+            if (Input.GetMouseButton(0))
             {
-                var tmpTile = Managers.Map.GetTileOnPoint(mousePosition);
-                if (tmpTile == null)
+                onMouseTime += Time.deltaTime;
+                if (onMouseTime > dragHoldTime)
                 {
-                    buildingInfo.SetActive(false);
+                    Vector3 move = (-mousePosition + firstClickPoint) * dragSpeed;
+                    transform.position = new Vector3(Mathf.Clamp(transform.position.x + move.x, minCameraPos.x, maxCameraPos.x)
+                        , Mathf.Clamp(transform.position.y + move.y, minCameraPos.y, maxCameraPos.y), -10);
                 }
-                else if (tmpTile.id != -1)
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                if (onMouseTime <= dragHoldTime)
                 {
-                    buildingInfo.GetComponent<BuildingInfo>().SetBuildingInfo(tmpTile.id, tmpTile.building);
-                    buildingInfo.SetActive(true);
-                }
-                else
-                {
-                    buildingInfo.SetActive(false);
+                    var tmpTile = Managers.Map.GetTileOnPoint(mousePosition);
+                    if (tmpTile == null)
+                    {
+                        buildingInfo.SetActive(false);
+                    }
+                    else if (tmpTile.id != -1)
+                    {
+                        buildingInfo.GetComponent<BuildingInfo>().SetBuildingInfo(tmpTile.id, tmpTile.building);
+                        buildingInfo.SetActive(true);
+                    }
+                    else
+                    {
+                        buildingInfo.SetActive(false);
+                    }
                 }
             }
         }
