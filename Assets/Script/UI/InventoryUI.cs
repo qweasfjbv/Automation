@@ -116,7 +116,7 @@ public class InventoryUI : MonoBehaviour
             gameObject.SetActive(true);
         }
         isActive = false;
-        this.transform.position = new Vector3(0, 1000, 0);
+        this.transform.localPosition = new Vector3(0, 1000, 0);
     }
 
     private void Start()

@@ -31,7 +31,7 @@ public class ItemData : ScriptableObject
     
     public int ID { get => itemId; }
     public string Name { get => itemName; }
-    public Sprite Image { get => sprite; } 
+    public Sprite Image { get => sprite; set => sprite = value; } 
     public float ProductTime { get => productTime;}
     public List<Ingredient> Ingredients { get => ingredients; }
     public string Description { get => itemDescription; }   

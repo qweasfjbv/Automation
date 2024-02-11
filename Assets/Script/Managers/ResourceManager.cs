@@ -70,6 +70,19 @@ public class ResourceManager
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         questDatas = Resources.LoadAll<QuestData>("Data/QuestData");
 
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/Items");
+        Sprite[] buildingSprites = Resources.LoadAll<Sprite>("Sprites/Buildings");
+
+        for (int i = 0; i < itemDatas.Length; i++)
+        {
+            itemDatas[i].Image = sprites[i];
+        }
+
+        for (int i = 0; i < buildingDatas.Length; i++)
+        {
+            buildingDatas[i].Image = buildingSprites[i];
+        }
+
         for (int i = 0; i < tmpItemDatas.itemJsonDatas.Length; i++)
         {
             itemDatas[i].SetItemData(tmpItemDatas.itemJsonDatas[i]);
