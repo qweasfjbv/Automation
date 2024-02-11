@@ -8,24 +8,22 @@ public class QuestData : ScriptableObject
 {
     [SerializeField] private int questId;
     [SerializeField] private string questName;
-    // Lv 0 : Inven, Lv 1 : Mass Driver
-    [SerializeField] private int questLv;
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
-    [SerializeField] private float timeLimit;
-
+    [SerializeField] private float populationLimit;
+    [SerializeField] private string questDescription;
 
     public int ID { get => questId; }
-    public int Lv { get => questLv; }
     public List<Ingredient> Ingredients { get => ingredients; }
-    public float TimeLimit { get => timeLimit; }
+    public float PopulationLimit { get => populationLimit; }
     public string QuestName { get => questName; }
-
+    public string QuestDescription { get => questDescription; }
     public void SetQuestData(QuestJsonData data)
     {
         questId = data.questId;
-        questLv= data.questLv;
         ingredients = data.ingredients;
-        timeLimit = data.timeLimit;
+        populationLimit = data.populationLimit;
         questName = data.questName;
+        questDescription = data.questDescription;
+
     }
 }

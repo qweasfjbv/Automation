@@ -30,10 +30,10 @@ using UnityEngine;
 [Serializable] public class QuestJsonData
 {
     public int questId;
-    public int questLv;
     public List<Ingredient> ingredients;
-    public float timeLimit;
+    public float populationLimit;
     public string questName;
+    public string questDescription;
 }
 [Serializable] public class QuestJsonDataArr
 {
