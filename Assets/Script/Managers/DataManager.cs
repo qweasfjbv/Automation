@@ -71,7 +71,7 @@ public class QuestProgressDatas {
     public int successId;
     public int inProgressId;
     public int[] questItems;
-    public float remainTimer;
+    public float[] populations;
 }
 
 
@@ -93,6 +93,7 @@ public class DataManager
     public delegate void UpdateDelegate<T1>(T1 a);
     public UpdateDelegate<int> itemUpdateDelegate;
     public UpdateDelegate<int> questUpdateDelegate;
+    public UpdateDelegate<int> questPopulationDelegate;
 
     public void Init()
     {
@@ -102,14 +103,19 @@ public class DataManager
 
         path = Application.persistentDataPath;
 
+        Debug.Log(path);
+
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();
+            LoadQuestProgress();
         }
         else if (Managers.Scene.CurScene.GetComponent<TutorialScene>() != null)
         {
             LoadTutorialMap();
         }
+
+
     }
 
     public void SaveAll()
@@ -361,6 +367,14 @@ public class DataManager
 
         questUpdateDelegate(idx);
     }
+    public void AddQuestPopulation(int id, int cnt)
+    {
+        if (questProgressDatas.inProgressId == -1) return;
+
+        questProgressDatas.populations[id] += cnt;
+        questPopulationDelegate(questProgressDatas.inProgressId);
+    }
+
     public void SaveInven()
     {
         DeleteInvenData();
@@ -380,17 +394,23 @@ public class DataManager
         }
     }
 
-    public ref int[] LoadQuestProgress()
+    public void LoadQuestProgress()
     {
         if (!File.Exists(path + questProgressFileName))
         {
-            questProgressDatas.successId = -1;
             questProgressDatas.inProgressId = -1;
+            questProgressDatas.successId = -1;
             questProgressDatas.questItems = new int[3];
-            questProgressDatas.remainTimer = -1;
+            questProgressDatas.populations = new float[Managers.Resource.GetQuestCount()];
+
             for(int i=0; i<3; i++)
             {
                 questProgressDatas.questItems[i] = 0;
+            }
+
+            for(int i=0; i< Managers.Resource.GetQuestCount(); i++)
+            {
+                questProgressDatas.populations[i] = 0;
             }
         }
         else
@@ -398,9 +418,14 @@ public class DataManager
             questProgressDatas = JsonUtility.FromJson<QuestProgressDatas>(AESManager.DecryptString(File.ReadAllText(path + questProgressFileName)));
         }
 
-        return ref questProgressDatas.questItems;
 
     }
+
+    public ref QuestProgressDatas GetQPDatas()
+    {
+        return ref questProgressDatas;
+    }
+
     private void DeleteQuestProgress()
     {
 

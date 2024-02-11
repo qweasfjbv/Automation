@@ -19,7 +19,23 @@ public class MassDriver : BuildingBase
     {
         if (Managers.Data.QuestProgress.inProgressId != -1)
         {
-            Managers.Data.AddQuestItem(id, 1);
+            // 아직 미성공
+            if(Managers.Data.QuestProgress.successId < Managers.Data.QuestProgress.inProgressId)
+            {
+                Managers.Data.AddQuestItem(id, 1);
+            }
+            else
+            {
+                // 우주선이면
+                if(id == 39)
+                {
+                    Managers.Data.AddQuestPopulation(Managers.Data.QuestProgress.inProgressId, GameManagerEx.Instance.PEOPLEPERSHIP);
+                }
+                else
+                {
+                    GameManagerEx.Instance.ThrowItemsToSpace(id);
+                }
+            }
         }
         else
         {

@@ -7,6 +7,7 @@ public class QuestManager
 { 
 
     public Action<int> SetQuestUI { get; set; }
+    public Action<int> SetQuestUIA { get; set; }
     public Action QuestFail { get; set; }
     public Action QuestSuccess { get; set; }
 
@@ -24,9 +25,14 @@ public class QuestManager
 
     public void SetQuestId(int id)
     {
-        Managers.Data.QuestProgress.remainTimer = -1;
         Managers.Data.QuestProgress.inProgressId = id;
         SetQuestUI(id);
+    }
+
+    public void SetQuestIdAfterClear(int id)
+    {
+        Managers.Data.QuestProgress.inProgressId = id;
+        SetQuestUIA(id);
     }
 
     public void OnSuccess()

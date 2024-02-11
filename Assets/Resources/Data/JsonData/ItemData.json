@@ -413,16 +413,8 @@
       "Name": "SpaceShip",
       "Ingredient": [
         {
-          "id": 32,
-          "cnt": 4
-        },
-        {
-          "id": 25,
-          "cnt": 3
-        },
-        {
-          "id": 34,
-          "cnt": 2
+          "id": 11,
+          "cnt" :  1
         }
       ],
       "ProductTime": 3,

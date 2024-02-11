@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
   m_Name: 40 _KPP-BS
   m_EditorClassIdentifier: 
-  itemId: 35
-  itemName: ROBOT
-  sprite: {fileID: 21300000, guid: 851c6731b886ef54fbf2a98c3c9fe999, type: 3}
-  productTime: 5
+  itemId: 40
+  itemName: KPP-BS
+  sprite: {fileID: 21300000, guid: c9de2831925e347439a7f027c6fa68bd, type: 3}
+  itemDescription: k-pler project base robot. parts can be added if necessary.
+  productTime: 3
   ingredients:
-  - id: 33
+  - id: 37
     cnt: 6
   - id: 34
     cnt: 4
-  - id: 31
+  - id: 36
     cnt: 4
+  makingBuildingId: 116

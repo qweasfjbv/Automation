@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
   m_Name: 41_KPP-DR
   m_EditorClassIdentifier: 
-  itemId: 39
-  itemName: KPP-BS
-  sprite: {fileID: 21300000, guid: 9028064b4cfd3c14e8fe1a0a71561ea6, type: 3}
-  itemDescription: k-pler project base robot. parts can be added if necessary.
+  itemId: 41
+  itemName: KPP-DR
+  sprite: {fileID: 21300000, guid: d1ab7d23f29aa4746a14ff7510502de5, type: 3}
+  itemDescription: k-pler project drone robot. it can carry out a mission without
+    ground.
   productTime: 3
   ingredients:
-  - id: 37
-    cnt: 6
-  - id: 34
-    cnt: 4
-  - id: 36
+  - id: 40
+    cnt: 1
+  - id: 38
     cnt: 4
   makingBuildingId: 116

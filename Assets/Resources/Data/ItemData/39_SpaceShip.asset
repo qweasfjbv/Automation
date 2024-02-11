@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084dfc38128b7164fb9aca2531b6b5e8, type: 3}
   m_Name: 39_SpaceShip
   m_EditorClassIdentifier: 
-  itemId: 34
-  itemName: CPU
-  sprite: {fileID: 21300000, guid: 1d9e27b3961bb964fa61800b48fafe33, type: 3}
-  itemDescription: 
-  productTime: 5
+  itemId: 39
+  itemName: SpaceShip
+  sprite: {fileID: 21300000, guid: 802599fc7d4da034f8f056fc75c01595, type: 3}
+  itemDescription: Spaceship can send people to other planets.
+  productTime: 3
   ingredients:
   - id: 32
-    cnt: 5
-  makingBuildingId: 0
+    cnt: 4
+  - id: 25
+    cnt: 3
+  - id: 34
+    cnt: 2
+  makingBuildingId: 107

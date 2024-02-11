@@ -36,7 +36,14 @@ public class GameManagerEx : MonoBehaviour
 
     const int MAXPOPULATION = 100000000;
     private float curPopulation = MAXPOPULATION;
-    const int PEOPLEPERSHIP = 500;
+    public readonly int PEOPLEPERSHIP = 500;
+
+    public QuestProgressDatas qpDatas;
+
+    private void Start()
+    {
+        qpDatas = Managers.Data.GetQPDatas();
+    }
 
     private void Update()
     {
@@ -47,20 +54,12 @@ public class GameManagerEx : MonoBehaviour
             OnGameOver(PEOPLEPERSHIP * spaceShipCnt);
         }
 
-        Debug.Log(curPopulation.ToString("N0"));
+        //Debug.Log(curPopulation.ToString("N0"));
     }
 
     public void ThrowItemsToSpace(int id)
     {
-        // spaceship Id
-        if(id == 39)
-        {
-            spaceShipCnt++;
-        }
-        else
-        {
-            trashCnt++;
-        }
+        trashCnt++;
     }
 
     private void OnGameOver(int num)
