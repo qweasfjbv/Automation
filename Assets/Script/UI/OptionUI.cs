@@ -16,7 +16,6 @@ public class OptionUI : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false);
 
         // 슬라이더 초기값 설정
         bgmSlider.value = SoundManager.Instance.bgmPlayer.volume;

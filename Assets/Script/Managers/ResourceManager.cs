@@ -37,7 +37,7 @@ using UnityEngine;
 }
 [Serializable] public class QuestJsonDataArr
 {
-    public QuestJsonData[] data;
+    public QuestJsonData[] questJsonDatas;
 }
 
 public class ResourceManager
@@ -65,6 +65,7 @@ public class ResourceManager
             Resources.Load<TextAsset>("Data/JsonData/BuildingData").text);
         tmpQuestDatas = JsonUtility.FromJson<QuestJsonDataArr>(
             Resources.Load<TextAsset>("Data/JsonData/QuestData").text);
+
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
@@ -94,11 +95,11 @@ public class ResourceManager
         }
 
 
-        if (tmpQuestDatas.data != null)
+        if (tmpQuestDatas.questJsonDatas != null)
         {
-            for (int i = 0; i < tmpQuestDatas.data.Length; i++)
+            for (int i = 0; i < tmpQuestDatas.questJsonDatas.Length; i++)
             {
-                questDatas[i].SetQuestData(tmpQuestDatas.data[i]);
+                questDatas[i].SetQuestData(tmpQuestDatas.questJsonDatas[i]);
             }
         }
 

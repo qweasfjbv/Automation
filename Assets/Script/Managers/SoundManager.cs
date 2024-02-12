@@ -78,11 +78,14 @@ public class SoundManager : MonoBehaviour
             case Define.SoundType.BUTTON1:
                 idx = 2;
                 break;
-            case Define.SoundType.SUCCESS:
+            case Define.SoundType.GETQUEST:
                 idx = 3;
                 break;
-            case Define.SoundType.TIMER:
+            case Define.SoundType.SUCCESS:
                 idx = 4;
+                break;
+            case Define.SoundType.CHAT:
+                idx = 5;
                 break;
             default:
                 idx = -1;

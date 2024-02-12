@@ -12,7 +12,13 @@ public class SpaceMap : MonoBehaviour
     [SerializeField] private TextMeshProUGUI planetName;
     [SerializeField] private Image[] ingrImages = new Image[3];
     [SerializeField] private TextMeshProUGUI populationText;
+    [SerializeField] private TextMeshProUGUI description;
 
+    private Vector2 sizeWithDes = new Vector2(300, 300);
+    private Vector2 sizeWithoutDes = new Vector2(300, 180);
+
+    //planetInfo : Description있으면 Height 300
+    //      없으면 170
 
     private void Start()
     {
@@ -31,8 +37,8 @@ public class SpaceMap : MonoBehaviour
 
     public void PointerEnter(int id)
     {
-
         SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
+
         if (id > Managers.Data.QuestProgress.successId)
         {
             transform.GetChild(id).GetChild(0).gameObject.SetActive(true);
@@ -52,6 +58,8 @@ public class SpaceMap : MonoBehaviour
     }
     public void OnClick(int id)
     {
+        if (Managers.Resource.GetQuestData(id).Ingredients.Count == 0) return;
+
         if (id > Managers.Data.QuestProgress.successId)
         {
             Managers.Quest.SetQuestId(id);
@@ -67,14 +75,18 @@ public class SpaceMap : MonoBehaviour
             planetInfo.SetActive(false);
             this.gameObject.SetActive(false);
         }
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.GETQUEST);
     }
 
     private void SetOutputSetting(int id)
     {
 
         planetInfo.SetActive(true);
+        description.gameObject.SetActive(true);
         RectTransform child = transform.GetChild(id).GetComponent<RectTransform>();
         planetInfo.transform.localPosition = new Vector3(child.localPosition.x + child.rect.width, child.localPosition.y, 0);
+        
+        
         planetName.text = Managers.Resource.GetQuestData(id).QuestName;
 
         var tmp = Managers.Resource.GetQuestData(id).Ingredients;
@@ -89,16 +101,36 @@ public class SpaceMap : MonoBehaviour
         {
             ingrImages[i].gameObject.SetActive(false);
         }
+
+        if (tmp.Count == 0)
+        {
+            description.gameObject.SetActive(false);
+            planetInfo.GetComponent<RectTransform>().sizeDelta = sizeWithoutDes;
+            populationText.gameObject.SetActive(true);
+            populationText.text = "IMPOSSIBLE";
+            return;
+        }
+        else
+        {
+
+            planetInfo.GetComponent<RectTransform>().sizeDelta = sizeWithDes;
+        }
+
+
+        description.text = Managers.Resource.GetQuestData(id).QuestDescription;
         populationText.gameObject.SetActive(false);
 
     }
 
     private void SetSuccessQuest(int id)
     {
+        description.gameObject.SetActive(true);
         planetInfo.SetActive(true);
+        planetInfo.GetComponent<RectTransform>().sizeDelta = sizeWithDes;
+
         RectTransform child = transform.GetChild(id).GetComponent<RectTransform>();
         planetInfo.transform.localPosition = new Vector3(child.localPosition.x + child.rect.width, child.localPosition.y, 0);
-        planetName.text = "SUCCESS!";
+        planetName.text = Managers.Resource.GetQuestData(id).QuestName + " (habitable)";
 
         for (int i = 0; i < ingrImages.Length; i++)
         {
@@ -106,10 +138,10 @@ public class SpaceMap : MonoBehaviour
         }
 
 
-        populationText.text = GameManagerEx.Instance.qpDatas.populations[id].ToString() + "\n/ ";
-        // TODO : Max 이주사람 적어야됨 SO부터 추가해야됨
+        populationText.text = GameManagerEx.Instance.qpDatas.populations[id].ToString() + "\n/ " + Managers.Resource.GetQuestData(id).PopulationLimit.ToString();
 
 
+        description.text = Managers.Resource.GetQuestData(id).QuestDescription;
         populationText.gameObject.SetActive(true);
     }
 

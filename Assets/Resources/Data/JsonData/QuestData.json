@@ -71,7 +71,22 @@
       "populationLimit": 27000000,
       "questName": "Titan",
       "questDescription": "Satellite of Saturn. Except for the low temperature, it is similar to Earth."
+    },
+    {
+      "questId": 4,
+      "ingredients": [
+      ],
+      "populationLimit": 0,
+      "questName": "Jupiter",
+      "questDescription": ""
+    },
+    {
+      "questId": 5,
+      "ingredients": [
+      ],
+      "populationLimit": 0,
+      "questName": "Saturn",
+      "questDescription": ""
     }
-
   ]
 }

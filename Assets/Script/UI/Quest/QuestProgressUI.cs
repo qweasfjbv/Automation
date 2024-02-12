@@ -16,7 +16,7 @@ public class QuestProgressUI : MonoBehaviour
 
     void Start()
     {
-        
+
         gameObject.SetActive(false);
 
         Managers.Quest.SetQuestUI -= SetQuestProgress;
@@ -51,7 +51,7 @@ public class QuestProgressUI : MonoBehaviour
 
     private void SetQuestProgress(int id)
     {
-        gameObject.SetActive(true); 
+        gameObject.SetActive(true);
         planetName.text = Managers.Resource.GetQuestData(id).QuestName;
 
         var tmp = Managers.Resource.GetQuestData(id).Ingredients;
@@ -119,8 +119,8 @@ public class QuestProgressUI : MonoBehaviour
 
     private void UpdatePopulation(int idx)
     {
-        populationText.text = GameManagerEx.Instance.qpDatas.populations[idx].ToString() + "\n/";
+        populationText.text = GameManagerEx.Instance.qpDatas.populations[idx].ToString() + "\n/" + Managers.Resource.GetQuestData(idx).PopulationLimit.ToString();
+
+
     }
-
-
 }

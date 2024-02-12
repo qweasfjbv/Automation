@@ -16,8 +16,9 @@ public class Define
         BUILD,
         BUILDFAIL,
         BUTTON1,
+        GETQUEST,
         SUCCESS,
-        TIMER
+        CHAT,
     }
 
     public enum FactoryType {
