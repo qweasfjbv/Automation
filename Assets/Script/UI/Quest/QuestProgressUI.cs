@@ -119,7 +119,7 @@ public class QuestProgressUI : MonoBehaviour
 
     private void UpdatePopulation(int idx)
     {
-        populationText.text = GameManagerEx.Instance.qpDatas.populations[idx].ToString() + "\n/" + Managers.Resource.GetQuestData(idx).PopulationLimit.ToString();
+        populationText.text = GameManagerEx.Instance.qpDatas.populations[idx].ToString() + "\n/" + Managers.Resource.GetQuestData(idx).PopulationLimit.ToString("N0");
 
 
     }

@@ -138,7 +138,7 @@ public class SpaceMap : MonoBehaviour
         }
 
 
-        populationText.text = GameManagerEx.Instance.qpDatas.populations[id].ToString() + "\n/ " + Managers.Resource.GetQuestData(id).PopulationLimit.ToString();
+        populationText.text = GameManagerEx.Instance.qpDatas.populations[id].ToString() + "\n/ " + Managers.Resource.GetQuestData(id).PopulationLimit.ToString("N0");
 
 
         description.text = Managers.Resource.GetQuestData(id).QuestDescription;
