@@ -140,6 +140,9 @@ public class InventoryUI : MonoBehaviour
         {
             UpdateItemCount(i + minBuildingId);
         }
+
+        Managers.Map.BuildFunc = UseItem;
+        Managers.Map.UnbuildFunc = OnGetItem;
     }
 
     private void Update()
@@ -207,18 +210,21 @@ public class InventoryUI : MonoBehaviour
     {
         return invenItemList[id - ResourceManager.ITEMOFFSET] >= cnt;
     }
-    private void UseItem(int id, int cnt)
+    private bool UseItem(int id, int cnt)
     {
         if(id >= 100)
         {
-            invenItemList[id - ResourceManager.BUILDINGOFFSET] -= cnt;
+            if (invenBuildingList[id - ResourceManager.BUILDINGOFFSET] <= 0) return false;
+            invenBuildingList[id - ResourceManager.BUILDINGOFFSET] -= cnt;
         }
         else
         {
-
+            if (invenItemList[id - ResourceManager.ITEMOFFSET] <= 0) return false;
             invenItemList[id - ResourceManager.ITEMOFFSET] -= cnt;
         }
         UpdateItemCount(id);
+
+        return true;
     }
     public void Toggle()
     {

@@ -62,6 +62,9 @@ public class MapManager
     private Vector2 start = new Vector2(0, 0);
     private Vector2 end = new Vector2(0, 0);
 
+    public Func<int, int, bool> BuildFunc;
+    public Action<int, int, bool> UnbuildFunc;
+
     private readonly bool[,,] VEINPOS = new bool[4, 3, 3]
     {
         {
@@ -107,6 +110,13 @@ public class MapManager
         {
             return false;
         }
+
+        if (!BuildFunc(id, 1))
+        {
+            // 아이템 부족
+            return false;
+        }
+
         GameObject tmpGo;
         Vector2 buildPos = new Vector2(pos.x + size.x / 2, pos.y - size.y / 2);
 
@@ -158,6 +168,9 @@ public class MapManager
         tile.DeepCopy(usingArea[Mathf.Abs((int)pos.y), (int)pos.x]);
 
         if (tile.id == -1) return;
+
+        // 건물이 있음
+        UnbuildFunc(tile.id, 1, false);
 
         CalDir(new Vector2(tile.x, tile.y), Managers.Resource.GetBuildingData(tile.id).Size, tile.rot);
 
@@ -343,7 +356,7 @@ public class MapManager
     {
         const int veinStart = 1;
         const int veinEnd = 6;
-        const int veinCount = 3;
+        const int veinCount = 4;
         int rdIdx, rdY, rdX;
         int tmpY, tmpX;
         bool isCanBuild = true;
@@ -399,7 +412,7 @@ public class MapManager
         }
 
         int rockCnt = 0;
-        const int maxRockCnt = 20;
+        const int maxRockCnt = 30;
         while (rockCnt <= maxRockCnt)
         {
 

@@ -109,6 +109,7 @@ public class InputModeUI : MonoBehaviour
 
     public void OnModButtonClicked(int num)
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         int tmp = (int)Managers.Input.Mode;
         if (tmp==0)
         {

@@ -35,6 +35,18 @@ public class SpaceMap : MonoBehaviour
         SoundManager.Instance.ChangeBGM(Define.BgmType.SPACE);
     }
 
+    public void Toggle()
+    {
+        if (gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
     public void PointerEnter(int id)
     {
         SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);

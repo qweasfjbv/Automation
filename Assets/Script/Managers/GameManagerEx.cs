@@ -18,8 +18,7 @@ public class GameManagerEx : MonoBehaviour
                 go = new GameObject { name = "@GameManager" };
                 go.AddComponent<GameManagerEx>();
             }
-
-            DontDestroyOnLoad(go);
+            
             instance = go.GetComponent<GameManagerEx>();
 
         }
@@ -33,6 +32,9 @@ public class GameManagerEx : MonoBehaviour
     private int spaceShipCnt = 0;
     [SerializeField]
     private int trashCnt = 0;
+
+    [SerializeField]
+    private GameObject fianlReport;
 
     const int MAXPOPULATION = 100000000;
     private float curPopulation = MAXPOPULATION;
@@ -62,9 +64,18 @@ public class GameManagerEx : MonoBehaviour
         trashCnt++;
     }
 
-    private void OnGameOver(int num)
-    { 
-
+    public void OnGameOver(int num)
+    {
+        Time.timeScale = 0f;
+        StartCoroutine(GameOverCoroutine());
     }
 
+    private IEnumerator GameOverCoroutine()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            yield return new WaitForSecondsRealtime(0.05f);
+            Debug.Log("GAMeover");
+        }
+    }
 }

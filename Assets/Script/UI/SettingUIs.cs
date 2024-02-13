@@ -67,6 +67,7 @@ public class SettingUIs : MonoBehaviour
 
     private void OnItemDictButton()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (itemDict.activeSelf == true)
         {
             itemDictInfo.SetActive(false);
@@ -106,7 +107,8 @@ public class SettingUIs : MonoBehaviour
 
     private void OnItemClicked(int id)
     {
-        if(itemDictInfo.GetComponent<ItemDictInfo>().id == id)
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
+        if (itemDictInfo.GetComponent<ItemDictInfo>().id == id)
         {
             itemDictInfo.SetActive(false);
         }
@@ -119,6 +121,7 @@ public class SettingUIs : MonoBehaviour
 
     private void OnBuildingDictButton()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (buildingDict.activeSelf == true)
         {
             buildingDictInfo.SetActive(false);
@@ -158,7 +161,8 @@ public class SettingUIs : MonoBehaviour
     
     public void OnBuildingClicked(int id)
     {
-        
+
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (buildingDictInfo.GetComponent<ItemDictInfo>().id == id)
         {
             buildingDictInfo.SetActive(false);
@@ -172,6 +176,7 @@ public class SettingUIs : MonoBehaviour
 
     private void OnSettingButton()
     {
+        SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
         if (setting.activeSelf == false)
         {
             if (curOpeningUI != null)
@@ -202,13 +207,11 @@ public class SettingUIs : MonoBehaviour
         {
             OnBuildingDictButton();
         }
-        else if(Input.GetKeyDown(KeyCode.Q)){
-
-        }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (setting.GetComponent<SettingButtons>().QuestUI.activeSelf || setting.GetComponent<SettingButtons>().OptionUI.activeSelf)
             {
+                SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
                 setting.GetComponent<SettingButtons>().QuestUI.SetActive(false);
                 setting.GetComponent<SettingButtons>().OptionUI.SetActive(false);
             }
@@ -220,6 +223,7 @@ public class SettingUIs : MonoBehaviour
                 }
                 else
                 {
+                    SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
                     buildingDictInfo.SetActive(false);
                     itemDictInfo.SetActive(false);
                     curOpeningUI.SetActive(false);

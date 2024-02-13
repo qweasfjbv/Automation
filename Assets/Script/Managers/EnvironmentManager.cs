@@ -43,7 +43,6 @@ public class EnvironmentManager : MonoBehaviour
                 go.AddComponent<EnvironmentManager>();
             }
 
-            DontDestroyOnLoad(go);
             instance = go.GetComponent<EnvironmentManager>();
 
         }
@@ -115,6 +114,7 @@ public class EnvironmentManager : MonoBehaviour
 
         preValue = curValue;
         minValue = Mathf.Min(curValue, minValue);
+
     }
     public void StartFadeIn(int tilemapId, float duration)
     {

@@ -310,6 +310,10 @@ public class DataManager
                 invenBuildingDatas.invenBuildingData[i] = 0;
             }
 
+            // Basic Given Buildings
+            invenBuildingDatas.invenBuildingData[0] = 10;
+            invenBuildingDatas.invenBuildingData[1] = 1;
+            invenBuildingDatas.invenBuildingData[12] = 1;
         }
         else
         {
@@ -331,6 +335,8 @@ public class DataManager
 
         return ref invenBuildingDatas.invenBuildingData;
     }
+
+
     public void AddInvenItem(int id, int cnt)
     {
         if (id >= 100)
