@@ -4,7 +4,7 @@
       "ID": 11,
       "Name": "CooperOre",
       "Ingredient": [],
-      "ProductTime": 2,
+      "ProductTime": 2.5,
       "Description": "It is obtained from mining CooperVein.",
       "MakingBuildingId": 102
     },
@@ -12,7 +12,7 @@
       "ID": 12,
       "Name": "IronOre",
       "Ingredient": [],
-      "ProductTime": 2,
+      "ProductTime": 3,
       "Description": "It is obtained from mining IronVein.",
       "MakingBuildingId": 102
     },
@@ -127,7 +127,7 @@
       "ID": 21,
       "Name": "CrudeOil",
       "Ingredient": [],
-      "ProductTime": 2,
+      "ProductTime": 3,
       "Description": "It is obtained from drilling groundcrack. it can be used only after refination.",
       "MakingBuildingId": 108
     },
@@ -236,6 +236,10 @@
       "Ingredient": [
         {
           "id": 26,
+          "cnt": 2
+        },
+        {
+          "id": 17,
           "cnt": 2
         }
       ],
