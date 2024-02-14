@@ -351,8 +351,8 @@ public class DataManager
     }
     public void AddQuestItem(int id, int cnt)
     {
-
         if (questProgressDatas.inProgressId == -1) return;
+        if (GameManagerEx.Instance.IsCapsized()) return;
 
         int idx = -1;
         for (int i = 0; i < Managers.Resource.GetQuestData(questProgressDatas.inProgressId).Ingredients.Count; i++)
@@ -376,6 +376,8 @@ public class DataManager
     public void AddQuestPopulation(int id, int cnt)
     {
         if (questProgressDatas.inProgressId == -1) return;
+
+        if (GameManagerEx.Instance.IsSpaceshipCapsized()) return;
 
         questProgressDatas.populations[id] += cnt;
         questPopulationDelegate(questProgressDatas.inProgressId);

@@ -24,6 +24,7 @@ public class MassDriver : BuildingBase
             {
                 Managers.Data.AddQuestItem(id, 1);
             }
+            // 성공함 -> population
             else
             {
                 // 우주선이면

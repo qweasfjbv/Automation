@@ -18,7 +18,7 @@ public class GameManagerEx : MonoBehaviour
                 go = new GameObject { name = "@GameManager" };
                 go.AddComponent<GameManagerEx>();
             }
-            
+
             instance = go.GetComponent<GameManagerEx>();
 
         }
@@ -31,7 +31,11 @@ public class GameManagerEx : MonoBehaviour
     [SerializeField]
     private int spaceShipCnt = 0;
     [SerializeField]
+    private int capsizedShipCnt = 0;
+    [SerializeField]
     private int trashCnt = 0;
+    [SerializeField]
+    private int capsizedItemCnt = 0;
 
     [SerializeField]
     private GameObject fianlReport;
@@ -40,11 +44,20 @@ public class GameManagerEx : MonoBehaviour
     private float curPopulation = MAXPOPULATION;
     public readonly int PEOPLEPERSHIP = 500;
 
+    const int MAXTRASH = 1000;
+    public bool[] randomTable;
+
     public QuestProgressDatas qpDatas;
 
     private void Start()
     {
         qpDatas = Managers.Data.GetQPDatas();
+        randomTable = new bool[MAXTRASH];
+        for (int i = 0; i < MAXTRASH; i++)
+        {
+            randomTable[i] = false;
+        }
+
     }
 
     private void Update()
@@ -56,12 +69,45 @@ public class GameManagerEx : MonoBehaviour
             OnGameOver(PEOPLEPERSHIP * spaceShipCnt);
         }
 
-        //Debug.Log(curPopulation.ToString("N0"));
+    }
+
+    // true¸é Àüº¹
+    public bool IsCapsized()
+    {
+        if (randomTable[Random.Range(0, MAXTRASH)])
+        {
+            capsizedItemCnt++;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public bool IsSpaceshipCapsized()
+    {
+        if(randomTable[Random.Range(0, MAXTRASH)])
+        {
+            capsizedShipCnt++;
+            return true;
+        }
+        else{
+            spaceShipCnt++;
+            return false;
+        }
     }
 
     public void ThrowItemsToSpace(int id)
     {
-        trashCnt++;
+        if (trashCnt <= 999)
+        {
+            randomTable[trashCnt] = true;
+            trashCnt++;
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void OnGameOver(int num)

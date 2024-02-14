@@ -17,6 +17,7 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField]
     int[] invenItemList;
+    [SerializeField]
     int[] invenBuildingList;
 
     private Button[] craftButton;
