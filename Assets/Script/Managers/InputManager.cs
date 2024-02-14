@@ -18,4 +18,7 @@ public class InputManager
     {
         inputMode = InputMode.None;
     }
+
+    private bool isInputable = false;
+    public bool IsInputable { get; set; }
 }
