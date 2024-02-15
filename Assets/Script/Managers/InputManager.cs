@@ -19,6 +19,6 @@ public class InputManager
         inputMode = InputMode.None;
     }
 
-    private bool isInputable = false;
-    public bool IsInputable { get; set; }
+    private bool keyInputLock = false;
+    public bool KeyInputLock { get => keyInputLock; set => keyInputLock = value; }
 }

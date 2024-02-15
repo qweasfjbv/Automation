@@ -40,18 +40,18 @@ public class GameManagerEx : MonoBehaviour
     [SerializeField]
     private GameObject finalReport;
 
-    const int MAXPOPULATION = 100000000;
+    private const int MAXPOPULATION = 100000000;
     private float curPopulation = MAXPOPULATION;
     public readonly int PEOPLEPERSHIP = 500;
 
     const int MAXTRASH = 1000;
     public bool[] randomTable;
 
-    public float CurPopulation { get; private set; }
-    public int SpaceShipCnt { get;  private set; }
-    public int CapsizedShipCnt { get; private set; }
-    public int TrashCnt { get; private set; }  
-    public int CapsizedItemCnt { get; private set; }
+    public int MaxPopulation { get => MAXPOPULATION;  }
+    public int SpaceShipCnt { get => spaceShipCnt; }
+    public int CapsizedShipCnt { get => capsizedShipCnt; }
+    public int TrashCnt { get => trashCnt;  }  
+    public int CapsizedItemCnt { get => capsizedItemCnt;  }
 
     public QuestProgressDatas qpDatas;
 
@@ -61,6 +61,12 @@ public class GameManagerEx : MonoBehaviour
         randomTable = new bool[MAXTRASH];
         for (int i = 0; i < MAXTRASH; i++)
         {
+            if (i % 2 == 0)
+            {
+                randomTable[i] = true;
+                continue;
+            }
+
             randomTable[i] = false;
         }
 
@@ -72,6 +78,7 @@ public class GameManagerEx : MonoBehaviour
     {
         curPopulation = MAXPOPULATION * EnvironmentManager.Instance.MinRate;
 
+        // d
         if (curPopulation <= PEOPLEPERSHIP * spaceShipCnt && !isOver)
         {
             isOver = true;
@@ -122,6 +129,7 @@ public class GameManagerEx : MonoBehaviour
     public void OnGameOver(int num)
     {
         Time.timeScale = 0f;
+        Managers.Input.KeyInputLock = true;
         StartCoroutine(GameOverCoroutine());
     }
 

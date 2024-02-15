@@ -209,7 +209,14 @@ public class InventoryUI : MonoBehaviour
 
     private bool CheckEnoughItem(int id, int cnt)
     {
-        return invenItemList[id - ResourceManager.ITEMOFFSET] >= cnt;
+        if (id >= 100)
+        {
+            return invenBuildingList[id - ResourceManager.BUILDINGOFFSET] >= cnt;
+        }
+        else
+        {
+            return invenItemList[id - ResourceManager.ITEMOFFSET] >= cnt;
+        }
     }
     private bool UseItem(int id, int cnt)
     {

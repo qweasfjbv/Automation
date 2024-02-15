@@ -38,6 +38,7 @@ public class ItemLogQueue : MonoBehaviour
         }
 
         itemLogQueue[end] = Instantiate(itemLogPrefab, transform).GetComponent<ItemLog>();
+        
         itemLogQueue[end].SetItemLog(id, cnt);
 
         ElevateAllLog();

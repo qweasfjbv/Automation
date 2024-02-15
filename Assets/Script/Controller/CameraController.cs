@@ -71,8 +71,11 @@ public class CameraController : MonoBehaviour
 
         scroll = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
 
-        ZoomControl();
-        UpdateZoom();
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            ZoomControl();
+            UpdateZoom();
+        }
 
         if (Managers.Input.Mode == InputManager.InputMode.None) {
 
@@ -164,7 +167,7 @@ public class CameraController : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButton(1))
+        else if (Input.GetMouseButton(1) && !IsOnUI)
         {
             var tile = Managers.Map.GetTileOnPoint(mousePosition);
             dustParticle.transform.position = new Vector3(mousePosition.x, mousePosition.y, 0);
