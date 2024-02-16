@@ -31,7 +31,7 @@ using UnityEngine;
 {
     public int questId;
     public List<Ingredient> ingredients;
-    public float populationLimit;
+    public int populationLimit;
     public string questName;
     public string questDescription;
 }

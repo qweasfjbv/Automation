@@ -9,12 +9,12 @@ public class QuestData : ScriptableObject
     [SerializeField] private int questId;
     [SerializeField] private string questName;
     [SerializeField] private List<Ingredient> ingredients = new List<Ingredient>();
-    [SerializeField] private float populationLimit;
+    [SerializeField] private int populationLimit;
     [SerializeField] private string questDescription;
 
     public int ID { get => questId; }
     public List<Ingredient> Ingredients { get => ingredients; }
-    public float PopulationLimit { get => populationLimit; }
+    public int PopulationLimit { get => populationLimit; }
     public string QuestName { get => questName; }
     public string QuestDescription { get => questDescription; }
     public void SetQuestData(QuestJsonData data)

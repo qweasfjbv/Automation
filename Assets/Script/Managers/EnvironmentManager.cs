@@ -15,12 +15,12 @@ public class EnvironmentManager : MonoBehaviour
     private int pollutionMul = 1;
     private const int purifierOs = 5;
 
-    private const int MaxValue = 100000;
-    private float curValue = MaxValue;
-    private float preValue = MaxValue;
-    private float minValue = MaxValue;
+    private const int MAXVALUE = 100000;
+    private float curValue = MAXVALUE;
+    private float preValue = MAXVALUE;
+    private float minValue = MAXVALUE;
 
-    public float MinRate { get => minValue/MaxValue; }
+    public float MinRate { get => minValue/MAXVALUE; }
 
     private Dictionary<int, Coroutine> fadeCoroutines = new Dictionary<int, Coroutine>();
 
@@ -31,6 +31,18 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> envTilemap;
 
+    public float Value { get => envBar.value; }
+    public float MaxValue { get => MAXVALUE; }
+
+
+    // TODO : value Load받고 받자마자 envTilemap 계산
+    public void SetValue(float value)
+    {
+        envBar.value = value;
+        curValue = value;
+        preValue = value;
+        // envbar->Tilemap spirte 계싼
+    }
 
     static void Init()
     {
@@ -50,9 +62,31 @@ public class EnvironmentManager : MonoBehaviour
     private void Awake()
     {
         Init();
-        if (envBar != null) envBar.maxValue = MaxValue;
+        if (envBar != null) envBar.maxValue = MAXVALUE;
     }
 
+    private void Start()
+    {
+        Managers.Data.LoadGameExData();
+
+
+        for (int i = 1; i <= envTilemap.Count; i++)
+        {
+            float critic = envBar.maxValue * (1 - ((float)i / (float)(envTilemap.Count + 1)));
+
+            if ((curValue < critic))
+            {
+                envTilemap[envTilemap.Count - i].transform.GetChild(0).GetComponent<Tilemap>().color = new Color(1, 1, 1, 0);
+                envTilemap[envTilemap.Count - i].transform.GetChild(1).GetComponent<Tilemap>().color = new Color(1, 1, 1, 0);
+                Debug.Log(envTilemap.Count - i);
+            }
+            else
+            {
+                envTilemap[envTilemap.Count - i].transform.GetChild(0).GetComponent<Tilemap>().color = Color.white;
+                envTilemap[envTilemap.Count - i].transform.GetChild(1).GetComponent<Tilemap>().color = Color.white;
+            }
+        }
+    }
     public void OnBuildBuilding()
     {
         bdCnt++;

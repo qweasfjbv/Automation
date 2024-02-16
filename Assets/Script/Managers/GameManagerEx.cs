@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManagerEx : MonoBehaviour
@@ -40,33 +41,55 @@ public class GameManagerEx : MonoBehaviour
     [SerializeField]
     private GameObject finalReport;
 
-    private const int MAXPOPULATION = 100000000;
-    private float curPopulation = MAXPOPULATION;
+    private int MAXPOPULATION = 100000000;
+    private int curPopulation = 100000000;
     public readonly int PEOPLEPERSHIP = 500;
+    private int excessPopulation = 0;
 
-    const int MAXTRASH = 1000;
+    readonly int MAXTRASH = 1000;
     public bool[] randomTable;
 
+    private int finalScore = 0;
+
     public int MaxPopulation { get => MAXPOPULATION;  }
+
+
     public int SpaceShipCnt { get => spaceShipCnt; }
     public int CapsizedShipCnt { get => capsizedShipCnt; }
     public int TrashCnt { get => trashCnt;  }  
     public int CapsizedItemCnt { get => capsizedItemCnt;  }
+    
+    // 위 네가지 SAVE/LOAD, 로드받고 randomtable 제작.
 
-    public QuestProgressDatas qpDatas;
+    // finalscore, curpopulation, excess는 계산하고 사용해서 ㄴ상관
+
+    public int ExcessPopulation { get=> excessPopulation; }
+    public int FinalScore { get => finalScore; }
+
+    public QuestProgressData qpDatas;
+
+    public void SetGameExData(GameExData data)
+    {
+        spaceShipCnt = data.spaceShipCnt;
+        capsizedShipCnt = data.capsizedShipCnt;
+        trashCnt = data.trashCnt;
+        capsizedItemCnt = data.capsizedItemCnt;
+
+    }
 
     private void Start()
     {
         qpDatas = Managers.Data.GetQPDatas();
+
+        Managers.Data.LoadGameExData();
+
         randomTable = new bool[MAXTRASH];
         for (int i = 0; i < MAXTRASH; i++)
         {
-            if (i % 2 == 0)
+            if (i < trashCnt)
             {
-                randomTable[i] = true;
-                continue;
+                randomTable[i] = true; continue;
             }
-
             randomTable[i] = false;
         }
 
@@ -76,7 +99,7 @@ public class GameManagerEx : MonoBehaviour
 
     private void Update()
     {
-        curPopulation = MAXPOPULATION * EnvironmentManager.Instance.MinRate;
+        curPopulation = (int)((float)MAXPOPULATION * EnvironmentManager.Instance.MinRate);
 
         // d
         if (curPopulation <= PEOPLEPERSHIP * spaceShipCnt && !isOver)
@@ -130,6 +153,17 @@ public class GameManagerEx : MonoBehaviour
     {
         Time.timeScale = 0f;
         Managers.Input.KeyInputLock = true;
+
+        // 끝나기전에 계산전부 해야함
+        excessPopulation = 0;
+        for(int i=0; i< Managers.Data.GetQPDatas().populations.Length; i++) {
+            excessPopulation += Mathf.Max(0,( Managers.Data.GetQPDatas().populations[i]- Managers.Resource.GetQuestData(i).PopulationLimit));
+        }
+
+
+
+        finalScore = Mathf.RoundToInt((spaceShipCnt * PEOPLEPERSHIP - (float)excessPopulation/2)/MAXPOPULATION * (0.5f + (1-trashCnt/(float)MAXTRASH) * 100));
+        
         StartCoroutine(GameOverCoroutine());
     }
 

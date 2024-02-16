@@ -5,8 +5,7 @@ using System.IO;
 using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
-using UnityEditor;
-using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 public static class AESManager {
     private static byte[] key = Encoding.UTF8.GetBytes("1234qwer5678asdf");
@@ -67,13 +66,25 @@ public class InvenBuildingDatas {
     public int[] invenBuildingData;
 }
 
-public class QuestProgressDatas {
+public class QuestProgressData {
     public int successId;
     public int inProgressId;
     public int[] questItems;
-    public float[] populations;
+    public int[] populations;
 }
 
+public class GameExData {
+
+    // GameManagerEx
+    public int spaceShipCnt;
+    public int capsizedShipCnt;
+    public int trashCnt;
+    public int capsizedItemCnt;
+
+
+    // EnvManager
+    public float value;
+}
 
 public class DataManager
 {
@@ -84,11 +95,14 @@ public class DataManager
     private string invenItemFileName = "/UserInvenItemData.json";
     private string invenBuildingFileName = "/UserInvenBuildingData.json";
     private string questProgressFileName = "/UserQuestProgressData.json";
+    private string gameExDataFileName = "/UserGameExData.json";
 
     InvenItemDatas invenItemDatas = new InvenItemDatas();
     InvenBuildingDatas invenBuildingDatas = new InvenBuildingDatas();
-    QuestProgressDatas questProgressDatas = new QuestProgressDatas();
-    public ref QuestProgressDatas QuestProgress { get => ref questProgressDatas; }
+    QuestProgressData questProgressDatas = new QuestProgressData();
+    GameExData gameExData = new GameExData();
+
+    public ref QuestProgressData QuestProgress { get => ref questProgressDatas; }
 
     public delegate void UpdateDelegate<T1>(T1 a);
     public UpdateDelegate<int> itemUpdateDelegate;
@@ -123,12 +137,14 @@ public class DataManager
         SaveMap();
         SaveInven();
         SaveQuestProgress();
+        SaveGameExData();
     }
     public void DeleteAll()
     {
         DeleteMap();
         DeleteInvenData();
         DeleteQuestProgress();
+        DeleteGameExData();
     }
 
     private void LoadTutorialMap()
@@ -409,7 +425,7 @@ public class DataManager
             questProgressDatas.inProgressId = -1;
             questProgressDatas.successId = -1;
             questProgressDatas.questItems = new int[3];
-            questProgressDatas.populations = new float[Managers.Resource.GetQuestCount()];
+            questProgressDatas.populations = new int[Managers.Resource.GetQuestCount()];
 
             for(int i=0; i<3; i++)
             {
@@ -423,13 +439,13 @@ public class DataManager
         }
         else
         {
-            questProgressDatas = JsonUtility.FromJson<QuestProgressDatas>(AESManager.DecryptString(File.ReadAllText(path + questProgressFileName)));
+            questProgressDatas = JsonUtility.FromJson<QuestProgressData>(AESManager.DecryptString(File.ReadAllText(path + questProgressFileName)));
         }
 
 
     }
 
-    public ref QuestProgressDatas GetQPDatas()
+    public ref QuestProgressData GetQPDatas()
     {
         return ref questProgressDatas;
     }
@@ -449,5 +465,51 @@ public class DataManager
         File.AppendAllText(path + questProgressFileName, AESManager.EncryptString(JsonUtility.ToJson(questProgressDatas)));
     }
 
+    private void DeleteGameExData()
+    {
+        if (File.Exists(path + gameExDataFileName))
+        {
+            File.Delete(path + gameExDataFileName);
+        }
+    }
 
+    public void SaveGameExData()
+    {
+
+        // GameManagerEx
+        gameExData.spaceShipCnt = GameManagerEx.Instance.SpaceShipCnt;
+        gameExData.capsizedShipCnt = GameManagerEx.Instance.CapsizedShipCnt;
+        gameExData.trashCnt = GameManagerEx.Instance.TrashCnt;
+        gameExData.capsizedItemCnt = GameManagerEx.Instance.CapsizedItemCnt;
+
+        // EnvManager
+        gameExData.value = EnvironmentManager.Instance.Value;
+
+        DeleteGameExData();
+        File.AppendAllText(path + gameExDataFileName, AESManager.EncryptString(JsonUtility.ToJson(gameExData)));
+
+
+    }
+
+    public void LoadGameExData()
+    {
+        if (!File.Exists(path + gameExDataFileName))
+        {
+            gameExData.spaceShipCnt = 0;
+            gameExData.capsizedShipCnt = 0;
+            gameExData.trashCnt = 0;
+            gameExData.capsizedItemCnt = 0;
+
+            // EnvManager
+            gameExData.value = EnvironmentManager.Instance.MaxValue;
+        }
+        else
+        {
+            gameExData = JsonUtility.FromJson<GameExData>(AESManager.DecryptString(File.ReadAllText(path + gameExDataFileName)));
+        }
+
+        EnvironmentManager.Instance.SetValue(gameExData.value);
+        GameManagerEx.Instance.SetGameExData(gameExData);
+
+    }
 }

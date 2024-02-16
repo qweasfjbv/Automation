@@ -45,7 +45,6 @@ public class LoadingSceneManager : MonoBehaviour
         while (!ao.isDone)
         {
             yield return null;
-
             elapsedTime += Time.deltaTime;
 
             if (ao.progress >= 0.9f)
