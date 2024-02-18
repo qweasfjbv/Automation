@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class Crosser : Transport
 {

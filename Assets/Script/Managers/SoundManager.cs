@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class SoundManager : MonoBehaviour
     private Coroutine soundFadeOut;
     private float MaxVolume =1f;
 
-    static void Init()
+    private void Init()
     {
         if (instance == null)
         {
@@ -39,6 +40,10 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(go);
             instance = go.GetComponent<SoundManager>();
 
+        }
+        else{
+            Destroy(this.gameObject);
+            return;
         }
     }
 
@@ -183,11 +188,14 @@ public class SoundManager : MonoBehaviour
         int idx = -1;
         switch (type)
         {
-            case Define.BgmType.GAME:
+            case Define.BgmType.MAIN:
                 idx = 0;
                 break;
-            case Define.BgmType.SPACE:
+            case Define.BgmType.GAME:
                 idx = 1;
+                break;
+            case Define.BgmType.SPACE:
+                idx = 2;
                 break;
             default:
                 idx = -1;
@@ -195,7 +203,7 @@ public class SoundManager : MonoBehaviour
         }
 
         bgmPlayer.clip = bgmClips[idx];
-        bgmPlayer.Play();
+        StartCoroutine(BGMFadeInCoroutine(bgmPlayer, 3.0f));
     }
 
     private IEnumerator SoundFadeInCoroutine(AudioSource player, float fadeTime)
@@ -211,6 +219,19 @@ public class SoundManager : MonoBehaviour
         }
 
         isFadeIn = true;
+    }
+
+    private IEnumerator BGMFadeInCoroutine(AudioSource player, float fadeTime)
+    {
+        player.volume = 0f;
+        player.Play();
+        while (player.volume < MaxVolume)
+        {
+            player.volume += MaxVolume * Time.deltaTime / fadeTime;
+
+            yield return null;
+        }
+
     }
 
     private IEnumerator SoundFadeOutCoroutine(AudioSource player, float fadeTime)

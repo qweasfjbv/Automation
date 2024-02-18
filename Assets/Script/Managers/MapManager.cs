@@ -104,14 +104,14 @@ public class MapManager
     }
 
 
-    public bool Build(int id, Vector2 pos, Vector2 size, int rot)
+    public bool Build(int id, Vector2 pos, Vector2 size, int rot, bool OnLoad = false)
     {
         if (!BoundCheck(pos, size, rot))
         {
             return false;
         }
 
-        if (!BuildFunc(id, 1))
+        if (!OnLoad && !BuildFunc(id, 1) )
         {
             // 아이템 부족
             return false;

@@ -14,10 +14,7 @@ public class SpaceMap : MonoBehaviour
     [SerializeField] private TextMeshProUGUI populationText;
     [SerializeField] private TextMeshProUGUI description;
 
-    [SerializeField] private Image[] images;
-    private float scrollSpeed = 50f;
-
-    private int childOffset = 2;
+    private int childOffset = 1;
 
     private Vector2 sizeWithDes = new Vector2(300, 300);
     private Vector2 sizeWithoutDes = new Vector2(300, 180);
@@ -29,33 +26,9 @@ public class SpaceMap : MonoBehaviour
     {
         planetInfo.SetActive(false);
     }
-    void Update()
-    {
-        #region ImageMove
-        foreach (var image in images)
-        {
-            // 각 이미지의 RectTransform을 가져옵니다.
-            RectTransform rt = image.GetComponent<RectTransform>();
-
-            // 이미지를 왼쪽으로 이동시킵니다.
-            rt.anchoredPosition += Vector2.left * scrollSpeed * Time.deltaTime;
-
-            // 이미지가 왼쪽으로 충분히 이동했다면, 오른쪽으로 재배치합니다.
-            if (rt.anchoredPosition.x <= -rt.rect.width)
-            {
-                // 이미지 간격을 계산합니다.
-                float offset = 2 * rt.rect.width;
-                // 이미지 위치를 재조정합니다.
-                rt.anchoredPosition += Vector2.right * offset;
-            }
-        }
-        #endregion
-
-    }
 
     private void OnDisable()
     {
-        Debug.Log("GAMEON");
         SoundManager.Instance.ChangeBGM(Define.BgmType.GAME);
     }
 

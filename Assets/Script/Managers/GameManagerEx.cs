@@ -9,7 +9,7 @@ public class GameManagerEx : MonoBehaviour
 
     private static GameManagerEx instance;
     public static GameManagerEx Instance { get { return instance; } }
-    static void Init()
+    public static void Init()
     {
         if (instance == null)
         {
@@ -43,7 +43,7 @@ public class GameManagerEx : MonoBehaviour
 
     private int MAXPOPULATION = 100000000;
     private int curPopulation = 100000000;
-    public readonly int PEOPLEPERSHIP = 500;
+    public readonly int PEOPLEPERSHIP = 100000;
     private int excessPopulation = 0;
 
     readonly int MAXTRASH = 1000;
@@ -77,8 +77,9 @@ public class GameManagerEx : MonoBehaviour
 
     }
 
-    private void Start()
+    public void QPDataLoad()
     {
+
         qpDatas = Managers.Data.GetQPDatas();
 
         Managers.Data.LoadGameExData();
@@ -94,6 +95,7 @@ public class GameManagerEx : MonoBehaviour
         }
 
     }
+
 
     private bool isOver = false;
 
@@ -159,8 +161,6 @@ public class GameManagerEx : MonoBehaviour
         for(int i=0; i< Managers.Data.GetQPDatas().populations.Length; i++) {
             excessPopulation += Mathf.Max(0,( Managers.Data.GetQPDatas().populations[i]- Managers.Resource.GetQuestData(i).PopulationLimit));
         }
-
-
 
         finalScore = Mathf.RoundToInt((spaceShipCnt * PEOPLEPERSHIP - (float)excessPopulation/2)/MAXPOPULATION * (0.5f + (1-trashCnt/(float)MAXTRASH) * 100));
         

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,7 +22,7 @@ public class LoadingSceneManager : MonoBehaviour
         switch (nextScene)
         {
             case SceneEnum.Mainmenu:
-                SoundManager.Instance.ChangeBGM(Define.BgmType.SPACE);
+                SoundManager.Instance.ChangeBGM(Define.BgmType.MAIN);
                 break;
             case SceneEnum.Game:
             case SceneEnum.Tutorial:
@@ -63,6 +62,7 @@ public class LoadingSceneManager : MonoBehaviour
                 }
             }
         }
+
 
     }
 }

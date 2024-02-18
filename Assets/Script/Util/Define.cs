@@ -32,6 +32,7 @@ public class Define
     }
 
     public enum BgmType {
+        MAIN,
         GAME,
         SPACE,
     }

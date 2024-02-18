@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class QuestProgressUI : MonoBehaviour
 
     void Start()
     {
+
+        if (GameManagerEx.Instance == null) GameManagerEx.Init();
+        GameManagerEx.Instance.QPDataLoad();
 
         gameObject.SetActive(false);
 
@@ -36,6 +40,7 @@ public class QuestProgressUI : MonoBehaviour
 
         if (Managers.Data.QuestProgress.inProgressId != -1)
         {
+            Debug.Log(GameManagerEx.Instance.qpDatas == null);
             Managers.Quest.SetQuestUI.Invoke(Managers.Data.QuestProgress.inProgressId);
         }
     }

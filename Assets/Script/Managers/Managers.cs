@@ -5,7 +5,7 @@ public class Managers : MonoBehaviour
 {
 
     static Managers s_instance;
-    static Managers Instance { get { return s_instance; } }
+    public static Managers Instance { get { return s_instance; } }
 
 
     MapManager _map = new MapManager();
@@ -20,8 +20,8 @@ public class Managers : MonoBehaviour
     public static MapManager Map { get { return Instance._map; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static InputManager Input { get { return Instance._input; } }
-    public static AnimatorManager Anim { get {  return Instance._anim; } }
-    public static PoolManager Pool { get { return Instance._pool; } }   
+    public static AnimatorManager Anim { get { return Instance._anim; } }
+    public static PoolManager Pool { get { return Instance._pool; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static DataManager Data { get { return Instance._data; } }
     public static QuestManager Quest { get { return Instance._quest; } }
@@ -31,8 +31,39 @@ public class Managers : MonoBehaviour
         Init();
     }
 
+    public static void ReInit() {
 
-    static void Init()
+        if (s_instance == null)
+        {
+            GameObject go = GameObject.Find("@Managers");
+            if (go == null)
+            {
+                go = new GameObject { name = "@Managers" };
+                go.AddComponent<Managers>();
+            }
+
+            DontDestroyOnLoad(go);
+            s_instance = go.GetComponent<Managers>();
+
+        }
+
+
+        s_instance._anim.Init();
+        if (GameObject.FindObjectOfType<TutorialScene>() != null)
+        {
+            s_instance._map.Init(30);
+            s_instance._pool.Init(100);
+        }
+        else if (GameObject.FindObjectOfType<GameScene>() != null)
+        {
+            s_instance._map.Init(100);
+            s_instance._pool.Init(1000);
+        }
+        s_instance._data.Init();
+        s_instance._quest.Init();
+    }
+
+    public void Init()
     {
         if (s_instance == null)
         {
@@ -46,6 +77,11 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
 
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            return;
         }
 
 

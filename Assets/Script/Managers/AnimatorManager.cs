@@ -10,6 +10,8 @@ public class AnimatorManager
 
     public void Init()
     {
+        crits.Clear();
+
         crits.Add(101, GameObject.Find("BeltAnimCrit"));
         crits.Add(102, GameObject.Find("MMAnimCrit"));
         crits.Add(108, GameObject.Find("OilDrillAnimCrit"));

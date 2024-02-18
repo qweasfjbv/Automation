@@ -44,7 +44,7 @@ public class EnvironmentManager : MonoBehaviour
         // envbar->Tilemap spirte °è½Ñ
     }
 
-    static void Init()
+    public static void Init()
     {
         if (instance == null)
         {
@@ -59,6 +59,7 @@ public class EnvironmentManager : MonoBehaviour
 
         }
     }
+
     private void Awake()
     {
         Init();
@@ -78,7 +79,6 @@ public class EnvironmentManager : MonoBehaviour
             {
                 envTilemap[envTilemap.Count - i].transform.GetChild(0).GetComponent<Tilemap>().color = new Color(1, 1, 1, 0);
                 envTilemap[envTilemap.Count - i].transform.GetChild(1).GetComponent<Tilemap>().color = new Color(1, 1, 1, 0);
-                Debug.Log(envTilemap.Count - i);
             }
             else
             {
@@ -105,7 +105,6 @@ public class EnvironmentManager : MonoBehaviour
     {
         purifierCnt--;
     }
-
     private void Update()
     {
         if (Managers.Scene.CurScene.GetComponent<GameScene>() == null) return;

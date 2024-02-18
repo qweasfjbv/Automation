@@ -233,6 +233,11 @@ public class DataManager
 
         if (tileDatas == null || tileDatas.tileData == null) return false;
 
+        if (EnvironmentManager.Instance == null)
+        {
+            EnvironmentManager.Init();
+        }
+
 
         for (int i = 0; i < tileDatas.tileData.Count; i++)
         {
@@ -248,7 +253,7 @@ public class DataManager
             if (tileDatas.tileData[i].id != -1)
             {
                 Managers.Map.Build(tileDatas.tileData[i].id, new Vector2(tileDatas.tileData[i].x, -tileDatas.tileData[i].y),
-                    new Vector2(1, 1), tileDatas.tileData[i].rot);
+                    new Vector2(1, 1), tileDatas.tileData[i].rot, true);
             }
         }
 
@@ -326,7 +331,6 @@ public class DataManager
                 invenBuildingDatas.invenBuildingData[i] = 0;
             }
 
-            // Basic Given Buildings
             invenBuildingDatas.invenBuildingData[0] = 10;
             invenBuildingDatas.invenBuildingData[1] = 1;
             invenBuildingDatas.invenBuildingData[12] = 1;

@@ -43,7 +43,7 @@ public class FinalReport : MonoBehaviour
         dialogues.Add("killed by the capsizing of a spaceship : " + (GameManagerEx.Instance.PEOPLEPERSHIP * GameManagerEx.Instance.CapsizedShipCnt).ToString("N0"));
         
         dialogues.Add("Survived Population : " + (GameManagerEx.Instance.SpaceShipCnt * GameManagerEx.Instance.PEOPLEPERSHIP).ToString("N0"));
-        dialogues.Add("Excess Population : " + GameManagerEx.Instance.ExcessPopulation);
+        dialogues.Add("Excess Population : " + GameManagerEx.Instance.ExcessPopulation.ToString("N0"));
 
         // Final Score
         

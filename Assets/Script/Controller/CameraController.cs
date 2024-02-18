@@ -65,6 +65,7 @@ public class CameraController : MonoBehaviour
         dustParticle.Stop();
     }
 
+    private float moveSpeed = 7f;
     void Update()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
@@ -73,9 +74,10 @@ public class CameraController : MonoBehaviour
 
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            ZoomControl();
+           ZoomControl();
             UpdateZoom();
         }
+
 
         if (Managers.Input.Mode == InputManager.InputMode.None) {
 

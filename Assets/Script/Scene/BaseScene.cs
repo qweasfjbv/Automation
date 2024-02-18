@@ -18,4 +18,10 @@ public abstract class BaseScene : MonoBehaviour
     public SceneEnum Scene { get => scene; set => scene = value; }
 
     protected abstract void Init();
+
+    private void Awake()
+    {
+        Managers.ReInit();
+    }
+
 }
