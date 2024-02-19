@@ -162,6 +162,16 @@ public class GameManagerEx : MonoBehaviour
             excessPopulation += Mathf.Max(0,( Managers.Data.GetQPDatas().populations[i]- Managers.Resource.GetQuestData(i).PopulationLimit));
         }
 
+        /*
+        trashCnt = 126;
+        capsizedShipCnt = 80;
+        capsizedItemCnt = 62;
+
+        spaceShipCnt = 880;
+        excessPopulation = 3100000;
+        */
+
+
         finalScore = Mathf.RoundToInt((spaceShipCnt * PEOPLEPERSHIP - (float)excessPopulation/2)/MAXPOPULATION * (0.5f + (1-trashCnt/(float)MAXTRASH) * 100));
         
         StartCoroutine(GameOverCoroutine());

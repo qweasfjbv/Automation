@@ -24,7 +24,12 @@ public class SoundManager : MonoBehaviour
     private bool isFadeOut = false;
     private Coroutine soundFadeIn;
     private Coroutine soundFadeOut;
-    private float MaxVolume =1f;
+
+
+
+
+    private float sfxMaxVolume = 1f;
+    private float bgmMaxVolume =1f;
 
     private void Init()
     {
@@ -60,6 +65,7 @@ public class SoundManager : MonoBehaviour
     public void SetBGMVolume(float volume)
     {
         bgmPlayer.volume = volume;
+        bgmMaxVolume = volume;
     }
 
     public void SetSFXVolume(float volume)
@@ -67,6 +73,8 @@ public class SoundManager : MonoBehaviour
         sfxPlayer.volume = volume;
         factoryPlayer.volume = volume;
         drillPlayer.volume = volume;
+
+        sfxMaxVolume = volume;
     }
 
     public void PlaySfxSound(Define.SoundType type)
@@ -211,9 +219,9 @@ public class SoundManager : MonoBehaviour
         isFadeIn = true;
         player.volume = 0f;
         player.Play();
-        while (player.volume < MaxVolume)
+        while (player.volume < sfxMaxVolume)
         {
-            player.volume += MaxVolume * Time.deltaTime / fadeTime;
+            player.volume += sfxMaxVolume * Time.deltaTime / fadeTime;
 
             yield return null;
         }
@@ -225,9 +233,9 @@ public class SoundManager : MonoBehaviour
     {
         player.volume = 0f;
         player.Play();
-        while (player.volume < MaxVolume)
+        while (player.volume < bgmMaxVolume)
         {
-            player.volume += MaxVolume * Time.deltaTime / fadeTime;
+            player.volume += bgmMaxVolume * Time.deltaTime / fadeTime;
 
             yield return null;
         }
@@ -237,11 +245,11 @@ public class SoundManager : MonoBehaviour
     private IEnumerator SoundFadeOutCoroutine(AudioSource player, float fadeTime)
     {
         isFadeOut = true;
-        player.volume = MaxVolume;
+        player.volume = sfxMaxVolume;
 
         while (player.volume > 0)
         {
-            player.volume -= MaxVolume * Time.deltaTime / fadeTime;
+            player.volume -= sfxMaxVolume * Time.deltaTime / fadeTime;
 
             yield return null;
         }

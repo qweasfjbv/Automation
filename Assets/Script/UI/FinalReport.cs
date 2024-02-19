@@ -30,20 +30,22 @@ public class FinalReport : MonoBehaviour
 
         dialogues.Add("POLLUTION");
         // Pollution Report
-        dialogues.Add("Space Trash : " + GameManagerEx.Instance.TrashCnt);
-        dialogues.Add("Capsized SpaceShip : " + GameManagerEx.Instance.CapsizedShipCnt);
-        dialogues.Add("Capsized Items : " + GameManagerEx.Instance.CapsizedItemCnt);
+        string pollution = "Space Trash : " + GameManagerEx.Instance.TrashCnt + "\n" +
+            "Capsized SpaceShip : " + GameManagerEx.Instance.CapsizedShipCnt + "\n" +
+            "Capsized Items : " + GameManagerEx.Instance.CapsizedItemCnt;
+
+        dialogues.Add(pollution);
 
         dialogues.Add("POPULATION");
         // People Report
-        dialogues.Add("Max Population : " + GameManagerEx.Instance.MaxPopulation.ToString("N0"));
-        
-        dialogues.Add("killed by Environment Pollution : " + (GameManagerEx.Instance.MaxPopulation - 
-            (GameManagerEx.Instance.PEOPLEPERSHIP * GameManagerEx.Instance.CapsizedShipCnt + GameManagerEx.Instance.SpaceShipCnt * GameManagerEx.Instance.PEOPLEPERSHIP)).ToString("N0"));
-        dialogues.Add("killed by the capsizing of a spaceship : " + (GameManagerEx.Instance.PEOPLEPERSHIP * GameManagerEx.Instance.CapsizedShipCnt).ToString("N0"));
-        
-        dialogues.Add("Survived Population : " + (GameManagerEx.Instance.SpaceShipCnt * GameManagerEx.Instance.PEOPLEPERSHIP).ToString("N0"));
-        dialogues.Add("Excess Population : " + GameManagerEx.Instance.ExcessPopulation.ToString("N0"));
+        string population = "Max Population : " + GameManagerEx.Instance.MaxPopulation.ToString("N0") + "\n" +
+            "killed by Environment Pollution : " + (GameManagerEx.Instance.MaxPopulation -
+            (GameManagerEx.Instance.PEOPLEPERSHIP * GameManagerEx.Instance.CapsizedShipCnt + GameManagerEx.Instance.SpaceShipCnt * GameManagerEx.Instance.PEOPLEPERSHIP)).ToString("N0") + "\n" +
+            "killed by the capsizing of a spaceship : " + (GameManagerEx.Instance.PEOPLEPERSHIP * GameManagerEx.Instance.CapsizedShipCnt).ToString("N0") + "\n" +
+            "Survived Population : " + (GameManagerEx.Instance.SpaceShipCnt * GameManagerEx.Instance.PEOPLEPERSHIP).ToString("N0") + "\n" +
+            "Excess Population : " + GameManagerEx.Instance.ExcessPopulation.ToString("N0");
+
+        dialogues.Add(population);
 
         // Final Score
         
