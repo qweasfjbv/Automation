@@ -5,6 +5,7 @@ using UnityEngine;
 public class Crosser : Transport
 {
 
+    [SerializeField]
     int[] beltItemIds;
     [SerializeField]
     GameObject[] nextBelt;
@@ -30,6 +31,8 @@ public class Crosser : Transport
     public override bool IsTransferAble(int id, int rot)
     {
         rot = (rot - Managers.Map.GetTileOnPoint(transform.position).rot + 4)%4;
+
+        if (rot >= beltItemIds.Length) return false;
 
         return beltItemIds[rot] == -1;
     }

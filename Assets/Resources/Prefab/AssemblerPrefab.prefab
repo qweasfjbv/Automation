@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_CullingMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 90486064bf86f554b92b0a1bae6ec215, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 90486064bf86f554b92b0a1bae6ec215, type: 3}
       propertyPath: m_RootOrder
       value: 0

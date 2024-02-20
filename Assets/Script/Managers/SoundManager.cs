@@ -138,6 +138,15 @@ public class SoundManager : MonoBehaviour
             case Define.FactoryType.TRANSPORT:
                 idx = 5;
                 break;
+            case Define.FactoryType.WELDING:
+                idx = 6;
+                break;
+            case Define.FactoryType.SLICE:
+                idx = 7;
+                break;
+            case Define.FactoryType.MASSDRIVER:
+                idx = 8;
+                break;
             default:
                 idx = -1;
                 break;

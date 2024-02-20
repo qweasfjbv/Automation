@@ -21,11 +21,11 @@
       "ingredients": [
         {
           "id": 41,
-          "cnt": 200
+          "cnt": 20
         },
         {
           "id": 114,
-          "cnt": 300
+          "cnt": 30
         }
       ],
       "populationLimit": 42000000,
@@ -37,11 +37,11 @@
       "ingredients": [
         {
           "id": 41,
-          "cnt": 100
+          "cnt": 10
         },
         {
           "id": 42,
-          "cnt": 150
+          "cnt": 15
         }
       ],
       "populationLimit": 21000000,
@@ -53,15 +53,15 @@
       "ingredients": [
         {
           "id": 41,
-          "cnt": 100
+          "cnt": 10
         },
         {
           "id": 42,
-          "cnt": 100
+          "cnt": 10
         },
         {
           "id": 114,
-          "cnt": 100
+          "cnt": 10
         }
       ],
       "populationLimit": 27000000,
@@ -70,8 +70,7 @@
     },
     {
       "questId": 4,
-      "ingredients": [
-      ],
+      "ingredients": [],
       "populationLimit": 0,
       "questName": "Jupiter",
       "questDescription": ""

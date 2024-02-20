@@ -36,7 +36,7 @@
       "ID": 15,
       "Name": "QuartzOre",
       "Ingredient": [],
-      "ProductTime": 4,
+      "ProductTime": 2.5,
       "Description": "It is obtained from mining QuartzVein.",
       "MakingBuildingId": 102
     },
@@ -116,7 +116,7 @@
         },
         {
           "id": 14,
-          "cnt": 4
+          "cnt": 2
         }
       ],
       "ProductTime": 2,
@@ -127,7 +127,7 @@
       "ID": 21,
       "Name": "CrudeOil",
       "Ingredient": [],
-      "ProductTime": 3,
+      "ProductTime": 2,
       "Description": "It is obtained from drilling groundcrack. it can be used only after refination.",
       "MakingBuildingId": 108
     },
@@ -153,7 +153,7 @@
           "cnt": 1
         }
       ],
-      "ProductTime": 3,
+      "ProductTime": 2,
       "Description": "It is obtained from refining crudeoil. it reduces friction.",
       "MakingBuildingId": 109
     },
@@ -163,14 +163,14 @@
       "Ingredient": [
         {
           "id": 22,
-          "cnt": 2
+          "cnt": 1
         },
         {
           "id": 23,
-          "cnt": 2
+          "cnt": 1
         }
       ],
-      "ProductTime": 3,
+      "ProductTime": 1.5,
       "Description": "It is made from oil and lubricant. it is light and bends well compared to steel.",
       "MakingBuildingId": 109
     },
@@ -180,7 +180,7 @@
       "Ingredient": [
         {
           "id": 17,
-          "cnt": 4
+          "cnt": 3
         },
         {
           "id": 19,
@@ -226,7 +226,7 @@
           "cnt": 1
         }
       ],
-      "ProductTime": 5,
+      "ProductTime": 1.5,
       "Description": "It is obtained from slicing siliconingot. it's required delicate techniques.",
       "MakingBuildingId": 110
     },
@@ -253,7 +253,7 @@
       "Ingredient": [
         {
           "id": 17,
-          "cnt": 5
+          "cnt": 3
         },
         {
           "id": 23,
@@ -264,7 +264,7 @@
           "cnt": 1
         }
       ],
-      "ProductTime": 5,
+      "ProductTime": 3.2,
       "Description": "a device used to convert electrical energy into mechanical energy.",
       "MakingBuildingId": 107
     },
@@ -329,11 +329,11 @@
         },
         {
           "id": 28,
-          "cnt": 6
+          "cnt": 4
         },
         {
           "id": 33,
-          "cnt": 5
+          "cnt": 3
         }
       ],
       "ProductTime": 3,
@@ -367,15 +367,15 @@
       "Ingredient": [
         {
           "id": 30,
-          "cnt": 5
+          "cnt": 2
         },
         {
           "id": 32,
-          "cnt": 5
+          "cnt": 2
         },
         {
           "id": 25,
-          "cnt": 7
+          "cnt": 3
         }
       ],
       "ProductTime": 3,
@@ -388,10 +388,10 @@
       "Ingredient": [
         {
           "id": 35,
-          "cnt": 5
+          "cnt": 4
         }
       ],
-      "ProductTime": 5,
+      "ProductTime": 4.5,
       "Description": "The key component of Robot. A robot without a CPU is just a lump of scrap metal.",
       "MakingBuildingId": 107
     },
@@ -431,15 +431,15 @@
       "Ingredient": [
         {
           "id": 37,
-          "cnt": 6
+          "cnt": 1
         },
         {
           "id": 34,
-          "cnt": 4
+          "cnt": 1
         },
         {
           "id": 36,
-          "cnt": 4
+          "cnt": 1
         }
       ],
       "ProductTime": 3,
@@ -456,10 +456,10 @@
         },
         {
           "id": 38,
-          "cnt": 4
+          "cnt": 2
         }
       ],
-      "ProductTime": 3,
+      "ProductTime": 2,
       "Description": "k-pler project drone robot. it can carry out a mission without ground.",
       "MakingBuildingId": 116
     },
@@ -476,7 +476,7 @@
           "cnt": 1
         }
       ],
-      "ProductTime": 3,
+      "ProductTime": 2,
       "Description": "k-pler project Air Purifier robot. it can generate oxygen on alien planets.",
       "MakingBuildingId": 116
     }

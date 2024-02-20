@@ -28,7 +28,9 @@ public class Define
         REFINERY,
         SMELTER,
         TRANSPORT,
-        WELDING
+        WELDING,
+        SLICE,
+        MASSDRIVER
     }
 
     public enum BgmType {

@@ -356,14 +356,15 @@ public class MapManager
     {
         const int veinStart = 1;
         const int veinEnd = 6;
-        const int veinCount = 4;
+        // 구리 철 금 석탄 실리콘 석유 기본 4개
+        int[] veinCount = new int[veinEnd] { 4, 6, 3, 8, 4, 6};
         int rdIdx, rdY, rdX;
         int tmpY, tmpX;
         bool isCanBuild = true;
 
         for (int i = veinStart; i <= veinEnd; i++)
         {
-            for(int j=0; j< veinCount; j++)
+            for(int j=0; j< veinCount[i-1]; j++)
             {
                 rdIdx = UnityEngine.Random.Range(0, 4);
 

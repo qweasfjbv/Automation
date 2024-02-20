@@ -39,20 +39,26 @@ public class BuildingInfo : MonoBehaviour
             case 103:
             case 104:
             case 105:
+                // TRANSPORT
                 SoundManager.Instance.PlayFactorySound(Define.FactoryType.TRANSPORT);
                 break;
             case 102:
             case 108:
+                // MINING
                 SoundManager.Instance.PlayFactorySound(Define.FactoryType.DRILL);
                 break;
             case 107:
             case 112:
+                // ASSEMBLE
                 SoundManager.Instance.PlayFactorySound(Define.FactoryType.ASSEMBLER);
                 break;
             case 106:
                 SoundManager.Instance.PlayFactorySound(Define.FactoryType.SMELTER);
                 break;
             case 109:
+                //REFINERY
+            case 116:
+                //ROBOTICS LAB
                 SoundManager.Instance.PlayFactorySound(Define.FactoryType.REFINERY);
                 break;
             case 114:
@@ -60,9 +66,13 @@ public class BuildingInfo : MonoBehaviour
                 break;
             case 110:
             case 111:
-                SoundManager.Instance.StopFactorySound();
-                // 드릴소리 필요
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.SLICE);
                 break;
+            case 115:
+                // MASSDRIVER
+                SoundManager.Instance.PlayFactorySound(Define.FactoryType.MASSDRIVER);
+                break;
+            case 113:
             default:
                 SoundManager.Instance.StopFactorySound();
                 break;

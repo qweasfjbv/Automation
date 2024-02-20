@@ -421,7 +421,7 @@
         },
         {
           "id": 32,
-          "cnt": 5
+          "cnt": 2
         }
       ],
       "ProductTime": 2,
@@ -484,7 +484,7 @@
         }
       ],
       "ProductTime": 2,
-      "Description": "It can build buildings.",
+      "Description": "it can Make or modify robots.",
       "Size": {
         "x": 1,
         "y": 1
