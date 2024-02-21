@@ -30,6 +30,19 @@ public class Managers : MonoBehaviour
     {
         Init();
     }
+    private void Start()
+    {
+        SetResolution();
+    }
+
+
+    public void SetResolution()
+    {
+        int setWidth = 1920; 
+        int setHeight = 1080; 
+
+        Screen.SetResolution(setWidth, setHeight, true);
+    }
 
     public static void ReInit() {
 
@@ -57,7 +70,7 @@ public class Managers : MonoBehaviour
         else if (GameObject.FindObjectOfType<GameScene>() != null)
         {
             s_instance._map.Init(100);
-            s_instance._pool.Init(1000);
+            s_instance._pool.Init(5000);
         }
         s_instance._data.Init();
         s_instance._quest.Init();
@@ -95,7 +108,7 @@ public class Managers : MonoBehaviour
         else if(GameObject.FindObjectOfType<GameScene>() != null)
         {
             s_instance._map.Init(100);
-            s_instance._pool.Init(1000);
+            s_instance._pool.Init(5000);
         }
         s_instance._data.Init();
         s_instance._quest.Init();

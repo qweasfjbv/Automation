@@ -39,6 +39,10 @@ using UnityEngine;
 {
     public QuestJsonData[] questJsonDatas;
 }
+[Serializable] public class HelpJsonData {
+    public string[] helpJsonDatas;
+}
+
 
 public class ResourceManager
 {
@@ -48,7 +52,8 @@ public class ResourceManager
     private BuildingData[] buildingDatas;
     private VeinData[] terrainDatas;
     private QuestData[] questDatas;
-
+    private HelpData[] helpDatas;
+    
     public readonly static int VEINOFFSET = 1;
     public readonly static int BUILDINGOFFSET = 101;
     public readonly static int ITEMOFFSET = 11;
@@ -56,6 +61,7 @@ public class ResourceManager
     private ItemJsonDataArr tmpItemDatas;
     private BuildingJsonDataArr tmpBuildingDatas;
     private QuestJsonDataArr tmpQuestDatas;
+    private HelpJsonData tmpHelpDatas;
 
     public void Init()
     {
@@ -65,14 +71,19 @@ public class ResourceManager
             Resources.Load<TextAsset>("Data/JsonData/BuildingData").text);
         tmpQuestDatas = JsonUtility.FromJson<QuestJsonDataArr>(
             Resources.Load<TextAsset>("Data/JsonData/QuestData").text);
+        tmpHelpDatas = JsonUtility.FromJson<HelpJsonData>(
+            Resources.Load<TextAsset>("Data/JsonData/HelpData").text);
 
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
         questDatas = Resources.LoadAll<QuestData>("Data/QuestData");
+        helpDatas = Resources.LoadAll<HelpData>("Data/HelpData");
+
 
         Sprite[] sprites = Resources.LoadAll<Sprite>("Sprites/Items");
         Sprite[] buildingSprites = Resources.LoadAll<Sprite>("Sprites/Buildings");
+        Sprite[] helpSprites = Resources.LoadAll<Sprite>("Sprites/Help");
 
         for (int i = 0; i < itemDatas.Length; i++)
         {
@@ -101,6 +112,13 @@ public class ResourceManager
             {
                 questDatas[i].SetQuestData(tmpQuestDatas.questJsonDatas[i]);
             }
+        }
+
+        for (int i = 0; i < helpDatas.Length; i++)
+        {
+            helpDatas[i].ID = i;
+            helpDatas[i].HelpSprite = helpSprites[i];
+            helpDatas[i].HelpContent = tmpHelpDatas.helpJsonDatas[i];
         }
 
         terrainDatas = Resources.LoadAll<VeinData>("Data/TerrainData");
@@ -159,6 +177,13 @@ public class ResourceManager
         return questDatas[id];
     }
 
-
+    public string GetHelpContent(int id)
+    {
+        return helpDatas[id].HelpContent;
+    }
+    public Sprite GetHelpSprite(int id)
+    {
+        return helpDatas[id].HelpSprite;
+    }
 
 }

@@ -176,14 +176,19 @@ public class Belt : Transport
 
         yield return new WaitUntil(() => nextBelt != null && nextBelt.IsTransferAble(beltItemId, outDir));
 
-        isWaitNextBelt = true;
-        nextBelt.SetBeltId(beltItemId, outDir);
-        beltItemId = -1;
-
-
-        if (nextBelt != null && nextBelt.GetComponent<Belt>() == null)
+        if(nextBelt == null)
         {
-            beltItem.SetActive(false);
+
+        }
+        else
+        {
+            isWaitNextBelt = true;
+            nextBelt.SetBeltId(beltItemId, outDir);
+            beltItemId = -1;
+            if (nextBelt.GetComponent<Belt>() == null)
+            {
+                beltItem.SetActive(false);
+            }
         }
 
 
@@ -233,7 +238,7 @@ public class Belt : Transport
     {
         if (beltUpdateCoroutine != null)
             StopCoroutine(beltUpdateCoroutine);
-        if (prevBuilding != null) prevBuilding.EraseNextBelt(inDir);
+        if (prevBuilding != null) { prevBuilding.EraseNextBelt(inDir); prevBuilding = null; }
     }
 
     private void OnEnable()

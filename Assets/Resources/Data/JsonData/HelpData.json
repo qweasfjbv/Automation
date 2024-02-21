@@ -1,0 +1,12 @@
+{
+  "helpJsonDatas": [
+    "mouse right hold  :  mining \nmouse left click  :  building info \nmouse left drag  :  camera move\n\nkey C : Crafting table\nkey D : item dictionary\nkey B - building dictionary\nkey F1-F6 : Construct mode\nkey esc : Option menu / UI OFF",
+    "If a white grid appears as shown above, it is construction mode. In construction mode, you can build or demolish buildings.\n\nmouse left click : build \nmouse right click : unbuild \n\nkey 1-5 : Change building to be constructed",
+    "Clicking on a building allows you to view its information. The Building Info UI appears in the top right corner of the screen. \nParticularly, buildings that manufacture items allow you to change the items being produced there.",
+    "In the SpaceMap, you can select a planet for terraforming and relocate people to it. To send items and 'spaceship' there, you must use the 'MassDriver'. \nHowever, be careful as sending the wrong items can increase space trash, which can interfere with sending items to other planets.",
+    "When you open the Craft Table, you can see a green bar at the bottom right. \nThis bar represents the environmental score, which decreases faster as more buildings are constructed. \nBuilding AirPurifiers can slow down this decrease. As the environmental score drops, nature is destroyed, and people can die, so it must be managed carefully.",
+    "You can view the final report once all people (excluding those who have died) have been relocated. \nYour final score is calculated by compiling all factors including the space trash you've generated, the environmental score, and the number of people you've saved. \nand You can receive 'BIAS' proportional to this score, which can be used for upgrades.",
+    "You can use BIAS to upgrade. Here, you can increase the speed of belts and production buildings, or slow down the rate at which environmental values decrease."
+
+  ]
+}
