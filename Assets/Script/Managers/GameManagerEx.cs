@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameManagerEx : MonoBehaviour
 {
 
+
     private static GameManagerEx instance;
     public static GameManagerEx Instance { get { return instance; } }
     public static void Init()
@@ -29,6 +30,14 @@ public class GameManagerEx : MonoBehaviour
         Init();
     }
 
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("ShowModeSelection" , 0) == 1)
+        {
+            modeSelectUI.SetActive(true);
+        }
+    }
+
     [SerializeField]
     private int spaceShipCnt = 0;
     [SerializeField]
@@ -41,10 +50,15 @@ public class GameManagerEx : MonoBehaviour
     [SerializeField]
     private GameObject finalReport;
 
+    [SerializeField]
+    private GameObject modeSelectUI;
+
     private int MAXPOPULATION = 100000000;
     private int curPopulation = 100000000;
-    public readonly int PEOPLEPERSHIP = 100000;
+    private int peoplerPerShip = 100000;
     private int excessPopulation = 0;
+
+    public int PEOPLEPERSHIP { get => peoplerPerShip; }
 
     readonly int MAXTRASH = 1000;
     public bool[] randomTable;

@@ -147,7 +147,7 @@ public class Belt : Transport
     {
         beltItem.SetActive(true);
 
-        if(prevBuilding.transform.GetComponent<Belt>() != null && prevBuilding.transform.GetComponent<Belt>().IsWaitNextBelt)
+        if(prevBuilding != null && prevBuilding.transform.GetComponent<Belt>() != null && prevBuilding.transform.GetComponent<Belt>().IsWaitNextBelt)
         {
             prevBuilding.transform.GetComponent<Belt>().IsWaitNextBelt = false;
             prevBuilding.GetComponent<Belt>().beltItem.SetActive(false);

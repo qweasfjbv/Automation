@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +13,7 @@ public class HelpUI : MonoBehaviour
 
     private int OnHelpUI = 0;
 
-    private Color seletedColor = Color.blue;
+    private Color seletedColor = Color.green;
 
     private void Start()
     {

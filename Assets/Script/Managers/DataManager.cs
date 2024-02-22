@@ -114,11 +114,8 @@ public class DataManager
         tileDatas = new TileDatas();
         tileDatas.tileData = new List<TileData>();
 
-
         path = Application.persistentDataPath;
-
         Debug.Log(path);
-
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();
@@ -326,14 +323,19 @@ public class DataManager
         {
 
             invenBuildingDatas.invenBuildingData = new int[Managers.Resource.GetBuildingCount()];
+
+            /*
+             *  디버깅 시 초기 건물 갯수 조정하는 부분.
+             *  기본적으로 전부 0이 Default임
+             *  그 외에 난이도에 따른 건물 갯수는 GameManagerEx 에서 관리
+             * 
+             */
             for (int i = 0; i < Managers.Resource.GetBuildingCount(); i++)
             {
                 invenBuildingDatas.invenBuildingData[i] = 0;
             }
 
-            invenBuildingDatas.invenBuildingData[0] = 10;
-            invenBuildingDatas.invenBuildingData[1] = 1;
-            invenBuildingDatas.invenBuildingData[12] = 1;
+
         }
         else
         {
@@ -515,5 +517,12 @@ public class DataManager
         EnvironmentManager.Instance.SetValue(gameExData.value);
         GameManagerEx.Instance.SetGameExData(gameExData);
 
+    }
+
+    // MapData가 있으면 True 없으면 False
+    // 없으면 COntinue가 안눌리도록
+    public bool IsThereMapData()
+    {
+        return File.Exists(path + mapFileName);
     }
 }

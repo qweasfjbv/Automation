@@ -19,7 +19,7 @@
         "x": 1,
         "y": 1
       },
-      "Speed": 1,
+      "Speed": 2,
       "InputDirs": [
         2
       ],
@@ -48,7 +48,7 @@
         "x": 1,
         "y": 1
       },
-      "Speed": 1,
+      "Speed": 2,
       "InputDirs": [
       ],
       "OutputDirs": [
