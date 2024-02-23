@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable] public class ItemJsonData
@@ -43,6 +41,18 @@ using UnityEngine;
     public string[] helpJsonDatas;
 }
 
+[Serializable] public class UpgradeJsonDataArr
+{
+    public UpgradeJsonData[] beltUpgradeData;
+    public UpgradeJsonData[] factoryUpgradeData;
+    public UpgradeJsonData[] miningUpgradeData;
+}
+[Serializable] public class UpgradeJsonData
+{
+    public float speed;
+    public int cost;
+}
+
 
 public class ResourceManager
 {
@@ -63,6 +73,10 @@ public class ResourceManager
     private QuestJsonDataArr tmpQuestDatas;
     private HelpJsonData tmpHelpDatas;
 
+    private UpgradeJsonDataArr tmpUpgradeJsonDatas; 
+
+
+
     public void Init()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/JsonData/ItemData");
@@ -74,6 +88,8 @@ public class ResourceManager
         tmpHelpDatas = JsonUtility.FromJson<HelpJsonData>(
             Resources.Load<TextAsset>("Data/JsonData/HelpData").text);
 
+        tmpUpgradeJsonDatas = JsonUtility.FromJson<UpgradeJsonDataArr>(
+            Resources.Load<TextAsset>("Data/JsonData/UpgradeData").text);
 
         itemDatas = Resources.LoadAll<ItemData>("Data/ItemData");
         buildingDatas = Resources.LoadAll<BuildingData>("Data/BuildingData");
@@ -186,4 +202,48 @@ public class ResourceManager
         return helpDatas[id].HelpSprite;
     }
 
+    public float GetUpgradeValue(int id, int floor)
+    {
+        switch (id) {
+            case 0:
+                return tmpUpgradeJsonDatas.beltUpgradeData[floor].speed;
+            case 1:
+                return tmpUpgradeJsonDatas.factoryUpgradeData[floor].speed;
+            case 2:
+                return tmpUpgradeJsonDatas.miningUpgradeData[floor].speed;
+            default:
+                return -1;
+        }
+    }
+    public int GetUpgradeCost(int id, int floor)
+    {
+        if (GetUpgradeFloorCnt(id) <= floor) return -1;
+
+        switch (id)
+        {
+            case 0:
+                return tmpUpgradeJsonDatas.beltUpgradeData[floor].cost;
+            case 1:
+                return tmpUpgradeJsonDatas.factoryUpgradeData[floor].cost;
+            case 2:
+                return tmpUpgradeJsonDatas.miningUpgradeData[floor].cost;
+            default:
+                return -1;
+        }
+    }
+
+    public int GetUpgradeFloorCnt(int id)
+    {
+        switch (id)
+        {
+            case 0:
+                return tmpUpgradeJsonDatas.beltUpgradeData.Length;
+            case 1:
+                return tmpUpgradeJsonDatas.factoryUpgradeData.Length;
+            case 2:
+                return tmpUpgradeJsonDatas.miningUpgradeData.Length;
+            default:
+                return -1;
+        }
+    }
 }

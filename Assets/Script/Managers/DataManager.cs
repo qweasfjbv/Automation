@@ -86,6 +86,12 @@ public class GameExData {
     public float value;
 }
 
+public class UpgradeData
+{
+    public int[] upgrades;
+    public int bias;
+}
+
 public class DataManager
 {
 
@@ -96,11 +102,14 @@ public class DataManager
     private string invenBuildingFileName = "/UserInvenBuildingData.json";
     private string questProgressFileName = "/UserQuestProgressData.json";
     private string gameExDataFileName = "/UserGameExData.json";
+    private string upgradeDataFileName = "/UserUpgradeData.json";
 
     InvenItemDatas invenItemDatas = new InvenItemDatas();
     InvenBuildingDatas invenBuildingDatas = new InvenBuildingDatas();
     QuestProgressData questProgressDatas = new QuestProgressData();
     GameExData gameExData = new GameExData();
+    UpgradeData upgradeData = new UpgradeData();
+
 
     public ref QuestProgressData QuestProgress { get => ref questProgressDatas; }
 
@@ -116,17 +125,14 @@ public class DataManager
 
         path = Application.persistentDataPath;
         Debug.Log(path);
+
         if (Managers.Scene.CurScene.GetComponent<GameScene>() != null)
         {
             LoadMap();
             LoadQuestProgress();
         }
-        else if (Managers.Scene.CurScene.GetComponent<TutorialScene>() != null)
-        {
-            LoadTutorialMap();
-        }
 
-
+        LoadUpgradeData();
     }
 
     public void SaveAll()
@@ -519,10 +525,72 @@ public class DataManager
 
     }
 
+
+
+    private void LoadUpgradeData()
+    {
+
+        if (!File.Exists(path + gameExDataFileName))
+        {
+            upgradeData.upgrades = new int[3];
+            for(int i=0; i<upgradeData.upgrades.Length; i++)
+            {
+                upgradeData.upgrades[i] = 0;
+            }
+            SaveUpgradeData();
+        }
+        else
+        {
+            upgradeData = JsonUtility.FromJson<UpgradeData>(AESManager.DecryptString(File.ReadAllText(path + upgradeDataFileName)));
+        }
+
+    }
+    public void SaveUpgradeData()
+    {
+        File.WriteAllText(path + upgradeDataFileName, AESManager.EncryptString(JsonUtility.ToJson(upgradeData)));
+    }
+
+    public int GetUpgradeFloor(int id)
+    {
+        return upgradeData.upgrades[id];
+    }
+    public int GetBias()
+    {
+        return upgradeData.bias;
+    }
+
+    // 업그레이드 진행과 가지고있는 코스트를 비교
+    public bool UpgradeRequest(int id)
+    {
+        // 업그레이드를 전부 한 경우
+        if (Managers.Resource.GetUpgradeFloorCnt(id) <= GetUpgradeFloor(id)) return false;
+        
+        // 돈이 있는 경우
+        if(Managers.Resource.GetUpgradeCost(id, upgradeData.upgrades[id]) <= upgradeData.bias)
+        {
+            // 돈 줄이고 업그레이드 올리고
+            upgradeData.bias -= Managers.Resource.GetUpgradeCost(id, upgradeData.upgrades[id]);
+            upgradeData.upgrades[id]++;
+            SaveUpgradeData();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void AddBias(int b)
+    {
+        upgradeData.bias += b;
+    }
+
+    
+
     // MapData가 있으면 True 없으면 False
     // 없으면 COntinue가 안눌리도록
     public bool IsThereMapData()
     {
         return File.Exists(path + mapFileName);
     }
+
+
 }

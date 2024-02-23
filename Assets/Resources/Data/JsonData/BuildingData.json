@@ -19,7 +19,7 @@
         "x": 1,
         "y": 1
       },
-      "Speed": 2,
+      "Speed": 1,
       "InputDirs": [
         2
       ],
@@ -30,7 +30,7 @@
       "MakingBuildingId": 112
     },
     {
-      "ID": 102,
+      "id": 102,
       "Name": "Mining Machine",
       "Ingredient": [
         {
@@ -48,7 +48,7 @@
         "x": 1,
         "y": 1
       },
-      "Speed": 2,
+      "Speed": 1,
       "InputDirs": [
       ],
       "OutputDirs": [

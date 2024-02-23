@@ -109,8 +109,8 @@ public class EnvironmentManager : MonoBehaviour
     {
         if (Managers.Scene.CurScene.GetComponent<GameScene>() == null) return;
 
-        //curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
-        //envBar.value = curValue;
+        curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
+        envBar.value = curValue;
 
         /*
         if (Input.GetKeyDown(KeyCode.Space))
@@ -118,8 +118,6 @@ public class EnvironmentManager : MonoBehaviour
             envBar.value = 0;
         }
         */
-        curValue = envBar.value;
-
         if (envBar.value / envBar.maxValue > 0.5f)
         {
             envBarColor.color = Color.green;

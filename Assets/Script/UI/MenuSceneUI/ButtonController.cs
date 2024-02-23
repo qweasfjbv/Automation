@@ -8,6 +8,9 @@ public class ButtonController : MonoBehaviour
     [SerializeField]
     List<GameObject> buttons;
 
+    [SerializeField]
+    GameObject upgradeUI;
+
     private void Awake()
     {
         for (int i = 0; i < buttons.Count; i++) buttons[i].GetComponent<Button>().onClick.RemoveAllListeners();
@@ -52,6 +55,8 @@ public class ButtonController : MonoBehaviour
     private void OnpressButtonUpgrade()
     {
         SoundManager.Instance.PlaySfxSound(Define.SoundType.BUTTON1);
+        upgradeUI.SetActive(true);
+
     }
 
 }

@@ -62,6 +62,7 @@ public class Managers : MonoBehaviour
 
 
         s_instance._anim.Init();
+        s_instance._resource.Init();
         if (GameObject.FindObjectOfType<TutorialScene>() != null)
         {
             s_instance._map.Init(30);
