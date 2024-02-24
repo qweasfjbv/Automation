@@ -530,7 +530,7 @@ public class DataManager
     private void LoadUpgradeData()
     {
 
-        if (!File.Exists(path + gameExDataFileName))
+        if (!File.Exists(path + upgradeDataFileName))
         {
             upgradeData.upgrades = new int[3];
             for(int i=0; i<upgradeData.upgrades.Length; i++)
@@ -581,9 +581,9 @@ public class DataManager
     public void AddBias(int b)
     {
         upgradeData.bias += b;
+        SaveUpgradeData();
     }
 
-    
 
     // MapData가 있으면 True 없으면 False
     // 없으면 COntinue가 안눌리도록

@@ -112,12 +112,9 @@ public class EnvironmentManager : MonoBehaviour
         curValue -= (pollutionMul * bdCnt - purifierCnt * purifierOs) / 100f;
         envBar.value = curValue;
 
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            envBar.value = 0;
-        }
-        */
+        
+        
+
         if (envBar.value / envBar.maxValue > 0.5f)
         {
             envBarColor.color = Color.green;

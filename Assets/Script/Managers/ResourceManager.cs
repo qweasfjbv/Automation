@@ -246,4 +246,15 @@ public class ResourceManager
                 return -1;
         }
     }
+    // 0은 벨트 1은 공장, 2는 채굴
+    public float GetCurBuildingSpeed(int id)
+    {
+        if (Managers.Data.GetUpgradeFloor(id) == 0)
+        {
+            Debug.Log("??");
+            return 1;
+        }
+
+        return GetUpgradeValue(id, Managers.Data.GetUpgradeFloor(id)-1);
+    }
 }

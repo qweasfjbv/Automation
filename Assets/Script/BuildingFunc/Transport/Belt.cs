@@ -90,8 +90,7 @@ public class Belt : Transport
 
             if (beltItemId != -1 && beltItem.activeSelf == false)
             {
-                
-                StartCoroutine(BeltMove(1 / Managers.Resource.GetBuildingData(ID).Speed));
+                StartCoroutine(BeltMove(1 / (Managers.Resource.GetBuildingData(ID).Speed * Managers.Resource.GetCurBuildingSpeed(0))));
             }
 
             if (prevOutDir != outDir)

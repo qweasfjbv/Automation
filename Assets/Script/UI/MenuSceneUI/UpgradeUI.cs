@@ -24,12 +24,7 @@ public class UpgradeUI : MonoBehaviour
             Managers.Data.SaveUpgradeData();
             gameObject.SetActive(false);
         }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            Managers.Data.AddBias(100);
-            biasText.text = "B " + Managers.Data.GetBias().ToString();
 
-        }
     }
 
     private void UpgradeSetting()
@@ -43,6 +38,11 @@ public class UpgradeUI : MonoBehaviour
 
 
 
+    }
+
+    private void OnDisable()
+    {
+        Managers.Data.SaveUpgradeData();   
     }
 
     private void UpgradeFloorSetting(int id)
@@ -78,7 +78,15 @@ public class UpgradeUI : MonoBehaviour
         }
         else
         {
-            btn.GetComponentInChildren<TextMeshProUGUI>().text = "B + " + Managers.Resource.GetUpgradeCost(id, Managers.Data.GetUpgradeFloor(id)).ToString();
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = "B " + Managers.Resource.GetUpgradeCost(id, Managers.Data.GetUpgradeFloor(id)).ToString();
+            if(Managers.Resource.GetUpgradeCost(id, Managers.Data.GetUpgradeFloor(id)) <= Managers.Data.GetBias())
+            {
+                btn.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+            }
+            else
+            {
+                btn.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+            }
         }
     }
 
