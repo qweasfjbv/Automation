@@ -40,7 +40,6 @@ public class QuestProgressUI : MonoBehaviour
 
         if (Managers.Data.QuestProgress.inProgressId != -1)
         {
-            Debug.Log(GameManagerEx.Instance.qpDatas == null);
             Managers.Quest.SetQuestUI.Invoke(Managers.Data.QuestProgress.inProgressId);
         }
     }

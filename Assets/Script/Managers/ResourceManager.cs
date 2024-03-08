@@ -251,7 +251,6 @@ public class ResourceManager
     {
         if (Managers.Data.GetUpgradeFloor(id) == 0)
         {
-            Debug.Log("??");
             return 1;
         }
 

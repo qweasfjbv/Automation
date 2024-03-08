@@ -21,7 +21,7 @@ public class SelectLevelUI : MonoBehaviour
     {
         for(int i=1; i<Managers.Resource.GetBuildingCount(); i++)
         {
-            Managers.Data.AddInvenItem(ResourceManager.BUILDINGOFFSET + i, 20);
+            Managers.Data.AddInvenItem(ResourceManager.BUILDINGOFFSET + i, 30);
         }
         Managers.Data.AddInvenItem(ResourceManager.BUILDINGOFFSET, 1000);
         

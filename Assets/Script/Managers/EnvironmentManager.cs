@@ -13,7 +13,7 @@ public class EnvironmentManager : MonoBehaviour
     private int bdCnt = 0;
     private int purifierCnt = 0;
     private int pollutionMul = 1;
-    private const int purifierOs = 5;
+    private const int purifierOs = 50;
 
     private const int MAXVALUE = 100000;
     private float curValue = MAXVALUE;
